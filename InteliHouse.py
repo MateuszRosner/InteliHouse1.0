@@ -1,17 +1,14 @@
 import sys
 import time
 import redbus
-import InteliHouseUI
 import configparser
 import redbusCommands as mC
-import numpy as np
 import matplotlib.pyplot as plt
 import modbus
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from InteliHouseUI import Ui_MainWindow
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtChart import *
+from PyQt5 import QtCore, QtWidgets
 
 
 class Canvas(FigureCanvas):
@@ -239,6 +236,19 @@ class MyWindow(Ui_MainWindow):
                 self.redbus.send_frame(self.frame)
 
                 time.sleep(self.transmissionInterval)
+
+            for x, adr in enumerate(self.addresses['SensorsBoard'].split(',')):
+                raw_min = int(self.config['SENSORS_INPUTS']['MinRaw'].split((',')[x]))
+                raw_max = int(self.config['SENSORS_INPUTS']['MaxRaw'].split((',')[x]))
+                self.frame.address = int(adr)
+                self.frame.command = mC.MODBUS_WRITE
+                self.frame.data[0] = mC.SENSORS_BOARD_RAW_VALUES
+                self.frame.data[2] = raw_min
+                self.frame.data[3] = raw_max
+                self.redbus.send_frame(self.frame)
+
+                time.sleep(self.transmissionInterval)
+
 
             print("[INFO] SensorsBoards configured...")
         
