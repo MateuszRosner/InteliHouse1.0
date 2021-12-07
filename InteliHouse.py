@@ -9,13 +9,6 @@ from InteliHouseUI import Ui_MainWindow
 from PyQt5 import QtCore, QtWidgets
 
 
-class Canvas(FigureCanvas):
-    def __init__(self, parent):
-        fig, self.ax = plt.subplots(figsize=(5,4), dpi=200)
-        super().__init__(fig)
-        self.setParent(parent)
-
-
 class Resources():
     def __init__(self):
         self.output_ports = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
