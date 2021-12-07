@@ -42,7 +42,12 @@ class MyWindow(Ui_MainWindow):
         self.timer = QtCore.QTimer()
 
         self.powerData = QLineSeries(self.MainWindow)
+        self.powerData.setName("Total")
         self.tempsData = [QLineSeries(self.MainWindow), QLineSeries(self.MainWindow), QLineSeries(self.MainWindow)]
+        self.tempsData[0].setName("Salon")
+        self.tempsData[1].setName("Kuchnia")
+        self.tempsData[2].setName("Taras")
+
         self.counter = 0
 
         self.progressBars = [self.progressBar1, self.progressBar2, self.progressBar3, self.progressBar4, 
@@ -268,9 +273,10 @@ class MyWindow(Ui_MainWindow):
     def create_linechart(self):
 
         self.powerData.append(self.counter, self.progressBarTotalCurr.value())
-        self.powerData.setName("Total")
         
         self.tempsData[0].append(self.counter, self.resources.temperature[0] / 10)
+        self.tempsData[1].append(self.counter, self.resources.temperature[1] / 10)
+        self.tempsData[2].append(self.counter, self.resources.temperature[2] / 10)
         
         
         self.counter = self.counter + 1
