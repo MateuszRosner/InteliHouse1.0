@@ -32,8 +32,6 @@ class MyWindow(Ui_MainWindow):
         self.MainWindow = QtWidgets.QMainWindow()
         self.setupUi(self.MainWindow)
 
-        self.create_linechart()
-
         self.resources = Resources()
         self.redbus = redbus.Redbus(self.resources, dev="/dev/ttySC0")
         self.modbus = modbus.Modbus(self.resources, dev="/dev/ttySC1")
