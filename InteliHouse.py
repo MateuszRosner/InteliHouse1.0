@@ -230,9 +230,10 @@ class MyWindow(Ui_MainWindow):
 
                 time.sleep(self.transmissionInterval)
 
+            # ------------- SET MIN MAX RAW -----------------------
             for x, adr in enumerate(self.addresses['SensorsBoard'].split(',')):
-                raw_min = int(self.config['SENSORS_INPUTS']['MinRaw'].split((',')[x]))
-                raw_max = int(self.config['SENSORS_INPUTS']['MaxRaw'].split((',')[x]))
+                raw_min = int(self.config['SENSORS_INPUTS']['MinRaw'].split(',')[x])
+                raw_max = int(self.config['SENSORS_INPUTS']['MaxRaw'].split(',')[x])
                 self.frame.address = int(adr)
                 self.frame.command = mC.MODBUS_WRITE
                 self.frame.data[0] = mC.SENSORS_BOARD_RAW_VALUES
