@@ -7,6 +7,7 @@ import modbus
 
 from InteliHouseUI import Ui_MainWindow
 from PyQt5 import QtCore, QtWidgets
+from plotter2 import MplWidget, MplCanvas
 
 
 class Resources():
@@ -26,6 +27,9 @@ class MyWindow(Ui_MainWindow):
         super(MyWindow, self).__init__()
         self.MainWindow = QtWidgets.QMainWindow()
         self.setupUi(self.MainWindow)
+
+        self.widget = MplWidget(self.centralwidget)
+
         self.resources = Resources()
         self.redbus = redbus.Redbus(self.resources, dev="/dev/ttySC0")
         self.modbus = modbus.Modbus(self.resources, dev="/dev/ttySC1")
