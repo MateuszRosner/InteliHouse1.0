@@ -629,6 +629,136 @@
        <string>koniec</string>
       </property>
      </widget>
+     <widget class="QLabel" name="labelPwr1_1">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>60</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0 kW</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPwr1_2">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>100</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0 kW</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPwr1_3">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>140</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0 kW</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPwr1_4">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>180</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0 kW</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPwr1_5">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>220</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0 kW</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPwr1_6">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>260</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0 kW</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPwr1_7">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>300</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0 kW</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPwr1_8">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>340</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0 kW</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPwr1_9">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>380</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0 kW</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPwr1_10">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>420</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0 kW</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tabZasoby">
      <attribute name="title">
