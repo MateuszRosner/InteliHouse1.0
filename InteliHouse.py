@@ -157,7 +157,7 @@ class MyWindow(Ui_MainWindow):
 
         self.refresh_progressBars()
 
-        self.Graph.update()
+        #self.Graph.update()
         #self.refresh_checkBoxes()
     """
     refresh progres bars 
