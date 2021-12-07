@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabEnergy">
      <attribute name="title">
@@ -629,12 +629,12 @@
        <string>koniec</string>
       </property>
      </widget>
-     <widget class="QGraphicsView" name="graphicsView">
+     <widget class="CustomWidget" name="GraphPower" native="true">
       <property name="geometry">
        <rect>
-        <x>530</x>
-        <y>50</y>
-        <width>481</width>
+        <x>510</x>
+        <y>60</y>
+        <width>491</width>
         <height>321</height>
        </rect>
       </property>
@@ -672,7 +672,7 @@
        </rect>
       </property>
       <property name="value">
-       <number>15</number>
+       <number>0</number>
       </property>
      </widget>
      <widget class="QLabel" name="label_6">
@@ -737,7 +737,7 @@
        </rect>
       </property>
       <property name="value">
-       <number>82</number>
+       <number>0</number>
       </property>
      </widget>
      <widget class="QLabel" name="label_8">
@@ -776,7 +776,7 @@
        </rect>
       </property>
       <property name="value">
-       <number>53</number>
+       <number>0</number>
       </property>
      </widget>
      <widget class="QProgressBar" name="progressBarWP">
@@ -789,7 +789,7 @@
        </rect>
       </property>
       <property name="value">
-       <number>77</number>
+       <number>0</number>
       </property>
      </widget>
      <widget class="QLabel" name="label_12">
@@ -1024,13 +1024,13 @@
        <string>koniec</string>
       </property>
      </widget>
-     <widget class="QGraphicsView" name="graphicsView_2">
+     <widget class="CustomWidget" name="GraphResources" native="true">
       <property name="geometry">
        <rect>
-        <x>460</x>
-        <y>50</y>
-        <width>481</width>
-        <height>291</height>
+        <x>510</x>
+        <y>60</y>
+        <width>491</width>
+        <height>321</height>
        </rect>
       </property>
      </widget>
@@ -1049,6 +1049,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomWidget</class>
+   <extends>QWidget</extends>
+   <header>plotter.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

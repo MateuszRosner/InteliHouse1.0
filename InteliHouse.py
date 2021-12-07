@@ -165,6 +165,8 @@ class MyWindow(Ui_MainWindow):
         time.sleep(self.transmissionInterval)
 
         self.refresh_progressBars()
+
+        self.Graph.update()
         #self.refresh_checkBoxes()
     """
     refresh progres bars 
