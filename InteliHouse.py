@@ -6,7 +6,7 @@ import redbusCommands as mC
 import modbus
 
 from InteliHouseUI import Ui_MainWindow
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtWidgets, QtChart
 from plotter2 import MplWidget, MplCanvas
 
 
@@ -28,7 +28,7 @@ class MyWindow(Ui_MainWindow):
         self.MainWindow = QtWidgets.QMainWindow()
         self.setupUi(self.MainWindow)
 
-        self.widget = MplWidget(self.centralwidget)
+        self.create_linechart()
 
         self.resources = Resources()
         self.redbus = redbus.Redbus(self.resources, dev="/dev/ttySC0")
@@ -257,6 +257,33 @@ class MyWindow(Ui_MainWindow):
             print("[INFO] PGMBoards configured...")
 
         print("[INFO] Initialization done!\n")
+
+    
+    def create_linechart(self):
+ 
+        series = QLineSeries(self)
+        series.append(0,6)
+        series.append(2, 4)
+        series.append(3, 8)
+        series.append(7, 4)
+        series.append(10, 5)
+ 
+        series << QPointF(11, 1) << QPointF(13, 3) << QPointF(17, 6) << QPointF(18, 3) << QPointF(20, 2)
+ 
+ 
+        chart =  QChart()
+ 
+        chart.addSeries(series)
+        chart.createDefaultAxes()
+        chart.setAnimationOptions(QChart.SeriesAnimations)
+        chart.setTitle("Line Chart Example")
+ 
+        chart.legend().setVisible(True)
+        chart.legend().setAlignment(Qt.AlignBottom)
+ 
+ 
+        chartview = QChartView(chart)
+        chartview.setRenderHint(QPainter.Antialiasing)
 
         
     def __del__(self):
