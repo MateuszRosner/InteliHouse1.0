@@ -1,3 +1,5 @@
+import pyqtgraph as pg
+
 class  CustomWidget(pg.GraphicsWindow):
     pg.setConfigOption('background', 'w')
     pg.setConfigOption('foreground', 'k')
