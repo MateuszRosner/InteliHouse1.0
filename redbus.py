@@ -214,11 +214,11 @@ class Redbus():
                     
                         print(f"Inputs: {self.frame.data[0]}")
                     
-                elif self.frame.address == 14:
+                elif self.frame.address == 15:
                     if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
                         data_bank.liquids[0] = self.frame.data[3]
                 
-                elif self.frame.address == 11:
+                elif self.frame.address == 12:
                     if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
                         data_bank.temperature[0] = self.frame.data[1] << 8 | self.frame.data[0]
                         data_bank.pressure[0] = self.frame.data[3] << 8 | self.frame.data[2]
