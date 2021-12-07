@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabEnergy">
      <attribute name="title">
@@ -81,6 +81,9 @@
       <property name="text">
        <string>wyjście 10</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QCheckBox" name="checkBox9">
       <property name="geometry">
@@ -93,6 +96,9 @@
       </property>
       <property name="text">
        <string>wyjście 9</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QProgressBar" name="progressBar4">
@@ -133,6 +139,9 @@
       <property name="text">
        <string>wyjście 1</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QProgressBar" name="progressBar1">
       <property name="geometry">
@@ -159,6 +168,9 @@
       <property name="text">
        <string>wyjście 8</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QCheckBox" name="checkBox7">
       <property name="geometry">
@@ -172,6 +184,9 @@
       <property name="text">
        <string>wyjście 7</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QCheckBox" name="checkBox4">
       <property name="geometry">
@@ -184,6 +199,9 @@
       </property>
       <property name="text">
        <string>wyjście 4</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QProgressBar" name="progressBar2">
@@ -211,6 +229,9 @@
       <property name="text">
        <string>wyjście 2</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QCheckBox" name="checkBox6">
       <property name="geometry">
@@ -223,6 +244,9 @@
       </property>
       <property name="text">
        <string>wyjście 6</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLabel" name="label">
@@ -254,6 +278,9 @@
       </property>
       <property name="text">
        <string>wyjście 3</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QProgressBar" name="progressBar6">
@@ -293,6 +320,9 @@
       </property>
       <property name="text">
        <string>wyjście 5</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QProgressBar" name="progressBar3">
