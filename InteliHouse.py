@@ -3,10 +3,8 @@ import time
 import redbus
 import configparser
 import redbusCommands as mC
-import matplotlib.pyplot as plt
 import modbus
 
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from InteliHouseUI import Ui_MainWindow
 from PyQt5 import QtCore, QtWidgets
 
