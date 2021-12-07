@@ -264,7 +264,7 @@ class MyWindow(Ui_MainWindow):
     
     def create_linechart(self):
  
-        series = QLineSeries(self)
+        series = QLineSeries(self.MainWindow)
         series.append(0,6)
         series.append(2, 4)
         series.append(3, 8)
