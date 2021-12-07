@@ -361,6 +361,9 @@ class Ui_MainWindow(object):
         self.label_hum2 = QtWidgets.QLabel(self.tabZasoby)
         self.label_hum2.setGeometry(QtCore.QRect(390, 320, 61, 16))
         self.label_hum2.setObjectName("label_hum2")
+        self.widget = QChartView(self.tabZasoby)
+        self.widget.setGeometry(QtCore.QRect(490, 60, 511, 381))
+        self.widget.setObjectName("widget")
         self.tabWidget.addTab(self.tabZasoby, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -428,3 +431,4 @@ class Ui_MainWindow(object):
         self.label_hum1.setText(_translate("MainWindow", "0 %"))
         self.label_hum2.setText(_translate("MainWindow", "0 %"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabZasoby), _translate("MainWindow", "Zasoby"))
+from PyQt5.QtChart import QChartView

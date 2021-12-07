@@ -289,6 +289,7 @@ class MyWindow(Ui_MainWindow):
         chartview = QChartView(chart)
         chartview.setRenderHint(QPainter.Antialiasing)
 
+        self.widget.setChart(chartview)
         
     def __del__(self):
         addrs = self.addresses['MainBoard'].split(',')
