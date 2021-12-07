@@ -361,7 +361,7 @@ class Ui_MainWindow(object):
         self.label_hum2 = QtWidgets.QLabel(self.tabZasoby)
         self.label_hum2.setGeometry(QtCore.QRect(390, 320, 61, 16))
         self.label_hum2.setObjectName("label_hum2")
-        self.widget = QtWidgets.QWidget(self.tabZasoby)
+        self.widget = CustomWidget(self.tabZasoby)
         self.widget.setGeometry(QtCore.QRect(520, 70, 481, 271))
         self.widget.setObjectName("widget")
         self.tabWidget.addTab(self.tabZasoby, "")
@@ -431,3 +431,4 @@ class Ui_MainWindow(object):
         self.label_hum1.setText(_translate("MainWindow", "0 %"))
         self.label_hum2.setText(_translate("MainWindow", "0 %"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabZasoby), _translate("MainWindow", "Zasoby"))
+from plotter import CustomWidget

@@ -1252,7 +1252,7 @@
        <string>0 %</string>
       </property>
      </widget>
-     <widget class="QWidget" name="widget" native="true">
+     <widget class="CustomWidget" name="widget" native="true">
       <property name="geometry">
        <rect>
         <x>520</x>
@@ -1277,6 +1277,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomWidget</class>
+   <extends>QWidget</extends>
+   <header>plotter.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
