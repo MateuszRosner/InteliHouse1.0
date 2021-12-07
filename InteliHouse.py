@@ -6,8 +6,11 @@ import redbusCommands as mC
 import modbus
 
 from InteliHouseUI import Ui_MainWindow
-from PyQt5 import QtCore, QtWidgets, QtChart
-from plotter2 import MplWidget, MplCanvas
+from PyQt5 import QtCore, QtWidgets
+
+from PyQt5.QtChart import QChart, QChartView, QLineSeries
+from PyQt5.QtCore import QPointF
+from PyQt5.QtGui import QPainter
 
 
 class Resources():
