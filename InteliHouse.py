@@ -41,7 +41,7 @@ class MyWindow(Ui_MainWindow):
         self.frame = redbus.RedbusFrame(4)
         self.timer = QtCore.QTimer()
 
-        self.powerData = QLineSeries(self)
+        self.powerData = QLineSeries(self.MainWindow)
 
         self.progressBars = [self.progressBar1, self.progressBar2, self.progressBar3, self.progressBar4, 
                              self.progressBar5, self.progressBar6, self.progressBar7, self.progressBar8, 
