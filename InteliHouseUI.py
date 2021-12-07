@@ -351,6 +351,9 @@ class Ui_MainWindow(object):
         self.label_hum2 = QtWidgets.QLabel(self.tabZasoby)
         self.label_hum2.setGeometry(QtCore.QRect(390, 320, 61, 16))
         self.label_hum2.setObjectName("label_hum2")
+        self.Graph1 = CustomWidget(self.tabZasoby)
+        self.Graph1.setGeometry(QtCore.QRect(480, 70, 521, 351))
+        self.Graph1.setObjectName("Graph1")
         self.tabWidget.addTab(self.tabZasoby, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -418,3 +421,4 @@ class Ui_MainWindow(object):
         self.label_hum1.setText(_translate("MainWindow", "0 %"))
         self.label_hum2.setText(_translate("MainWindow", "0 %"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabZasoby), _translate("MainWindow", "Zasoby"))
+from plotter import CustomWidget

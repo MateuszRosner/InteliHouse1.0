@@ -1222,6 +1222,16 @@
        <string>0 %</string>
       </property>
      </widget>
+     <widget class="CustomWidget" name="Graph1" native="true">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>70</y>
+        <width>521</width>
+        <height>351</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -1237,6 +1247,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">plotter.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
