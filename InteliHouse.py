@@ -43,6 +43,8 @@ class MyWindow(Ui_MainWindow):
         self.frame = redbus.RedbusFrame(4)
         self.timer = QtCore.QTimer()
 
+        self.powerData = QLineSeries(self)
+
         self.progressBars = [self.progressBar1, self.progressBar2, self.progressBar3, self.progressBar4, 
                              self.progressBar5, self.progressBar6, self.progressBar7, self.progressBar8, 
                              self.progressBar9, self.progressBar10, self.progressBarWP, self.progressBarWB,
@@ -165,7 +167,7 @@ class MyWindow(Ui_MainWindow):
 
         self.refresh_progressBars()
 
-        #self.Graph.update()
+        self.create_linechart()
         #self.refresh_checkBoxes()
     """
     refresh progres bars 
@@ -264,6 +266,8 @@ class MyWindow(Ui_MainWindow):
 
     
     def create_linechart(self):
+
+        self.powerData.append(4,2)
         chart =  QChart()
 
         chart.createDefaultAxes()
@@ -272,9 +276,8 @@ class MyWindow(Ui_MainWindow):
  
         chart.legend().setVisible(True)
         chart.legend().setAlignment(Qt.AlignBottom)
- 
-        chartview = QChartView(chart)
-        chartview.setRenderHint(QPainter.Antialiasing)
+
+        chart.addSeries(self.powerData)
 
         self.widget_2.setChart(chart)
         
