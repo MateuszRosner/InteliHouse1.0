@@ -267,6 +267,7 @@ class MyWindow(Ui_MainWindow):
     def create_linechart(self):
 
         self.powerData.append(self.counter, self.progressBarTotalCurr.value())
+        self.powerData.setName("Total")
         self.counter = self.counter + 1
         chart =  QChart()
 
