@@ -42,7 +42,7 @@ class MyWindow(Ui_MainWindow):
         self.timer = QtCore.QTimer()
 
         self.powerData = QLineSeries(self.MainWindow)
-        self.tempsData = [3 * QLineSeries(self.MainWindow)]
+        self.tempsData = [QLineSeries(self.MainWindow), QLineSeries(self.MainWindow), QLineSeries(self.MainWindow)]
         self.counter = 0
 
         self.progressBars = [self.progressBar1, self.progressBar2, self.progressBar3, self.progressBar4, 
