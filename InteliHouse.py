@@ -237,8 +237,8 @@ class MyWindow(Ui_MainWindow):
                 self.frame.address = int(adr)
                 self.frame.command = mC.MODBUS_WRITE
                 self.frame.data[0] = mC.SENSORS_BOARD_RAW_VALUES
-                self.frame.data[2] = raw_min
-                self.frame.data[3] = raw_max
+                self.frame.data[2] = raw_max
+                self.frame.data[3] = raw_min
                 self.redbus.send_frame(self.frame)
 
                 time.sleep(self.transmissionInterval)
