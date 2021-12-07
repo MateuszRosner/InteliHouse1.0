@@ -42,6 +42,7 @@ class MyWindow(Ui_MainWindow):
         self.timer = QtCore.QTimer()
 
         self.powerData = QLineSeries(self.MainWindow)
+        self.tempsData = [3 * QLineSeries(self.MainWindow)]
         self.counter = 0
 
         self.progressBars = [self.progressBar1, self.progressBar2, self.progressBar3, self.progressBar4, 
@@ -268,6 +269,10 @@ class MyWindow(Ui_MainWindow):
 
         self.powerData.append(self.counter, self.progressBarTotalCurr.value())
         self.powerData.setName("Total")
+        
+        self.tempsData[0].append(self.counter, self.resources.temperature[0] / 10)
+        
+        
         self.counter = self.counter + 1
         chart =  QChart()
 
@@ -279,8 +284,19 @@ class MyWindow(Ui_MainWindow):
         chart.legend().setVisible(True)
         chart.legend().setAlignment(Qt.AlignBottom)
 
-        
+        chart2 = QChart()
 
+        chart2.addSeries(self.tempsData[0])
+        chart2.addSeries(self.tempsData[1])
+        chart2.addSeries(self.tempsData[2])
+        chart2.createDefaultAxes()
+        chart2.setAnimationOptions(QChart.SeriesAnimations)
+        chart2.setTitle("Otoczenie")
+ 
+        chart2.legend().setVisible(True)
+        chart2.legend().setAlignment(Qt.AlignBottom)
+
+        self.widget.setChart(chart2)
         self.widget_2.setChart(chart)
         
     def __del__(self):
