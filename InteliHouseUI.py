@@ -196,9 +196,6 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.label_20.setFont(font)
         self.label_20.setObjectName("label_20")
-        self.GraphPower = CustomWidget(self.tabEnergy)
-        self.GraphPower.setGeometry(QtCore.QRect(510, 60, 491, 321))
-        self.GraphPower.setObjectName("GraphPower")
         self.tabWidget.addTab(self.tabEnergy, "")
         self.tabZasoby = QtWidgets.QWidget()
         self.tabZasoby.setObjectName("tabZasoby")
@@ -306,9 +303,6 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.label_22.setFont(font)
         self.label_22.setObjectName("label_22")
-        self.GraphResources = CustomWidget(self.tabZasoby)
-        self.GraphResources.setGeometry(QtCore.QRect(510, 60, 491, 321))
-        self.GraphResources.setObjectName("GraphResources")
         self.tabWidget.addTab(self.tabZasoby, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -320,7 +314,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -360,4 +354,3 @@ class Ui_MainWindow(object):
         self.label_21.setText(_translate("MainWindow", "początek"))
         self.label_22.setText(_translate("MainWindow", "koniec"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabZasoby), _translate("MainWindow", "Zasoby"))
-from plotter import CustomWidget

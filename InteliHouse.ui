@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabEnergy">
      <attribute name="title">
@@ -629,16 +629,6 @@
        <string>koniec</string>
       </property>
      </widget>
-     <widget class="CustomWidget" name="GraphPower" native="true">
-      <property name="geometry">
-       <rect>
-        <x>510</x>
-        <y>60</y>
-        <width>491</width>
-        <height>321</height>
-       </rect>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tabZasoby">
      <attribute name="title">
@@ -1024,16 +1014,6 @@
        <string>koniec</string>
       </property>
      </widget>
-     <widget class="CustomWidget" name="GraphResources" native="true">
-      <property name="geometry">
-       <rect>
-        <x>510</x>
-        <y>60</y>
-        <width>491</width>
-        <height>321</height>
-       </rect>
-      </property>
-     </widget>
     </widget>
    </widget>
   </widget>
@@ -1049,14 +1029,6 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>CustomWidget</class>
-   <extends>QWidget</extends>
-   <header>plotter.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
