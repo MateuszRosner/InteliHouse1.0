@@ -265,9 +265,10 @@ class MyWindow(Ui_MainWindow):
     
     def create_linechart(self):
 
-        self.powerData.append(4,2)
+        self.powerData.append(2,2)
         chart =  QChart()
 
+        chart.addSeries(self.powerData)
         chart.createDefaultAxes()
         chart.setAnimationOptions(QChart.SeriesAnimations)
         chart.setTitle("Energia")
@@ -275,7 +276,7 @@ class MyWindow(Ui_MainWindow):
         chart.legend().setVisible(True)
         chart.legend().setAlignment(Qt.AlignBottom)
 
-        chart.addSeries(self.powerData)
+        
 
         self.widget_2.setChart(chart)
         
