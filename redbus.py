@@ -188,8 +188,9 @@ class Redbus():
                         print("[WARNING] CRC error")
                         self.frame.data.clear()
                         continue
-
-                if self.frame.address == 1:                                             # decode data from MainBoard
+                
+                # decode data from MainBoard 
+                if self.frame.address == 1:                                             
                     if self.frame.command > mC.MAIN_BOARD_OUTPUTS:                      # current values of 2 ports (ports number determined by command value)
                         current_val1 =   self.frame.data[1] << 8
                         current_val1 +=  self.frame.data[0]
@@ -213,11 +214,13 @@ class Redbus():
                             data_bank.output_ports[x] = bool (ports & (1 << x))
                     
                         print(f"Inputs: {self.frame.data[0]}")
-                    
+                
+                # decode data from SensorsBoards
                 elif self.frame.address == 15:
                     if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
                         data_bank.liquids[0] = self.frame.data[3]
                 
+                # decode data from AmbientBoards
                 elif self.frame.address == 12:
                     if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
                         data_bank.temperature[0] = self.frame.data[1] << 8 | self.frame.data[0]
