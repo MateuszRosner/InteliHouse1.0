@@ -191,7 +191,7 @@ class MyWindow(Ui_MainWindow):
             temp.setText(f"{self.resources.temperature[x] / 10} *C")
         
         for x, press in enumerate(self.pressures):
-            press.setText(f"{self.resources.pressure[x] / 10} hP")
+            press.setText(f"{self.resources.pressure[x] / 10} hPa")
         
         for x, hum in enumerate(self.humidities):
             hum.setText(f"{self.resources.humidity[x] / 10} %")
