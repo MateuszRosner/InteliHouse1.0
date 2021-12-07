@@ -236,6 +236,9 @@ class Ui_MainWindow(object):
         self.labelPwr1_10 = QtWidgets.QLabel(self.tabEnergy)
         self.labelPwr1_10.setGeometry(QtCore.QRect(400, 420, 71, 16))
         self.labelPwr1_10.setObjectName("labelPwr1_10")
+        self.widget_2 = QChartView(self.tabEnergy)
+        self.widget_2.setGeometry(QtCore.QRect(490, 50, 511, 331))
+        self.widget_2.setObjectName("widget_2")
         self.tabWidget.addTab(self.tabEnergy, "")
         self.tabZasoby = QtWidgets.QWidget()
         self.tabZasoby.setObjectName("tabZasoby")
@@ -375,7 +378,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

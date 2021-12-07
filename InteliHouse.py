@@ -264,32 +264,19 @@ class MyWindow(Ui_MainWindow):
 
     
     def create_linechart(self):
- 
-        series = QLineSeries(self.MainWindow)
-        series.append(0,6)
-        series.append(2, 4)
-        series.append(3, 8)
-        series.append(7, 4)
-        series.append(10, 5)
- 
-        series << QPointF(11, 1) << QPointF(13, 3) << QPointF(17, 6) << QPointF(18, 3) << QPointF(20, 2)
- 
- 
         chart =  QChart()
- 
-        chart.addSeries(series)
+
         chart.createDefaultAxes()
         chart.setAnimationOptions(QChart.SeriesAnimations)
-        chart.setTitle("Line Chart Example")
+        chart.setTitle("Energia")
  
         chart.legend().setVisible(True)
         chart.legend().setAlignment(Qt.AlignBottom)
  
- 
         chartview = QChartView(chart)
         chartview.setRenderHint(QPainter.Antialiasing)
 
-        self.widget.setChart(chart)
+        self.widget_2.setChart(chart)
         
     def __del__(self):
         addrs = self.addresses['MainBoard'].split(',')

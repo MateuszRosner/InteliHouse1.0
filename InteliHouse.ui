@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabEnergy">
      <attribute name="title">
@@ -787,6 +787,16 @@
       </property>
       <property name="text">
        <string>0 kW</string>
+      </property>
+     </widget>
+     <widget class="QChartView" name="widget_2" native="true">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>50</y>
+        <width>511</width>
+        <height>331</height>
+       </rect>
       </property>
      </widget>
     </widget>
