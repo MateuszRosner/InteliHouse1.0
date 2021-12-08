@@ -291,7 +291,7 @@ class MyWindow(Ui_MainWindow):
     
     def create_linechart(self):
 
-        stamp = datetime.datetime.now().strftime("%H:%M:%S")
+        stamp = int(datetime.datetime.now().strftime("%S"))
 
         self.powerData.append(stamp, self.progressBarTotalCurr.value())
         
