@@ -284,7 +284,7 @@ class MyWindow(Ui_MainWindow):
 
         chart.addSeries(self.powerData)
         chart.createDefaultAxes()
-        chart.setAnimationOptions(QChart.SeriesAnimations)
+        chart.setAnimationOptions(QChart.NoAnimation)
         chart.setTitle("Energia")
  
         chart.legend().setVisible(True)
@@ -296,7 +296,7 @@ class MyWindow(Ui_MainWindow):
         chart2.addSeries(self.tempsData[1])
         chart2.addSeries(self.tempsData[2])
         chart2.createDefaultAxes()
-        chart2.setAnimationOptions(QChart.SeriesAnimations)
+        chart2.setAnimationOptions(QChart.NoAnimation)
         chart2.setTitle("Otoczenie")
  
         chart2.legend().setVisible(True)
