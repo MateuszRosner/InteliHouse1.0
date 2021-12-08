@@ -7,6 +7,7 @@ import modbus
 
 from InteliHouseUI import Ui_MainWindow
 from PyQt5 import QtCore, QtWidgets
+import datetime
 
 from PyQt5.QtChart import QChart, QChartView, QLineSeries
 from PyQt5.QtCore import QPointF
@@ -290,7 +291,9 @@ class MyWindow(Ui_MainWindow):
     
     def create_linechart(self):
 
-        self.powerData.append(self.counter, self.progressBarTotalCurr.value())
+        stamp = datetime.datetime.now().strftime("%H:%M:%S")
+
+        self.powerData.append(stamp, self.progressBarTotalCurr.value())
         
         self.tempsData[0].append(self.counter, self.resources.temperature[0] / 10)
         self.tempsData[1].append(self.counter, self.resources.temperature[1] / 10)
@@ -312,6 +315,8 @@ class MyWindow(Ui_MainWindow):
         
         
         self.counter = self.counter + 1
+
+        
         chart =  QChart()
 
         chart.addSeries(self.powerData)
