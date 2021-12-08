@@ -229,6 +229,14 @@ class Redbus():
                     elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
                         data_bank.humidity[0] = self.frame.data[1] << 8 | self.frame.data[0]
 
+                elif self.frame.address == 11:
+                    if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
+                        data_bank.temperature[1] = self.frame.data[1] << 8 | self.frame.data[0]
+                        data_bank.pressure[1] = self.frame.data[3] << 8 | self.frame.data[2]
+
+                    elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
+                        data_bank.humidity[1] = self.frame.data[1] << 8 | self.frame.data[0]
+
                 self.frame.data.clear()
     
     def FlushBuffer(self):
