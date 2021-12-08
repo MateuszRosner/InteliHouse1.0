@@ -59,6 +59,13 @@ class MyWindow(Ui_MainWindow):
         self.humidData[1].setName("Kuchnia")
         self.humidData[2].setName("Taras")
 
+        self.liquidData = [QLineSeries(self.MainWindow), QLineSeries(self.MainWindow), QLineSeries(self.MainWindow), QLineSeries(self.MainWindow), QLineSeries(self.MainWindow)]
+        self.liquidData[0].setName("Woda pitna 1")
+        self.liquidData[1].setName("Woda brudna")
+        self.liquidData[2].setName("Szambo")
+        self.liquidData[3].setName("Paliwo")
+        self.liquidData[4].setName("Woda pitna 2")
+
         self.counter = 0
 
         self.progressBars = [self.progressBar1, self.progressBar2, self.progressBar3, self.progressBar4, 
@@ -296,6 +303,12 @@ class MyWindow(Ui_MainWindow):
         self.humidData[0].append(self.counter, self.resources.humidity[0] / 10)
         self.humidData[1].append(self.counter, self.resources.humidity[1] / 10)
         self.humidData[2].append(self.counter, self.resources.humidity[2] / 10)
+
+        self.liquidData[0].append(self.counter, self.resources.liquids[0])
+        self.liquidData[1].append(self.counter, self.resources.liquids[1])
+        self.liquidData[2].append(self.counter, self.resources.liquids[2])
+        self.liquidData[3].append(self.counter, self.resources.liquids[3])
+        self.liquidData[4].append(self.counter, self.resources.liquids[4])
         
         
         self.counter = self.counter + 1
@@ -331,6 +344,11 @@ class MyWindow(Ui_MainWindow):
 
         elif self.radioButtonLiquids.isChecked() == True:
             chart2.setTitle("Płyny")
+            chart2.addSeries(self.liquidData[0])
+            chart2.addSeries(self.liquidData[1])
+            chart2.addSeries(self.liquidData[2])
+            chart2.addSeries(self.liquidData[3])
+            chart2.addSeries(self.liquidData[4])
 
         chart2.createDefaultAxes()
         chart2.setAnimationOptions(QChart.NoAnimation)
