@@ -43,10 +43,21 @@ class MyWindow(Ui_MainWindow):
 
         self.powerData = QLineSeries(self.MainWindow)
         self.powerData.setName("Total")
+
         self.tempsData = [QLineSeries(self.MainWindow), QLineSeries(self.MainWindow), QLineSeries(self.MainWindow)]
         self.tempsData[0].setName("Salon")
         self.tempsData[1].setName("Kuchnia")
         self.tempsData[2].setName("Taras")
+
+        self.pressData = [QLineSeries(self.MainWindow), QLineSeries(self.MainWindow), QLineSeries(self.MainWindow)]
+        self.pressData[0].setName("Salon")
+        self.pressData[1].setName("Kuchnia")
+        self.pressData[2].setName("Taras")
+
+        self.humidData = [QLineSeries(self.MainWindow), QLineSeries(self.MainWindow), QLineSeries(self.MainWindow)]
+        self.humidData[0].setName("Salon")
+        self.humidData[1].setName("Kuchnia")
+        self.humidData[2].setName("Taras")
 
         self.counter = 0
 
@@ -277,6 +288,14 @@ class MyWindow(Ui_MainWindow):
         self.tempsData[0].append(self.counter, self.resources.temperature[0] / 10)
         self.tempsData[1].append(self.counter, self.resources.temperature[1] / 10)
         self.tempsData[2].append(self.counter, self.resources.temperature[2] / 10)
+
+        self.pressData[0].append(self.counter, self.resources.pressure[0] / 10)
+        self.pressData[1].append(self.counter, self.resources.pressure[1] / 10)
+        self.pressData[2].append(self.counter, self.resources.pressure[2] / 10)
+
+        self.humidData[0].append(self.counter, self.resources.humidity[0] / 10)
+        self.humidData[1].append(self.counter, self.resources.humidity[1] / 10)
+        self.humidData[2].append(self.counter, self.resources.humidity[2] / 10)
         
         
         self.counter = self.counter + 1
@@ -291,13 +310,30 @@ class MyWindow(Ui_MainWindow):
         chart.legend().setAlignment(Qt.AlignBottom)
 
         chart2 = QChart()
+        
+        if self.radioButtonTemp.isChecked() == True:
+            chart2.setTitle("Temperatura")
+            chart2.addSeries(self.tempsData[0])
+            chart2.addSeries(self.tempsData[1])
+            chart2.addSeries(self.tempsData[2])
 
-        chart2.addSeries(self.tempsData[0])
-        chart2.addSeries(self.tempsData[1])
-        chart2.addSeries(self.tempsData[2])
+        elif self.radioButtonPress.isChecked() == True:
+            chart2.setTitle("Cisnienie")
+            chart2.addSeries(self.pressData[0])
+            chart2.addSeries(self.pressData[1])
+            chart2.addSeries(self.pressData[2])
+
+        elif self.radioButtonHumid.isChecked() == True:
+            chart2.setTitle("Wilgotność")
+            chart2.addSeries(self.humidData[0])
+            chart2.addSeries(self.humidData[1])
+            chart2.addSeries(self.humidData[2])
+
+        elif self.radioButtonLiquids.isChecked() == True:
+            chart2.setTitle("Płyny")
+
         chart2.createDefaultAxes()
         chart2.setAnimationOptions(QChart.NoAnimation)
-        chart2.setTitle("Otoczenie")
  
         chart2.legend().setVisible(True)
         chart2.legend().setAlignment(Qt.AlignBottom)
