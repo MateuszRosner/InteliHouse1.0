@@ -219,23 +219,35 @@ class Redbus():
                 elif self.frame.address == 15:
                     if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
                         data_bank.liquids[0] = self.frame.data[3]
+
+                elif self.frame.address == 14:
+                    if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
+                        data_bank.liquids[1] = self.frame.data[3]
                 
                 # decode data from AmbientBoards
-                elif self.frame.address == 12:
+                elif self.frame.address == 13:
                     if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
-                        data_bank.temperature[0] = self.frame.data[1] << 8 | self.frame.data[0]
-                        data_bank.pressure[0] = self.frame.data[3] << 8 | self.frame.data[2]
+                        data_bank.temperature[2] = self.frame.data[1] << 8 | self.frame.data[0]
+                        data_bank.pressure[2] = self.frame.data[3] << 8 | self.frame.data[2]
 
                     elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
-                        data_bank.humidity[0] = self.frame.data[1] << 8 | self.frame.data[0]
+                        data_bank.humidity[2] = self.frame.data[1] << 8 | self.frame.data[0]
 
-                elif self.frame.address == 11:
+                elif self.frame.address == 12:
                     if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
                         data_bank.temperature[1] = self.frame.data[1] << 8 | self.frame.data[0]
                         data_bank.pressure[1] = self.frame.data[3] << 8 | self.frame.data[2]
 
                     elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
                         data_bank.humidity[1] = self.frame.data[1] << 8 | self.frame.data[0]
+
+                elif self.frame.address == 11:
+                    if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
+                        data_bank.temperature[0] = self.frame.data[1] << 8 | self.frame.data[0]
+                        data_bank.pressure[0] = self.frame.data[3] << 8 | self.frame.data[2]
+
+                    elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
+                        data_bank.humidity[0] = self.frame.data[1] << 8 | self.frame.data[0]
 
                 self.frame.data.clear()
     

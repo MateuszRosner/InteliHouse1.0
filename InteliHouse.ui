@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabEnergy">
      <attribute name="title">
@@ -1270,6 +1270,70 @@
         <width>511</width>
         <height>381</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButtonTemp">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>380</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>temperatura</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButtonPress">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>380</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ciśnienie</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButtonHumid">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>380</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>wilgotność</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButtonLiquids">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>380</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>płyny</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
       </property>
      </widget>
     </widget>
