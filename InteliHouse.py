@@ -291,9 +291,7 @@ class MyWindow(Ui_MainWindow):
     
     def create_linechart(self):
 
-        stamp = int(datetime.datetime.now().strftime("%S"))
-
-        self.powerData.append(stamp, self.progressBarTotalCurr.value())
+        self.powerData.append(self.counter, self.progressBarTotalCurr.value())
         
         self.tempsData[0].append(self.counter, self.resources.temperature[0] / 10)
         self.tempsData[1].append(self.counter, self.resources.temperature[1] / 10)
