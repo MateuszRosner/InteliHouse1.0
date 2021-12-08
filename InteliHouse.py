@@ -311,10 +311,9 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[3].append(self.counter, self.resources.liquids[3])
         self.liquidData[4].append(self.counter, self.resources.liquids[4])
         
-        
         self.counter = self.counter + 1
 
-        
+        # create and draw power consumption chart
         chart =  QChart()
 
         chart.addSeries(self.powerData)
@@ -325,6 +324,9 @@ class MyWindow(Ui_MainWindow):
         chart.legend().setVisible(True)
         chart.legend().setAlignment(Qt.AlignBottom)
 
+        self.widget_2.setChart(chart)
+
+        # create and draw resources chart
         chart2 = QChart()
         
         if self.radioButtonTemp.isChecked() == True:
@@ -360,7 +362,7 @@ class MyWindow(Ui_MainWindow):
         chart2.legend().setAlignment(Qt.AlignBottom)
 
         self.widget.setChart(chart2)
-        self.widget_2.setChart(chart)
+        
         
     def __del__(self):
         addrs = self.addresses['MainBoard'].split(',')
