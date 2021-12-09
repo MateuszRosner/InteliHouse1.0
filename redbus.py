@@ -201,7 +201,7 @@ class Redbus():
                         data_bank.output_currs[(self.frame.command * 2)-2] = current_val1# // int(self.mainOutputs['Calibration'].split(',')[(self.frame.command * 2)-2])
                         data_bank.output_currs[(self.frame.command * 2)-1] = current_val2# // int(self.mainOutputs['Calibration'].split(',')[(self.frame.command * 2)-1])
 
-                        print(f"Current {(self.frame.command*2)-1}: {current_val1}  Current {self.frame.command*2}: {current_val2}")
+                        #print(f"Current {(self.frame.command*2)-1}: {current_val1}  Current {self.frame.command*2}: {current_val2}")
 
                     elif self.frame.command == mC.MAIN_BOARD_READ_DIGITAL_IN:
                         pass
@@ -213,7 +213,7 @@ class Redbus():
                         for x in range(len(data_bank.output_ports)):
                             data_bank.output_ports[x] = bool (ports & (1 << x))
                     
-                        print(f"Inputs: {self.frame.data[0]}")
+                        #print(f"Inputs: {self.frame.data[0]}")
                 
                 # decode data from SensorsBoards
                 elif self.frame.address == 15:
