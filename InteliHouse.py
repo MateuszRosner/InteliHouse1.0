@@ -98,6 +98,7 @@ class MyWindow(Ui_MainWindow):
         self.infrastructure         = self.config['INFRASTRUCTURE']
         self.addresses              = self.config['ADDRESSES']
         self.mainOutputs            = self.config['MAIN_OUTPUTS']
+        self.maxSamples             = self.config['CHARTS']['MaxSamples']
 
 
         print("INFRASTRUCTURE:")
@@ -374,7 +375,7 @@ class MyWindow(Ui_MainWindow):
         
         self.counter = self.counter + 1
 
-        if self.counter >= 3600:
+        if self.counter >= self.maxSamples:
             self.counter = 0
 
             self.powerData.clear()
