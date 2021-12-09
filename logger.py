@@ -36,10 +36,10 @@ class Logger():
                 os.makedirs(path)
             except Exception as msg:
                 print(f"Error {msg} occured....")
-            finally:
-                if not os.path.exists(os.path.join(path, date)):
-                    with open(os.path.join(path, date), 'w') as f:
-                        f.write(",".join(list(LABELS.keys())) + '\n')
+           
+        if not os.path.exists(os.path.join(path, date)):
+            with open(os.path.join(path, date), 'w') as f:
+                f.write(",".join(list(LABELS.keys())) + '\n')
 
         _labels = LABELS
 
