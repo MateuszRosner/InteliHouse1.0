@@ -87,6 +87,7 @@ class MyWindow(Ui_MainWindow):
         self.iaqs         = []
 
         self.logger = logger.Logger()
+        self.prescaller = 1
 
         # --------------- config file reading    ---------------
         self.config = configparser.ConfigParser()
@@ -97,6 +98,7 @@ class MyWindow(Ui_MainWindow):
         self.infrastructure         = self.config['INFRASTRUCTURE']
         self.addresses              = self.config['ADDRESSES']
         self.mainOutputs            = self.config['MAIN_OUTPUTS']
+
 
         print("INFRASTRUCTURE:")
 
@@ -196,7 +198,12 @@ class MyWindow(Ui_MainWindow):
         self.refresh_progressBars()
 
         self.create_linechart()
-        self.logger.logData(self.resources)
+
+        self.prescaller -= 1
+        if self.prescaller == 0:
+            self.logger.logData(self.resources)
+            self.prescaller = self.config['LOGGER']['Prescaller']
+
     """
     refresh progres bars 
     """
