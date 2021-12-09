@@ -40,6 +40,25 @@ class Logger():
                 with open(path, 'w') as f:
                     f.write(",".join(list(LABELS.keys())) + '\n')
 
-        
+        _labels = LABELS
+
+        _labels["Date"] = date
+        _labels["Time"] = time
+        _labels["PowTotal"] = resources.total_curr
+        _labels["WodaPitna1"] = resources.liquids[0]
+        _labels["WodaPitna2"] = resources.liquids[1]
+        _labels["WodaBrudna"] = resources.liquids[2]
+        _labels["Szambo"] = resources.liquids[3]
+        _labels["Paliwo"] = resources.liquids[4]
+        _labels["TempSalon"] = resources.temperature[0]
+        _labels["TempKuchnia"] = resources.temperature[1]
+        _labels["TempTaras"] = resources.temperature[2]
+        _labels["PressSalon"] = resources.pressure[0]
+        _labels["PressKuchnia"] = resources.pressure[1]
+        _labels["PressTaras"] = resources.pressure[2]
+        _labels["HumidSalon"] = resources.humidity[0]
+        _labels["HumidKuchnia"] = resources.humidity[1]
+        _labels["HumidTaras"] = resources.humidity[2]
+
         with open(path, 'a') as f:
-            f.write(s)
+            f.write(",".join(list(LABELS.values())) + '\n')

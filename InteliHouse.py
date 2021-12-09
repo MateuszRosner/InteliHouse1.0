@@ -4,6 +4,7 @@ import redbus
 import configparser
 import redbusCommands as mC
 import modbus
+import logger
 
 from InteliHouseUI import Ui_MainWindow
 from PyQt5 import QtCore, QtWidgets
@@ -84,6 +85,8 @@ class MyWindow(Ui_MainWindow):
         self.pressures    = [self.label_press0, self.label_press1, self.label_press2]
         self.humidities   = [self.label_hum0, self.label_hum1, self.label_hum2]
         self.iaqs         = []
+
+        self.logger = logger.Logger()
 
         # --------------- config file reading    ---------------
         self.config = configparser.ConfigParser()
@@ -193,6 +196,7 @@ class MyWindow(Ui_MainWindow):
         self.refresh_progressBars()
 
         self.create_linechart()
+        self.logger.logData(self.resources)
     """
     refresh progres bars 
     """
