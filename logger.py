@@ -29,7 +29,7 @@ class Logger():
 
         # check if log file exists 
         path = os.getcwd()
-        path = os.path.join(path, "logs", date)
+        path = os.path.join(path, "logs")
 
         if not os.path.exists(path=path):
             try:
@@ -37,7 +37,7 @@ class Logger():
             except Exception as msg:
                 print(f"Error {msg} occured....")
             finally:
-                with open(path, 'w') as f:
+                with open(os.path.join(path, date), 'w') as f:
                     f.write(",".join(list(LABELS.keys())) + '\n')
 
         _labels = LABELS
@@ -60,5 +60,5 @@ class Logger():
         _labels["HumidKuchnia"] = resources.humidity[1]
         _labels["HumidTaras"] = resources.humidity[2]
 
-        with open(path, 'a') as f:
+        with open(os.path.join(path, date), 'a') as f:
             f.write(",".join(list(LABELS.values())) + '\n')
