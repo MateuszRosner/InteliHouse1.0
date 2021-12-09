@@ -98,7 +98,7 @@ class MyWindow(Ui_MainWindow):
         self.infrastructure         = self.config['INFRASTRUCTURE']
         self.addresses              = self.config['ADDRESSES']
         self.mainOutputs            = self.config['MAIN_OUTPUTS']
-        self.maxSamples             = self.config['CHARTS']['MaxSamples']
+        self.maxSamples             = int(self.config['CHARTS']['MaxSamples'])
 
 
         print("INFRASTRUCTURE:")
@@ -203,7 +203,7 @@ class MyWindow(Ui_MainWindow):
         self.prescaller -= 1
         if self.prescaller == 0:
             self.logger.logData(self.resources)
-            self.prescaller = self.config['LOGGER']['Prescaller']
+            self.prescaller = int(self.config['LOGGER']['Prescaller'])
 
     """
     refresh progres bars 
