@@ -191,8 +191,7 @@ class MyWindow(Ui_MainWindow):
 
         self.refresh_progressBars()
 
-        self.create_linechart()
-        #self.refresh_checkBoxes()
+        #self.create_linechart()
     """
     refresh progres bars 
     """
