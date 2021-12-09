@@ -314,8 +314,6 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[2].append(self.counter, self.resources.liquids[2])
         self.liquidData[3].append(self.counter, self.resources.liquids[3])
         self.liquidData[4].append(self.counter, self.resources.liquids[4])
-        
-        self.counter = self.counter + 1
 
         # create and draw power consumption chart
         chart =  QChart()
@@ -367,6 +365,30 @@ class MyWindow(Ui_MainWindow):
 
         self.widget.setChart(chart2)
         
+        self.counter = self.counter + 1
+
+        if self.counter >= 3600:
+            self.counter = 0
+
+            self.powerData.clear()
+            self.tempsData[0].clear()
+            self.tempsData[1].clear()
+            self.tempsData[2].clear()
+
+            self.pressData[0].clear()
+            self.pressData[1].clear()
+            self.pressData[2].clear()
+
+            self.humidData[0].clear()
+            self.humidData[1].clear()
+            self.humidData[2].clear()
+
+            self.liquidData[0].clear()
+            self.liquidData[1].clear()
+            self.liquidData[2].clear()
+            self.liquidData[3].clear()
+            self.liquidData[4].clear()
+
         
     def __del__(self):
         addrs = self.addresses['MainBoard'].split(',')
