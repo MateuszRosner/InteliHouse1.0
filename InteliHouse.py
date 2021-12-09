@@ -24,6 +24,7 @@ class Resources():
         self.pressure     = [0, 0, 0]
         self.humidity     = [0, 0, 0]
         self.gas          = [0, 0, 0]
+        self.total_curr   = 0.0
 
 
 class MyWindow(Ui_MainWindow):
@@ -191,7 +192,7 @@ class MyWindow(Ui_MainWindow):
 
         self.refresh_progressBars()
 
-        #self.create_linechart()
+        self.create_linechart()
     """
     refresh progres bars 
     """
