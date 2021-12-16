@@ -183,8 +183,6 @@ class Redbus():
                 self.frame.data.append((data[5]))
                 self.frame.CRC = (data[6] & 0xFF) | (data[7] << 8)
 
-                #print(self.frame)
-
                 # check CRC
                 if self.crc_control == True:
                     CRC = self.frame.CRC
@@ -196,30 +194,28 @@ class Redbus():
                         continue
                 
                 # decode data from MainBoard 
-                if self.frame.address == 1:                                             
-                    if self.frame.command > mC.MAIN_BOARD_OUTPUTS:                      # current values of 2 ports (ports number determined by command value)
+                if self.frame.address == 1:
+                    # current values of 2 ports (ports number determined by command value)                                             
+                    if (self.frame.command >= mC.MAIN_BOARD_READ_CURR_1_2) and (self.frame.command <= mC.MAIN_BOARD_READ_CURR_9_10):        
                         current_val1 =   self.frame.data[1] << 8
                         current_val1 +=  self.frame.data[0]
                         
                         current_val2 =   self.frame.data[3] << 8
                         current_val2 +=  self.frame.data[2]
 
-                        data_bank.output_currs[(self.frame.command * 2)-2] = current_val1# // int(self.mainOutputs['Calibration'].split(',')[(self.frame.command * 2)-2])
-                        data_bank.output_currs[(self.frame.command * 2)-1] = current_val2# // int(self.mainOutputs['Calibration'].split(',')[(self.frame.command * 2)-1])
-
-                        #print(f"Current {(self.frame.command*2)-1}: {current_val1}  Current {self.frame.command*2}: {current_val2}")
+                        data_bank.output_currs[(self.frame.command * 2)-2] = current_val1
+                        data_bank.output_currs[(self.frame.command * 2)-1] = current_val2
 
                     elif self.frame.command == mC.MAIN_BOARD_READ_DIGITAL_IN:
                         pass
 
-                    else:                                           # outputs currents
+                    # outputs
+                    elif self.frame.command == mC.MAIN_BOARD_OUTPUTS:                                                               
                         ports =     self.frame.data[1] << 8
                         ports +=    self.frame.data[0]
                         
                         for x in range(len(data_bank.output_ports)):
                             data_bank.output_ports[x] = bool (ports & (1 << x))
-                    
-                        #print(f"Inputs: {self.frame.data[0]}")
                 
                 # decode data from SensorsBoards
                 elif self.frame.address == 15:
