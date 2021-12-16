@@ -67,6 +67,12 @@ class RedbusFrame():
 
         self.CRC = crcWord
 
+    def clear(self):
+        self.address = 0
+        self.command = 0
+        self.data.clear()
+        self.CRC = 0
+
     def __repr__(self):
         return (f"Address: {self.address}, Command: {self.command}, Data: {self.data}, CRC: {self.CRC}")
 
@@ -167,7 +173,7 @@ class Redbus():
                 return
             
             if len(data) < self.rec_data_len:
-                self.frame.data.clear()
+                self.frame.clear()
             else:
                 self.frame.address = (data[0])
                 self.frame.command = (data[1])
@@ -186,7 +192,7 @@ class Redbus():
 
                     if CRC != self.frame.CRC:
                         print("[WARNING] CRC error")
-                        self.frame.data.clear()
+                        self.frame.clear()
                         continue
                 
                 # decode data from MainBoard 
@@ -218,11 +224,17 @@ class Redbus():
                 # decode data from SensorsBoards
                 elif self.frame.address == 15:
                     if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
-                        data_bank.liquids[0] = self.frame.data[3]
+                        data_bank.liquids[0] = self.frame.data[0]
+                        data_bank.liquids[1] = self.frame.data[1]
+                        data_bank.liquids[2] = self.frame.data[2]
+                        data_bank.liquids[3] = self.frame.data[3]
 
                 elif self.frame.address == 14:
                     if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
-                        data_bank.liquids[1] = self.frame.data[3]
+                        data_bank.liquids[0] = self.frame.data[0]
+                        data_bank.liquids[1] = self.frame.data[1]
+                        data_bank.liquids[2] = self.frame.data[2]
+                        data_bank.liquids[3] = self.frame.data[3]
                 
                 # decode data from AmbientBoards
                 elif self.frame.address == 13:
