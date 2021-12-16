@@ -116,7 +116,7 @@ class MyWindow(Ui_MainWindow):
 
         # --------------- signals - slots config ---------------
         self.timer.timeout.connect(self.refresh_ui)
-        self.ButtonClearGraphs.click.connect(self.clearGraphs)
+        self.ButtonClearGraphs.clicked.connect(self.clearGraphs)
 
         self.timer.start(self.refreshTime)
 
