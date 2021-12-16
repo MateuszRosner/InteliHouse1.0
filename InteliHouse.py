@@ -116,6 +116,7 @@ class MyWindow(Ui_MainWindow):
 
         # --------------- signals - slots config ---------------
         self.timer.timeout.connect(self.refresh_ui)
+        self.ButtonClearGraphs.click.connect(self.clearGraphs)
 
         self.timer.start(self.refreshTime)
 
@@ -247,6 +248,28 @@ class MyWindow(Ui_MainWindow):
         for x, val in enumerate(self.resources.output_ports):
             self.checkBoxes[x].setChecked(bool(val))
 
+    def clearGraphs(self):
+        self.counter = 0
+
+        self.powerData.clear()
+        self.tempsData[0].clear()
+        self.tempsData[1].clear()
+        self.tempsData[2].clear()
+
+        self.pressData[0].clear()
+        self.pressData[1].clear()
+        self.pressData[2].clear()
+
+        self.humidData[0].clear()
+        self.humidData[1].clear()
+        self.humidData[2].clear()
+
+        self.liquidData[0].clear()
+        self.liquidData[1].clear()
+        self.liquidData[2].clear()
+        self.liquidData[3].clear()
+        self.liquidData[4].clear()
+
     def initiate_modules(self):
         print("\n[INFO] Modules initialization....")
         if self.infrastructure['MainBoards'] != '0':
@@ -376,26 +399,7 @@ class MyWindow(Ui_MainWindow):
         self.counter = self.counter + 1
 
         if self.counter >= self.maxSamples:
-            self.counter = 0
-
-            self.powerData.clear()
-            self.tempsData[0].clear()
-            self.tempsData[1].clear()
-            self.tempsData[2].clear()
-
-            self.pressData[0].clear()
-            self.pressData[1].clear()
-            self.pressData[2].clear()
-
-            self.humidData[0].clear()
-            self.humidData[1].clear()
-            self.humidData[2].clear()
-
-            self.liquidData[0].clear()
-            self.liquidData[1].clear()
-            self.liquidData[2].clear()
-            self.liquidData[3].clear()
-            self.liquidData[4].clear()
+            self.clearGraphs()
 
         
     def __del__(self):

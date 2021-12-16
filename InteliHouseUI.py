@@ -383,6 +383,9 @@ class Ui_MainWindow(object):
         self.radioButtonLiquids.setGeometry(QtCore.QRect(320, 380, 101, 17))
         self.radioButtonLiquids.setChecked(False)
         self.radioButtonLiquids.setObjectName("radioButtonLiquids")
+        self.ButtonClearGraphs = QtWidgets.QPushButton(self.tabZasoby)
+        self.ButtonClearGraphs.setGeometry(QtCore.QRect(880, 20, 75, 23))
+        self.ButtonClearGraphs.setObjectName("ButtonClearGraphs")
         self.tabWidget.addTab(self.tabZasoby, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -453,5 +456,6 @@ class Ui_MainWindow(object):
         self.radioButtonPress.setText(_translate("MainWindow", "ciśnienie"))
         self.radioButtonHumid.setText(_translate("MainWindow", "wilgotność"))
         self.radioButtonLiquids.setText(_translate("MainWindow", "płyny"))
+        self.ButtonClearGraphs.setText(_translate("MainWindow", "Wyczyść"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabZasoby), _translate("MainWindow", "Zasoby"))
 from PyQt5.QtChart import QChartView
