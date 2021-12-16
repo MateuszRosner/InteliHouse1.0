@@ -769,7 +769,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>szambo</string>
+       <string>woda brudna</string>
       </property>
      </widget>
      <widget class="QProgressBar" name="progressBarFU_2">
@@ -795,7 +795,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>woda brudna</string>
+       <string>woda pitna 2</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_7">
@@ -808,7 +808,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>paliwo</string>
+       <string>szmabo</string>
       </property>
      </widget>
      <widget class="QProgressBar" name="progressBarFU">
@@ -834,7 +834,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>woda pitna 2</string>
+       <string>paliwo</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_4">
