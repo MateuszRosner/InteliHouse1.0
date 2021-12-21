@@ -199,7 +199,7 @@ class MyWindow(Ui_MainWindow):
 
         self.refresh_progressBars()
 
-        # self.create_linechart()
+        self.create_linechart()
 
         self.prescaller -= 1
         if self.prescaller == 0:
