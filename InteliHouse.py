@@ -35,6 +35,7 @@ class MyWindow(Ui_MainWindow):
         self.MainWindow = QtWidgets.QMainWindow()
         self.setupUi(self.MainWindow)
 
+        # init objects
         self.resources = Resources()
         self.redbus = redbus.Redbus(self.resources, dev="/dev/ttySC0")
         self.modbus = modbus.Modbus(self.resources, dev="/dev/ttySC1")
@@ -45,6 +46,7 @@ class MyWindow(Ui_MainWindow):
         self.timer = QtCore.QTimer()
         self.graph_timer = QtCore.QTimer()
 
+        # create graphs data series
         self.powerData = QLineSeries(self.MainWindow)
         self.powerData.setName("Total")
 
@@ -70,8 +72,7 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[3].setName("Paliwo")
         self.liquidData[4].setName("Woda pitna 2")
 
-        self.counter = 0
-
+        # GUI elements init - labels, progressbars
         self.progressBars = [self.progressBar1, self.progressBar2, self.progressBar3, self.progressBar4, 
                              self.progressBar5, self.progressBar6, self.progressBar7, self.progressBar8, 
                              self.progressBar9, self.progressBar10, self.progressBarWP, self.progressBarWB,
@@ -87,8 +88,10 @@ class MyWindow(Ui_MainWindow):
         self.humidities   = [self.label_hum0, self.label_hum1, self.label_hum2]
         self.iaqs         = []
 
+        # misc variables
         self.logger = logger.Logger()
         self.prescaller = 1
+        self.counter = 0
 
         # --------------- config file reading    ---------------
         self.config = configparser.ConfigParser()
@@ -102,7 +105,7 @@ class MyWindow(Ui_MainWindow):
         self.maxSamples             = int(self.config['CHARTS']['MaxSamples'])
         self.priorities             = self.config['MAIN_OUTPUTS']['Priorities'].split(',')
 
-
+        # --------------- modules initialization ---------------
         print("INFRASTRUCTURE:")
 
         for key in self.infrastructure:
@@ -112,9 +115,7 @@ class MyWindow(Ui_MainWindow):
         for key in self.addresses:
             print(key, (self.addresses[key].split(',')))
         
-        # --------------- modules initialization ---------------
         self.initiate_modules()
-
 
         # --------------- signals - slots config ---------------
         self.timer.timeout.connect(self.refresh_ui)
@@ -347,7 +348,6 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[3].append(self.counter, self.resources.liquids[3])
         self.liquidData[4].append(self.counter, self.resources.liquids[4])
 
-
         if (self.tabWidget.currentIndex() == 0):
             # create and draw power consumption chart
             chart =  QChart()
@@ -400,7 +400,6 @@ class MyWindow(Ui_MainWindow):
 
             self.widget.setChart(chart2)
 
-        
         self.counter = self.counter + 1
 
         if self.counter >= self.maxSamples:

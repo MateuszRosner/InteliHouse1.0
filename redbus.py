@@ -174,6 +174,7 @@ class Redbus():
             
             if len(data) < self.rec_data_len:
                 self.frame.clear()
+                self.ser.flush()
             else:
                 self.frame.address = (data[0])
                 self.frame.command = (data[1])
@@ -191,6 +192,7 @@ class Redbus():
                     if CRC != self.frame.CRC:
                         print("[WARNING] CRC error")
                         self.frame.clear()
+                        self.ser.flush()
                         continue
                 
                 # decode data from MainBoard 
