@@ -43,6 +43,7 @@ class MyWindow(Ui_MainWindow):
         self.frame2 = modbus.ModbusFrame(4)
         self.frame = redbus.RedbusFrame(4)
         self.timer = QtCore.QTimer()
+        self.graph_timer = QtCore.QTimer()
 
         self.powerData = QLineSeries(self.MainWindow)
         self.powerData.setName("Total")
@@ -99,6 +100,7 @@ class MyWindow(Ui_MainWindow):
         self.addresses              = self.config['ADDRESSES']
         self.mainOutputs            = self.config['MAIN_OUTPUTS']
         self.maxSamples             = int(self.config['CHARTS']['MaxSamples'])
+        self.priorities             = self.config['MAIN_OUTPUTS']['Priorities'].split(',')
 
 
         print("INFRASTRUCTURE:")
@@ -116,9 +118,11 @@ class MyWindow(Ui_MainWindow):
 
         # --------------- signals - slots config ---------------
         self.timer.timeout.connect(self.refresh_ui)
+        self.graph_timer.timeout.connect(self.create_linechart)
         self.ButtonClearGraphs.clicked.connect(self.clearGraphs)
 
         self.timer.start(self.refreshTime)
+        self.graph_timer.start(self.refreshTime)
 
 # ---------------class usage functions---------------
     """
@@ -198,8 +202,6 @@ class MyWindow(Ui_MainWindow):
         time.sleep(self.transmissionInterval)
 
         self.refresh_progressBars()
-
-        # self.create_linechart()
 
         self.prescaller -= 1
         if self.prescaller == 0:
