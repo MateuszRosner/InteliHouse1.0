@@ -348,7 +348,7 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[4].append(self.counter, self.resources.liquids[4])
 
 
-        if (self.tabEnergy.isActiveWindow()):
+        if (self.tabWidget.currentIndex() == 0):
             # create and draw power consumption chart
             chart =  QChart()
 
@@ -362,7 +362,7 @@ class MyWindow(Ui_MainWindow):
 
             self.widget_2.setChart(chart)
 
-        elif(self.tabZasoby.isActiveWindow()):
+        elif (self.tabWidget.currentIndex() == 1):
             # create and draw resources chart
             chart2 = QChart()
             
