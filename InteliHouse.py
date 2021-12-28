@@ -327,7 +327,6 @@ class MyWindow(Ui_MainWindow):
 
     
     def create_linechart(self):
-
         self.powerData.append(self.counter, self.progressBarTotalCurr.value())
         
         self.tempsData[0].append(self.counter, self.resources.temperature[0] / 10)
@@ -348,55 +347,59 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[3].append(self.counter, self.resources.liquids[3])
         self.liquidData[4].append(self.counter, self.resources.liquids[4])
 
-        # create and draw power consumption chart
-        chart =  QChart()
 
-        chart.addSeries(self.powerData)
-        chart.createDefaultAxes()
-        chart.setAnimationOptions(QChart.NoAnimation)
-        chart.setTitle("Energia")
- 
-        chart.legend().setVisible(True)
-        chart.legend().setAlignment(Qt.AlignBottom)
+        if (self.tabEnergy.isActiveWindow()):
+            # create and draw power consumption chart
+            chart =  QChart()
 
-        self.widget_2.setChart(chart)
+            chart.addSeries(self.powerData)
+            chart.createDefaultAxes()
+            chart.setAnimationOptions(QChart.NoAnimation)
+            chart.setTitle("Energia")
+    
+            chart.legend().setVisible(True)
+            chart.legend().setAlignment(Qt.AlignBottom)
 
-        # create and draw resources chart
-        chart2 = QChart()
-        
-        if self.radioButtonTemp.isChecked() == True:
-            chart2.setTitle("Temperatura")
-            chart2.addSeries(self.tempsData[0])
-            chart2.addSeries(self.tempsData[1])
-            chart2.addSeries(self.tempsData[2])
+            self.widget_2.setChart(chart)
 
-        elif self.radioButtonPress.isChecked() == True:
-            chart2.setTitle("Cisnienie")
-            chart2.addSeries(self.pressData[0])
-            chart2.addSeries(self.pressData[1])
-            chart2.addSeries(self.pressData[2])
+        elif(self.tabZasoby.isActiveWindow()):
+            # create and draw resources chart
+            chart2 = QChart()
+            
+            if self.radioButtonTemp.isChecked() == True:
+                chart2.setTitle("Temperatura")
+                chart2.addSeries(self.tempsData[0])
+                chart2.addSeries(self.tempsData[1])
+                chart2.addSeries(self.tempsData[2])
 
-        elif self.radioButtonHumid.isChecked() == True:
-            chart2.setTitle("Wilgotność")
-            chart2.addSeries(self.humidData[0])
-            chart2.addSeries(self.humidData[1])
-            chart2.addSeries(self.humidData[2])
+            elif self.radioButtonPress.isChecked() == True:
+                chart2.setTitle("Cisnienie")
+                chart2.addSeries(self.pressData[0])
+                chart2.addSeries(self.pressData[1])
+                chart2.addSeries(self.pressData[2])
 
-        elif self.radioButtonLiquids.isChecked() == True:
-            chart2.setTitle("Płyny")
-            chart2.addSeries(self.liquidData[0])
-            chart2.addSeries(self.liquidData[1])
-            chart2.addSeries(self.liquidData[2])
-            chart2.addSeries(self.liquidData[3])
-            chart2.addSeries(self.liquidData[4])
+            elif self.radioButtonHumid.isChecked() == True:
+                chart2.setTitle("Wilgotność")
+                chart2.addSeries(self.humidData[0])
+                chart2.addSeries(self.humidData[1])
+                chart2.addSeries(self.humidData[2])
 
-        chart2.createDefaultAxes()
-        chart2.setAnimationOptions(QChart.NoAnimation)
- 
-        chart2.legend().setVisible(True)
-        chart2.legend().setAlignment(Qt.AlignBottom)
+            elif self.radioButtonLiquids.isChecked() == True:
+                chart2.setTitle("Płyny")
+                chart2.addSeries(self.liquidData[0])
+                chart2.addSeries(self.liquidData[1])
+                chart2.addSeries(self.liquidData[2])
+                chart2.addSeries(self.liquidData[3])
+                chart2.addSeries(self.liquidData[4])
 
-        self.widget.setChart(chart2)
+            chart2.createDefaultAxes()
+            chart2.setAnimationOptions(QChart.NoAnimation)
+    
+            chart2.legend().setVisible(True)
+            chart2.legend().setAlignment(Qt.AlignBottom)
+
+            self.widget.setChart(chart2)
+
         
         self.counter = self.counter + 1
 
