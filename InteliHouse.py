@@ -77,7 +77,7 @@ class MyWindow(Ui_MainWindow):
         self.iaqs         = []
 
         # misc variables
-        self.logger = logger.Logger()
+        self.logger = Logger()
         self.prescaller = 1
         self.counter = 0
 
