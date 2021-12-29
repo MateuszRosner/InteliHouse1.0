@@ -167,7 +167,6 @@ class Redbus():
 
             except serial.SerialTimeoutException:
                 print("[WARNING] Timeout exception...")
-                return
             
             if len(data) < self.rec_data_len:
                 self.frame.clear()
