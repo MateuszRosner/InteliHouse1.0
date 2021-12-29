@@ -114,11 +114,7 @@ class RedbusFrame():
 
     
 class Redbus():
-    def __init__(self, data_bank, Baudrate = 38400, dev = "/dev/ttyS0"):
-         # --------------- config file reading    ---------------
-        config = configparser.ConfigParser()
-        config.read('config.ini')
-
+    def __init__(self, resources, infrastructure, Baudrate = 38400, dev = "/dev/ttyS0", crcControl=True, dataLen=8):
         self.mainOutputs = config['MAIN_OUTPUTS']
 
         self.ser=serial.Serial(
@@ -144,10 +140,12 @@ class Redbus():
         except serial.SerialException:
             print("[ERROR] Can't open serial port")
 
-        self.frame = RedbusFrame(10)
-        self.rec_data_len = 8
-        self.crc_control = True
-        self.thread = threading.Thread(target=self.read_data, args=(data_bank,))
+        self.resources = resources
+        self.infrastructure = infrastructure
+        self.frame = RedbusFrame(dataLen)
+        self.rec_data_len = dataLen
+        self.crc_control = crcControl
+        self.thread = threading.Thread(target=self.read_data)
         self.thread.daemon = True
         self.thread.start()
         print("[INFO] Modbus thread started....")
@@ -159,9 +157,10 @@ class Redbus():
             GPIO.output(TXDEN_1, GPIO.LOW)     # transmitter
             frame = bytearray(frame)
             self.ser.write(frame)
-            GPIO.output(TXDEN_1, GPIO.HIGH)    # reciver
+            GPIO.output(TXDEN_1, GPIO.HIGH)    # recive
 
-    def read_data(self, data_bank):
+
+    def read_data(self):
             
         while self.ser.isOpen():
             try:
@@ -205,7 +204,7 @@ class Redbus():
                         current_val2 =   self.frame.data[3] << 8
                         current_val2 +=  self.frame.data[2]
 
-                        data_bank.output_currs[(self.frame.command * 2)-2] = current_val1
+                        self.resources.output_currs[(self.frame.command * 2)-2] = current_val1
                         data_bank.output_currs[(self.frame.command * 2)-1] = current_val2
 
                     elif self.frame.command == mC.MAIN_BOARD_READ_DIGITAL_IN:
@@ -217,47 +216,47 @@ class Redbus():
                         ports +=    self.frame.data[0]
                         
                         for x in range(len(data_bank.output_ports)):
-                            data_bank.output_ports[x] = bool (ports & (1 << x))
-                
+                            self.resources.output_ports[x] = bool (ports & (1 << x))
+
                 # decode data from SensorsBoards
                 elif self.frame.address == 15:
                     if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
-                        data_bank.liquids[0] = self.frame.data[0]
-                        data_bank.liquids[1] = self.frame.data[1]
-                        data_bank.liquids[2] = self.frame.data[2]
-                        data_bank.liquids[3] = self.frame.data[3]
+                        self.resources.liquids[0] = self.frame.data[0]
+                        self.resources.liquids[1] = self.frame.data[1]
+                        self.resources.liquids[2] = self.frame.data[2]
+                        self.resources.liquids[3] = self.frame.data[3]
 
                 elif self.frame.address == 14:
                     if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
-                        data_bank.liquids[0] = self.frame.data[0]
-                        data_bank.liquids[1] = self.frame.data[1]
-                        data_bank.liquids[2] = self.frame.data[2]
-                        data_bank.liquids[3] = self.frame.data[3]
+                        self.resources.liquids[0] = self.frame.data[0]
+                        self.resources.liquids[1] = self.frame.data[1]
+                        self.resources.liquids[2] = self.frame.data[2]
+                        self.resources.liquids[3] = self.frame.data[3]
                 
                 # decode data from AmbientBoards
                 elif self.frame.address == 13:
                     if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
-                        data_bank.temperature[2] = self.frame.data[1] << 8 | self.frame.data[0]
-                        data_bank.pressure[2] = self.frame.data[3] << 8 | self.frame.data[2]
+                        self.resources.temperature[2]   = self.frame.data[1] << 8 | self.frame.data[0]
+                        self.resources.pressure[2]      = self.frame.data[3] << 8 | self.frame.data[2]
 
                     elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
-                        data_bank.humidity[2] = self.frame.data[1] << 8 | self.frame.data[0]
+                        self.resources.humidity[2]      = self.frame.data[1] << 8 | self.frame.data[0]
 
                 elif self.frame.address == 12:
                     if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
-                        data_bank.temperature[1] = self.frame.data[1] << 8 | self.frame.data[0]
-                        data_bank.pressure[1] = self.frame.data[3] << 8 | self.frame.data[2]
+                        self.resources.temperature[1]   = self.frame.data[1] << 8 | self.frame.data[0]
+                        self.resources.pressure[1]      = self.frame.data[3] << 8 | self.frame.data[2]
 
                     elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
-                        data_bank.humidity[1] = self.frame.data[1] << 8 | self.frame.data[0]
+                        self.resources.humidity[1]      = self.frame.data[1] << 8 | self.frame.data[0]
 
                 elif self.frame.address == 11:
                     if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
-                        data_bank.temperature[0] = self.frame.data[1] << 8 | self.frame.data[0]
-                        data_bank.pressure[0] = self.frame.data[3] << 8 | self.frame.data[2]
+                        self.resources.temperature[0]   = self.frame.data[1] << 8 | self.frame.data[0]
+                        self.resources.pressure[0]      = self.frame.data[3] << 8 | self.frame.data[2]
 
                     elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
-                        data_bank.humidity[0] = self.frame.data[1] << 8 | self.frame.data[0]
+                        self.resources.humidity[0]      = self.frame.data[1] << 8 | self.frame.data[0]
 
                 self.frame.data.clear()
     

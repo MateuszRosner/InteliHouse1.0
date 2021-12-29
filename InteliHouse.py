@@ -1,31 +1,19 @@
 import sys
 import time
+import datetime
+
 import redbus
 import configparser
 import redbusCommands as mC
 import modbus
-import logger
+
+from logger    import Logger
+from resources import Resources
 
 from InteliHouseUI import Ui_MainWindow
 from PyQt5 import QtCore, QtWidgets
-import datetime
-
 from PyQt5.QtChart import QChart, QChartView, QLineSeries
-from PyQt5.QtCore import QPointF
-from PyQt5.QtGui import QPainter
 from PyQt5.QtCore import Qt
-
-
-class Resources():
-    def __init__(self):
-        self.output_ports = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        self.output_currs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        self.liquids      = [0, 0, 0, 0, 0]
-        self.temperature  = [0, 0, 0]
-        self.pressure     = [0, 0, 0]
-        self.humidity     = [0, 0, 0]
-        self.gas          = [0, 0, 0]
-        self.total_curr   = 0.0
 
 
 class MyWindow(Ui_MainWindow):
@@ -38,11 +26,11 @@ class MyWindow(Ui_MainWindow):
         # init objects
         self.resources = Resources()
         self.redbus = redbus.Redbus(self.resources, dev="/dev/ttySC0")
-        self.modbus = modbus.Modbus(self.resources, dev="/dev/ttySC1")
-        self.modbus.crc_control = False
-        self.modbus.rec_data_len = 6
+        self.modbus = modbus.Modbus(self.resources, dev="/dev/ttySC1", dataLen=6, crcControl=False)
+
         self.frame2 = modbus.ModbusFrame(4)
         self.frame = redbus.RedbusFrame(4)
+
         self.timer = QtCore.QTimer()
         self.graph_timer = QtCore.QTimer()
 
@@ -99,22 +87,12 @@ class MyWindow(Ui_MainWindow):
 
         self.refreshTime            = int(self.config['PARAMETERS']['RefreshFrequency'])
         self.transmissionInterval   = float(self.config['PARAMETERS']['TransmissionInterval'])
-        self.infrastructure         = self.config['INFRASTRUCTURE']
-        self.addresses              = self.config['ADDRESSES']
         self.mainOutputs            = self.config['MAIN_OUTPUTS']
         self.maxSamples             = int(self.config['CHARTS']['MaxSamples'])
         self.priorities             = self.config['MAIN_OUTPUTS']['Priorities'].split(',')
 
-        # --------------- modules initialization ---------------
-        print("INFRASTRUCTURE:")
-
-        for key in self.infrastructure:
-            print(key, (self.infrastructure[key]))
-
-        print("\nADDRESSES:")
-        for key in self.addresses:
-            print(key, (self.addresses[key].split(',')))
-        
+        self.infrastructure         = self.config['INFRASTRUCTURE']
+        self.addresses              = self.config['ADDRESSES']
         self.initiate_modules()
 
         # --------------- signals - slots config ---------------

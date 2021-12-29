@@ -109,7 +109,7 @@ class ModbusFrame():
 
     
 class Modbus():
-    def __init__(self, data_bank, Baudrate = 38400, dev = "/dev/ttyS0"):
+    def __init__(self, data_bank, Baudrate = 38400, dev = "/dev/ttyS0", crcControl=True, dataLen=8):
          # --------------- config file reading    ---------------
         config = configparser.ConfigParser()
         config.read('config.ini')
@@ -139,9 +139,9 @@ class Modbus():
         except serial.SerialException:
             print("[ERROR] Can't open serial port")
 
-        self.frame = ModbusFrame(10)
-        self.rec_data_len = 8
-        self.crc_control = True
+        self.frame = ModbusFrame(4)
+        self.rec_data_len = dataLen
+        self.crc_control = crcControl
         self.thread = threading.Thread(target=self.read_data, args=(data_bank,))
         self.thread.daemon = True
         self.thread.start()
