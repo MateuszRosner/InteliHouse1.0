@@ -203,7 +203,7 @@ class Redbus():
                         current_val2 +=  self.frame.data[2]
 
                         self.resources.output_currs[(self.frame.command * 2)-2] = current_val1
-                        data_bank.output_currs[(self.frame.command * 2)-1] = current_val2
+                        self.resources.output_currs[(self.frame.command * 2)-1] = current_val2
 
                     elif self.frame.command == mC.MAIN_BOARD_READ_DIGITAL_IN:
                         pass
@@ -213,7 +213,7 @@ class Redbus():
                         ports =     self.frame.data[1] << 8
                         ports +=    self.frame.data[0]
                         
-                        for x in range(len(data_bank.output_ports)):
+                        for x in range(len(self.resources.output_ports)):
                             self.resources.output_ports[x] = bool (ports & (1 << x))
 
                 # decode data from SensorsBoards
