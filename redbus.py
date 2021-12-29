@@ -116,8 +116,6 @@ class RedbusFrame():
     
 class Redbus():
     def __init__(self, resources, Baudrate = 38400, dev = "/dev/ttyS0", crcControl=True, dataLen=8):
-        self.mainOutputs = config['MAIN_OUTPUTS']
-
         self.ser=serial.Serial(
             baudrate=Baudrate,
             parity=serial.PARITY_NONE,
