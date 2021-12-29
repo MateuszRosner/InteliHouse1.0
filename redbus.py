@@ -4,6 +4,7 @@ import RPi._GPIO as GPIO
 import configparser
 
 import redbusCommands as mC
+from infrastructure import Infrastructure
 
 TXDEN_1 = 27
 TXDEN_2 = 22
@@ -114,7 +115,7 @@ class RedbusFrame():
 
     
 class Redbus():
-    def __init__(self, resources, infrastructure, Baudrate = 38400, dev = "/dev/ttyS0", crcControl=True, dataLen=8):
+    def __init__(self, resources, Baudrate = 38400, dev = "/dev/ttyS0", crcControl=True, dataLen=8):
         self.mainOutputs = config['MAIN_OUTPUTS']
 
         self.ser=serial.Serial(
@@ -122,7 +123,7 @@ class Redbus():
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS,
-            timeout=1)
+            timeout=0.1)
         self.dev = dev
         self.ser.port = self.dev
 
@@ -141,7 +142,7 @@ class Redbus():
             print("[ERROR] Can't open serial port")
 
         self.resources = resources
-        self.infrastructure = infrastructure
+        self.infrastructure = Infrastructure('config.ini')
         self.frame = RedbusFrame(dataLen)
         self.rec_data_len = dataLen
         self.crc_control = crcControl
@@ -151,7 +152,6 @@ class Redbus():
         print("[INFO] Modbus thread started....")
     
     def send_frame(self, frame):
-        
         if self.ser.isOpen():
             frame.calcCRC()
             GPIO.output(TXDEN_1, GPIO.LOW)     # transmitter
