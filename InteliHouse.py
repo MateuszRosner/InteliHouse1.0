@@ -26,7 +26,7 @@ class MyWindow(Ui_MainWindow):
         # init objects
         self.resources = Resources()
         self.redbus = redbus.Redbus(resources=self.resources, dev="/dev/ttySC0")
-        self.modbus = modbus.Modbus(self.resources, dev="/dev/ttySC1", dataLen=6, crcControl=False)
+        # self.modbus = modbus.Modbus(self.resources, dev="/dev/ttySC1", dataLen=6, crcControl=False)
 
         self.frame2 = modbus.ModbusFrame(4)
         self.frame = redbus.RedbusFrame(4)
@@ -101,7 +101,7 @@ class MyWindow(Ui_MainWindow):
         self.ButtonClearGraphs.clicked.connect(self.clearGraphs)
 
         self.timer.start(self.refreshTime)
-        # self.graph_timer.start(self.refreshTime)
+        self.graph_timer.start(self.refreshTime)
 
 # ---------------class usage functions---------------
     """
@@ -177,8 +177,8 @@ class MyWindow(Ui_MainWindow):
         self.frame2.data[2] = 0x00
         self.frame2.data[3] = 0x02
 
-        self.modbus.send_frame(self.frame2)
-        time.sleep(self.transmissionInterval)
+        # self.modbus.send_frame(self.frame2)
+        # time.sleep(self.transmissionInterval)
 
         self.refresh_progressBars()
 

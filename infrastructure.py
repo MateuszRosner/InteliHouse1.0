@@ -22,6 +22,8 @@ class Infrastructure():
         print("\nADDRESSES:")
         for key in self.addresses:
             print(key, (self.addresses[key].split(',')))
+        
+        print('\n')
 
 
 
