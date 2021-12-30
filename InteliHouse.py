@@ -239,8 +239,9 @@ class MyWindow(Ui_MainWindow):
         if (self.tabWidget.currentIndex() == 0):
             # create and draw power consumption chart
             #self.chartPower.addSeries(self.powerData)
+            self.chartPower.axisX(self.powerData)
+            self.chartPower.axisY(self.powerData)
             self.chartPower.createDefaultAxes()
-            self.widget_2.setChart(self.chartPower)
 
         elif (self.tabWidget.currentIndex() == 1):
             # create and draw resources chart
