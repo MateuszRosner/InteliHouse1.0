@@ -169,7 +169,7 @@ class Redbus():
                 self.frame.clear()
                 self.ser.flush()
                 print("[WARNING] Data lenght error")
-                return False
+                continue
             else:
                 self.frame.address = (data[0])
                 self.frame.command = (data[1])
@@ -188,7 +188,7 @@ class Redbus():
                         print("[WARNING] CRC error")
                         self.frame.clear()
                         self.ser.flush()
-                        return False
+                        continue
                 
                 # decode data from MainBoard 
                 if self.frame.address == 1:
@@ -255,7 +255,7 @@ class Redbus():
                         self.resources.humidity[0]      = self.frame.data[1] << 8 | self.frame.data[0]
 
                 self.frame.data.clear()
-                return True
+                #return True
     
     def startUpdates(self):
         self.updateThread = threading.Thread(target=self.updateData)
