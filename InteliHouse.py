@@ -36,7 +36,6 @@ class MyWindow(Ui_MainWindow):
 
         self.chartPower     =  QChart()
         self.chartResources =  QChart()
-        self.setGraphs()
 
         # create graphs data series
         self.powerData = QLineSeries(self.MainWindow)
@@ -63,6 +62,8 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[2].setName("Szambo")
         self.liquidData[3].setName("Paliwo")
         self.liquidData[4].setName("Woda pitna 2")
+
+        self.setGraphs()
 
         # GUI elements init - labels, progressbars
         self.progressBars = [self.progressBar1, self.progressBar2, self.progressBar3, self.progressBar4, 
