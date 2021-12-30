@@ -213,7 +213,7 @@ class MyWindow(Ui_MainWindow):
         self.chartResources.addSeries(self.tempsData[1])
         self.chartResources.addSeries(self.tempsData[2])
 
-        self.chartResources.addSeries(self.pressData[0])
+        """self.chartResources.addSeries(self.pressData[0])
         self.chartResources.addSeries(self.pressData[1])
         self.chartResources.addSeries(self.pressData[2])
 
@@ -226,7 +226,7 @@ class MyWindow(Ui_MainWindow):
         self.chartResources.addSeries(self.liquidData[2])
         self.chartResources.addSeries(self.liquidData[3])
         self.chartResources.addSeries(self.liquidData[4])
-
+"""
         self.chartResources.setAnimationOptions(QChart.SeriesAnimations)
         self.chartResources.legend().setVisible(True)
         self.chartResources.legend().setAlignment(Qt.AlignBottom)
