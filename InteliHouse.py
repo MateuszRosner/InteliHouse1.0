@@ -239,7 +239,7 @@ class MyWindow(Ui_MainWindow):
 
         #if (self.tabWidget.currentIndex() == 0):
         # create and draw power consumption chart
-        self.chartPower.axisX(self.powerData).setMax(self.powerData)
+        print(self.chartPower.axisX(self.powerData))
         print(self.powerData.count())
         
 
