@@ -320,10 +320,10 @@ class Redbus():
 
     def initiate_modules(self):
         print("\n[INFO] Modules initialization....")
-        if self.infrastructure.config['MainBoards'] != '0':
+        if self.infrastructure.infrastructure['MainBoards'] != '0':
             print("[INFO] MainBoards configured...")
 
-        if self.infrastructure.config['SensorsBoards'] != '0':
+        if self.infrastructure.infrastructure['SensorsBoards'] != '0':
             # ------------- SET RELAY MODE -----------------------
             for x, adr in enumerate(self.infrastructure.sensorsBoards):
                 self.frame.address = int(adr)
@@ -363,10 +363,10 @@ class Redbus():
 
             print("[INFO] SensorsBoards configured...")
         
-        if self.infrastructure.config['AmbientBoards'] != '0':
+        if self.infrastructure['AmbientBoards'] != '0':
             print("[INFO] AmbientBoards configured...")
 
-        if self.infrastructure.config['PGMBoards'] != '0':
+        if self.infrastructure['PGMBoards'] != '0':
             print("[INFO] PGMBoards configured...")
 
         print("[INFO] Initialization done!\n")   
