@@ -161,7 +161,7 @@ class Redbus():
             GPIO.output(TXDEN_1, GPIO.HIGH)    # recive
 
     def read_data(self):         
-        if self.ser.isOpen() == True:
+        while self.ser.isOpen() == True:
             data = self.ser.read(self.rec_data_len)
             data = bytearray(data)
 
