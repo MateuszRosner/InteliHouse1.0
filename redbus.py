@@ -363,10 +363,10 @@ class Redbus():
 
             print("[INFO] SensorsBoards configured...")
         
-        if self.infrastructure['AmbientBoards'] != '0':
+        if self.infrastructure.infrastructure['AmbientBoards'] != '0':
             print("[INFO] AmbientBoards configured...")
 
-        if self.infrastructure['PGMBoards'] != '0':
+        if self.infrastructure.infrastructure['PGMBoards'] != '0':
             print("[INFO] PGMBoards configured...")
 
         print("[INFO] Initialization done!\n")   
