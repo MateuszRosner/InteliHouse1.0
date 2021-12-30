@@ -34,8 +34,8 @@ class MyWindow(Ui_MainWindow):
         self.timer = QtCore.QTimer()
         self.graph_timer = QtCore.QTimer()
 
-        self.chartPower     =  QtChart.QChart()
-        self.chartResources =  QtChart.QChart()
+        self.chartPower     =  QChart()
+        self.chartResources =  QChart()
 
         # create graphs data series
         self.powerData = QLineSeries(self.MainWindow)
