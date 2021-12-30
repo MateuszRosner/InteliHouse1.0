@@ -161,15 +161,15 @@ class Redbus():
             GPIO.output(TXDEN_1, GPIO.HIGH)    # recive
 
     def read_data(self):         
-        while self.ser.isOpen() == True:
+        if self.ser.isOpen() == True:
             data = self.ser.read(self.rec_data_len)
             data = bytearray(data)
 
             if len(data) < self.rec_data_len:
                 self.frame.clear()
                 self.ser.flush()
-                print("[WARNING] Data lenght error")
-                continue
+                # print("[WARNING] Data lenght error")
+                return False
             else:
                 self.frame.address = (data[0])
                 self.frame.command = (data[1])
@@ -188,7 +188,7 @@ class Redbus():
                         print("[WARNING] CRC error")
                         self.frame.clear()
                         self.ser.flush()
-                        continue
+                        return False
                 
                 # decode data from MainBoard 
                 if self.frame.address == 1:
@@ -255,7 +255,7 @@ class Redbus():
                         self.resources.humidity[0]      = self.frame.data[1] << 8 | self.frame.data[0]
 
                 self.frame.data.clear()
-                #return True
+                return True
     
     def startUpdates(self):
         self.updateThread = threading.Thread(target=self.updateData)
@@ -272,8 +272,8 @@ class Redbus():
                 dataFrame.command = mC.MODBUS_READ
                 dataFrame.data[0] = mC.SENSORS_BOARD_READ_DISTANCE
                 self.send_frame(dataFrame)
-                #if (self.read_data() == False):
-                #    print( f"[ERROR] Module SonsorBoard on address: {dataFrame.address} failure")
+                if (self.read_data() == False):
+                    print( f"[ERROR] Module SonsorBoard on address: {dataFrame.address} failure")
 
             # MainBoards queries        
             for adr in self.infrastructure.mainBoards:
@@ -285,15 +285,15 @@ class Redbus():
                 dataFrame.data[3] = ((self.resources.relays >> 8) & 0xFF)
 
                 self.send_frame(dataFrame)
-                #time.sleep(self.transmissionInterval)
+                time.sleep(self.transmissionInterval)
 
                 # read outputs states
                 dataFrame.address = int(adr)
                 dataFrame.command = mC.MODBUS_READ
                 dataFrame.data[0] = mC.MAIN_BOARD_OUTPUTS
                 self.send_frame(dataFrame)
-                #if (self.read_data() == False):
-                #    print( f"[ERROR] Module MainBoard on address: {dataFrame.address} failure")
+                if (self.read_data() == False):
+                    print( f"[ERROR] Module MainBoard on address: {dataFrame.address} failure")
                 
                 # read channels currents
                 for x in range(1,6):
@@ -301,8 +301,8 @@ class Redbus():
                     dataFrame.command = mC.MODBUS_READ
                     dataFrame.data[0] = x
                     self.send_frame(dataFrame)
-                #    if (self.read_data() == False):
-                #        print( f"[ERROR] Module MainBoard on address: {dataFrame.address} failure")
+                    if (self.read_data() == False):
+                        print( f"[ERROR] Module MainBoard on address: {dataFrame.address} failure")
 
             # AmbientBoards queries        
             for adr in self.infrastructure.ambientBoards:
@@ -311,17 +311,16 @@ class Redbus():
                 dataFrame.command = mC.MODBUS_READ
                 dataFrame.data[0] = mC.AMBIENT_BOARD_READ_TEMP_PRESS
                 self.send_frame(dataFrame)
-                #if (self.read_data() == False):
-                #    print( f"[ERROR] Module AmbientBoard on address: {dataFrame.address} failure")
+                if (self.read_data() == False):
+                    print( f"[ERROR] Module AmbientBoard on address: {dataFrame.address} failure")
 
                 # read humidity and IAQ
                 dataFrame.address = int(adr)
                 dataFrame.command = mC.MODBUS_READ
                 dataFrame.data[0] = mC.AMBIENT_BOARD_READ_HUMID_GAS
                 self.send_frame(dataFrame)
-                #if (self.read_data() == False):
-                #    print( f"[ERROR] Module AmbientBoard on address: {dataFrame.address} failure")
-                time.sleep(self.transmissionInterval)
+                if (self.read_data() == False):
+                    print( f"[ERROR] Module AmbientBoard on address: {dataFrame.address} failure")
 
     def initiate_modules(self):
         dataFrame = RedbusFrame(4)
