@@ -36,6 +36,7 @@ class MyWindow(Ui_MainWindow):
 
         self.chartPower     =  QChart()
         self.chartResources =  QChart()
+        self.setGraphs()
 
         # create graphs data series
         self.powerData = QLineSeries(self.MainWindow)
@@ -216,7 +217,6 @@ class MyWindow(Ui_MainWindow):
         self.widget.setChart(self.chartResources)
 
         
-    
     def create_linechart(self):
         self.powerData.append(self.counter, self.progressBarTotalCurr.value())
         
