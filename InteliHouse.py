@@ -34,6 +34,9 @@ class MyWindow(Ui_MainWindow):
         self.timer = QtCore.QTimer()
         self.graph_timer = QtCore.QTimer()
 
+        self.chartPower     =  QChart()
+        self.chartResources =  QChart()
+
         # create graphs data series
         self.powerData = QLineSeries(self.MainWindow)
         self.powerData.setName("Total")
@@ -103,7 +106,7 @@ class MyWindow(Ui_MainWindow):
         self.ButtonClearGraphs.clicked.connect(self.clearGraphs)
 
         self.timer.start(self.refreshTime)
-        # self.graph_timer.start(self.refreshTime)
+        self.graph_timer.start(self.refreshTime)
 
 # ---------------class usage functions---------------
     """
@@ -194,6 +197,25 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[2].clear()
         self.liquidData[3].clear()
         self.liquidData[4].clear()
+
+    def setGraphs(self):
+        self.chartPower.addSeries(self.powerData)
+        self.chartPower.createDefaultAxes()
+        self.chartPower.setAnimationOptions(QChart.NoAnimation)
+        self.chartPower.setTitle("Energia")
+        self.chartPower.legend().setVisible(True)
+        self.chartPower.legend().setAlignment(Qt.AlignBottom)
+
+        self.widget_2.setChart(self.chartPower)
+
+        self.chartResources.createDefaultAxes()
+        self.chartResources.setAnimationOptions(QChart.NoAnimation)
+        self.chartResources.legend().setVisible(True)
+        self.chartResources.legend().setAlignment(Qt.AlignBottom)
+
+        self.widget.setChart(self.chartResources)
+
+        
     
     def create_linechart(self):
         self.powerData.append(self.counter, self.progressBarTotalCurr.value())
@@ -218,55 +240,36 @@ class MyWindow(Ui_MainWindow):
 
         if (self.tabWidget.currentIndex() == 0):
             # create and draw power consumption chart
-            chart =  QChart()
-
-            chart.addSeries(self.powerData)
-            chart.createDefaultAxes()
-            chart.setAnimationOptions(QChart.NoAnimation)
-            chart.setTitle("Energia")
-    
-            chart.legend().setVisible(True)
-            chart.legend().setAlignment(Qt.AlignBottom)
-
-            self.widget_2.setChart(chart)
+            self.chartPower.addSeries(self.powerData)
 
         elif (self.tabWidget.currentIndex() == 1):
             # create and draw resources chart
-            chart2 = QChart()
             
             if self.radioButtonTemp.isChecked() == True:
-                chart2.setTitle("Temperatura")
-                chart2.addSeries(self.tempsData[0])
-                chart2.addSeries(self.tempsData[1])
-                chart2.addSeries(self.tempsData[2])
+                self.chartResources.setTitle("Temperatura")
+                self.chartResources.addSeries(self.tempsData[0])
+                self.chartResources.addSeries(self.tempsData[1])
+                self.chartResources.addSeries(self.tempsData[2])
 
             elif self.radioButtonPress.isChecked() == True:
-                chart2.setTitle("Cisnienie")
-                chart2.addSeries(self.pressData[0])
-                chart2.addSeries(self.pressData[1])
-                chart2.addSeries(self.pressData[2])
+                self.chartResources.setTitle("Cisnienie")
+                self.chartResources.addSeries(self.pressData[0])
+                self.chartResources.addSeries(self.pressData[1])
+                self.chartResources.addSeries(self.pressData[2])
 
             elif self.radioButtonHumid.isChecked() == True:
-                chart2.setTitle("Wilgotność")
-                chart2.addSeries(self.humidData[0])
-                chart2.addSeries(self.humidData[1])
-                chart2.addSeries(self.humidData[2])
+                self.chartResources.setTitle("Wilgotność")
+                self.chartResources.addSeries(self.humidData[0])
+                self.chartResources.addSeries(self.humidData[1])
+                self.chartResources.addSeries(self.humidData[2])
 
             elif self.radioButtonLiquids.isChecked() == True:
-                chart2.setTitle("Płyny")
-                chart2.addSeries(self.liquidData[0])
-                chart2.addSeries(self.liquidData[1])
-                chart2.addSeries(self.liquidData[2])
-                chart2.addSeries(self.liquidData[3])
-                chart2.addSeries(self.liquidData[4])
-
-            chart2.createDefaultAxes()
-            chart2.setAnimationOptions(QChart.NoAnimation)
-    
-            chart2.legend().setVisible(True)
-            chart2.legend().setAlignment(Qt.AlignBottom)
-
-            self.widget.setChart(chart2)
+                self.chartResources.setTitle("Płyny")
+                self.chartResources.addSeries(self.liquidData[0])
+                self.chartResources.addSeries(self.liquidData[1])
+                self.chartResources.addSeries(self.liquidData[2])
+                self.chartResources.addSeries(self.liquidData[3])
+                self.chartResources.addSeries(self.liquidData[4])
 
         self.counter = self.counter + 1
 
