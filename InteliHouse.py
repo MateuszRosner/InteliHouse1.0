@@ -126,8 +126,6 @@ class MyWindow(Ui_MainWindow):
 
         self.refresh_progressBars()
 
-        #self.create_linechart()
-
         self.prescaller -= 1
         if self.prescaller == 0:
             self.logger.logData(self.resources)
@@ -197,7 +195,8 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[3].clear()
         self.liquidData[4].clear()
 
-    
+        self.widget.removeAllSeries()
+        self.widget_2.removeAllseries()
 
     
     def create_linechart(self):
