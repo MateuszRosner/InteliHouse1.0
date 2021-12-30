@@ -12,7 +12,7 @@ from resources import Resources
 
 from InteliHouseUI import Ui_MainWindow
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtChart import QChart, QChartView, QLineSeries
+from PyQt5.QtChart import QChart, QChartView, QLineSeries, QValueAxis
 from PyQt5.QtCore import Qt
 
 
@@ -239,7 +239,7 @@ class MyWindow(Ui_MainWindow):
 
         #if (self.tabWidget.currentIndex() == 0):
         # create and draw power consumption chart
-        axis_x = PyQt5.QtChart.QValueAxis()
+        axis_x = QValueAxis()
         axis_x.setMax(self.counter)
         self.chartPower.setAxisX(axis_x)
         
