@@ -194,10 +194,6 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[2].clear()
         self.liquidData[3].clear()
         self.liquidData[4].clear()
-
-        self.widget.removeAllSeries()
-        self.widget_2.removeAllseries()
-
     
     def create_linechart(self):
         self.powerData.append(self.counter, self.progressBarTotalCurr.value())
