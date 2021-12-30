@@ -1,8 +1,9 @@
-import threading
-import serial
-import time
-import RPi._GPIO as GPIO
 import configparser
+import threading
+import time
+
+import RPi._GPIO as GPIO
+import serial
 
 import redbusCommands as mC
 from infrastructure import Infrastructure
@@ -267,58 +268,60 @@ class Redbus():
         print("[INFO] Modbus data update thread started....")
 
     def updateData(self):
+        dataFrame = RedbusFrame(4)
         # SensorsBoard query
         for adr in self.infrastructure.sensorsBoards:
-            self.frame.address = int(adr)
-            self.frame.command = mC.MODBUS_READ
-            self.frame.data[0] = mC.SENSORS_BOARD_READ_DISTANCE
-            self.send_frame(self.frame)
+            dataFrame.address = int(adr)
+            dataFrame.command = mC.MODBUS_READ
+            dataFrame.data[0] = mC.SENSORS_BOARD_READ_DISTANCE
+            self.send_frame(dataFrame)
             self.read_data()
 
         # MainBoards queries        
         for adr in self.infrastructure.mainBoards:
             # set outputs ragardless to checkboxes
-            self.frame.address = int(adr)
-            self.frame.command = mC.MODBUS_WRITE
-            self.frame.data[0] = mC.MAIN_BOARD_OUTPUTS
-            self.frame.data[2] = (self.resources.relays & 0xFF)
-            self.frame.data[3] = ((self.resources.relays >> 8) & 0xFF)
+            dataFrame.address = int(adr)
+            dataFrame.command = mC.MODBUS_WRITE
+            dataFrame.data[0] = mC.MAIN_BOARD_OUTPUTS
+            dataFrame.data[2] = (self.resources.relays & 0xFF)
+            dataFrame.data[3] = ((self.resources.relays >> 8) & 0xFF)
 
-            self.send_frame(self.frame)
+            self.send_frame(dataFrame)
             time.sleep(self.transmissionInterval)
 
             # read outputs states
-            self.frame.address = int(adr)
-            self.frame.command = mC.MODBUS_READ
-            self.frame.data[0] = mC.MAIN_BOARD_OUTPUTS
-            self.send_frame(self.frame)
+            dataFrame.address = int(adr)
+            dataFrame.command = mC.MODBUS_READ
+            dataFrame.data[0] = mC.MAIN_BOARD_OUTPUTS
+            self.send_frame(dataFrame)
             self.read_data()
             
             # read channels currents
             for x in range(1,6):
-                self.frame.address = int(adr)
-                self.frame.command = mC.MODBUS_READ
-                self.frame.data[0] = x
-                self.send_frame(self.frame)
+                dataFrame.address = int(adr)
+                dataFrame.command = mC.MODBUS_READ
+                dataFrame.data[0] = x
+                self.send_frame(dataFrame)
                 self.read_data()
 
          # AmbientBoards queries        
         for adr in self.infrastructure.ambientBoards:
             # temperature and pressure
-            self.frame.address = int(adr)
-            self.frame.command = mC.MODBUS_READ
-            self.frame.data[0] = mC.AMBIENT_BOARD_READ_TEMP_PRESS
-            self.send_frame(self.frame)
+            dataFrame.address = int(adr)
+            dataFrame.command = mC.MODBUS_READ
+            dataFrame.data[0] = mC.AMBIENT_BOARD_READ_TEMP_PRESS
+            self.send_frame(dataFrame)
             self.read_data()
 
             # read humidity and IAQ
-            self.frame.address = int(adr)
-            self.frame.command = mC.MODBUS_READ
-            self.frame.data[0] = mC.AMBIENT_BOARD_READ_HUMID_GAS
-            self.send_frame(self.frame)
+            dataFrame.address = int(adr)
+            dataFrame.command = mC.MODBUS_READ
+            dataFrame.data[0] = mC.AMBIENT_BOARD_READ_HUMID_GAS
+            self.send_frame(dataFrame)
             self.read_data()
 
     def initiate_modules(self):
+        dataFrame = RedbusFrame(4)
         print("\n[INFO] Modules initialization....")
         if self.infrastructure.infrastructure['MainBoards'] != '0':
             print("[INFO] MainBoards configured...")
@@ -326,11 +329,11 @@ class Redbus():
         if self.infrastructure.infrastructure['SensorsBoards'] != '0':
             # ------------- SET RELAY MODE -----------------------
             for x, adr in enumerate(self.infrastructure.sensorsBoards):
-                self.frame.address = int(adr)
-                self.frame.command = mC.MODBUS_WRITE
-                self.frame.data[0] = mC.SENSORS_BOARD_RELAY_MODE
-                self.frame.data[2] = int(self.infrastructure.config['SENSORS_INPUTS']['RelayMode'].split(',')[x])
-                self.send_frame(self.frame)
+                dataFrame.address = int(adr)
+                dataFrame.command = mC.MODBUS_WRITE
+                dataFrame.data[0] = mC.SENSORS_BOARD_RELAY_MODE
+                dataFrame.data[2] = int(self.infrastructure.config['SENSORS_INPUTS']['RelayMode'].split(',')[x])
+                self.send_frame(dataFrame)
 
                 time.sleep(self.transmissionInterval)
 
@@ -338,12 +341,12 @@ class Redbus():
             for x, adr in enumerate(self.infrastructure.sensorsBoards):
                 thr_min = int(self.infrastructure.config['SENSORS_INPUTS']['PercentThMin'].split(',')[x])
                 thr_max = int(self.infrastructure.config['SENSORS_INPUTS']['PercentThMax'].split(',')[x])
-                self.frame.address = int(adr)
-                self.frame.command = mC.MODBUS_WRITE
-                self.frame.data[0] = mC.SENSORS_BOARD_THRESHOLDS
-                self.frame.data[2] = thr_max
-                self.frame.data[3] = thr_min
-                self.send_frame(self.frame)
+                dataFrame.address = int(adr)
+                dataFrame.command = mC.MODBUS_WRITE
+                dataFrame.data[0] = mC.SENSORS_BOARD_THRESHOLDS
+                dataFrame.data[2] = thr_max
+                dataFrame.data[3] = thr_min
+                self.send_frame(dataFrame)
 
                 time.sleep(self.transmissionInterval)
 
@@ -351,12 +354,12 @@ class Redbus():
             for x, adr in enumerate(self.infrastructure.sensorsBoards):
                 raw_min = int(self.infrastructure.config['SENSORS_INPUTS']['MinRaw'].split(',')[x])
                 raw_max = int(self.infrastructure.config['SENSORS_INPUTS']['MaxRaw'].split(',')[x])
-                self.frame.address = int(adr)
-                self.frame.command = mC.MODBUS_WRITE
-                self.frame.data[0] = mC.SENSORS_BOARD_RAW_VALUES
-                self.frame.data[2] = raw_max
-                self.frame.data[3] = raw_min
-                self.send_frame(self.frame)
+                dataFrame.address = int(adr)
+                dataFrame.command = mC.MODBUS_WRITE
+                dataFrame.data[0] = mC.SENSORS_BOARD_RAW_VALUES
+                dataFrame.data[2] = raw_max
+                dataFrame.data[3] = raw_min
+                self.send_frame(dataFrame)
 
                 time.sleep(self.transmissionInterval)
 
