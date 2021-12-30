@@ -202,14 +202,14 @@ class MyWindow(Ui_MainWindow):
 
     def setGraphs(self):
         self.chartPower.addSeries(self.powerData)
-        self.chartPower.setAnimationOptions(QChart.AllAnimations)
+        self.chartPower.setAnimationOptions(QChart.SeriesAnimations)
         self.chartPower.setTitle("Energia")
         self.chartPower.legend().setVisible(True)
         self.chartPower.legend().setAlignment(Qt.AlignBottom)
 
         self.widget_2.setChart(self.chartPower)
 
-        self.chartResources.setAnimationOptions(QChart.AllAnimations)
+        self.chartResources.setAnimationOptions(QChart.SeriesAnimations)
         self.chartResources.legend().setVisible(True)
         self.chartResources.legend().setAlignment(Qt.AlignBottom)
 
@@ -241,8 +241,8 @@ class MyWindow(Ui_MainWindow):
         # create and draw power consumption chart
         #self.chartPower.axisX(self.powerData)
         #self.chartPower.axisY(self.powerData)
-        self.chartPower.createDefaultAxes()
-        self.widget_2.setChart(self.chartPower)
+        #self.chartPower.createDefaultAxes()
+        #self.widget_2.setChart(self.chartPower)
 
         #elif (self.tabWidget.currentIndex() == 1):
             # create and draw resources chart
