@@ -148,9 +148,9 @@ class Redbus():
         self.crc_control = crcControl
         self.transmissionInterval = intervals
 
-        self.readThread = threading.Thread(target=self.read_data)
+        """self.readThread = threading.Thread(target=self.read_data)
         self.readThread.daemon = True
-        self.readThread.start()
+        self.readThread.start()"""
     
     def send_frame(self, frame):
         if self.ser.isOpen():
