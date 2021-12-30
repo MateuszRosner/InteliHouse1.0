@@ -216,9 +216,6 @@ class MyWindow(Ui_MainWindow):
 
         
     def create_linechart(self):
-        self.chartPower.removeAllSeries()
-        self.chartResources.removeAllSeries()
-
         self.powerData.append(self.counter, self.progressBarTotalCurr.value())
         
         self.tempsData[0].append(self.counter, self.resources.temperature[0] / 10)
@@ -241,13 +238,13 @@ class MyWindow(Ui_MainWindow):
 
         if (self.tabWidget.currentIndex() == 0):
             # create and draw power consumption chart
-            self.chartPower.addSeries(self.powerData)
+            #self.chartPower.addSeries(self.powerData)
             self.chartPower.createDefaultAxes()
 
         elif (self.tabWidget.currentIndex() == 1):
             # create and draw resources chart
             
-            if self.radioButtonTemp.isChecked() == True:
+            """if self.radioButtonTemp.isChecked() == True:
                 self.chartResources.setTitle("Temperatura")
                 self.chartResources.addSeries(self.tempsData[0])
                 self.chartResources.addSeries(self.tempsData[1])
@@ -271,7 +268,7 @@ class MyWindow(Ui_MainWindow):
                 self.chartResources.addSeries(self.liquidData[1])
                 self.chartResources.addSeries(self.liquidData[2])
                 self.chartResources.addSeries(self.liquidData[3])
-                self.chartResources.addSeries(self.liquidData[4])
+                self.chartResources.addSeries(self.liquidData[4])"""
 
             self.chartResources.createDefaultAxes()
 
