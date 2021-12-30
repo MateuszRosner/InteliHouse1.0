@@ -250,6 +250,7 @@ class MyWindow(Ui_MainWindow):
         timenow = QtCore.QDateTime.currentDateTime()
 
         self.powerData.append(timenow, self.progressBarTotalCurr.value())
+        self.axis_x_p.setMax(timenow)
         
         self.tempsData[0].append(self.counter, self.resources.temperature[0] / 10)
         self.tempsData[1].append(self.counter, self.resources.temperature[1] / 10)
