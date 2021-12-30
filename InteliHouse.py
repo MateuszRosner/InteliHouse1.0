@@ -201,6 +201,7 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[4].clear()
 
     def setGraphs(self):
+        self.chartPower.addSeries(self.powerData)
         self.chartPower.setAnimationOptions(QChart.NoAnimation)
         self.chartPower.setTitle("Energia")
         self.chartPower.legend().setVisible(True)
@@ -238,7 +239,6 @@ class MyWindow(Ui_MainWindow):
 
         if (self.tabWidget.currentIndex() == 0):
             # create and draw power consumption chart
-            #self.chartPower.addSeries(self.powerData)
             self.chartPower.axisX(self.powerData)
             self.chartPower.axisY(self.powerData)
             self.chartPower.createDefaultAxes()
