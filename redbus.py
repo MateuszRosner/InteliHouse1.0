@@ -294,7 +294,8 @@ class Redbus():
                 self.send_frame(dataFrame)
                 if (self.read_data() == False):
                     print( f"[ERROR] Module MainBoard on address: {dataFrame.address} failure")
-                
+                time.sleep(self.transmissionInterval)
+
                 # read channels currents
                 for x in range(1,6):
                     dataFrame.address = int(adr)
@@ -303,6 +304,7 @@ class Redbus():
                     self.send_frame(dataFrame)
                     if (self.read_data() == False):
                         print( f"[ERROR] Module MainBoard on address: {dataFrame.address} failure")
+                    time.sleep(self.transmissionInterval)
 
             # AmbientBoards queries        
             for adr in self.infrastructure.ambientBoards:
@@ -313,6 +315,7 @@ class Redbus():
                 self.send_frame(dataFrame)
                 if (self.read_data() == False):
                     print( f"[ERROR] Module AmbientBoard on address: {dataFrame.address} failure")
+                time.sleep(self.transmissionInterval)
 
                 # read humidity and IAQ
                 dataFrame.address = int(adr)
@@ -321,6 +324,7 @@ class Redbus():
                 self.send_frame(dataFrame)
                 if (self.read_data() == False):
                     print( f"[ERROR] Module AmbientBoard on address: {dataFrame.address} failure")
+                time.sleep(self.transmissionInterval)
 
     def initiate_modules(self):
         dataFrame = RedbusFrame(4)
