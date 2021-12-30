@@ -103,7 +103,7 @@ class MyWindow(Ui_MainWindow):
         self.ButtonClearGraphs.clicked.connect(self.clearGraphs)
 
         self.timer.start(self.refreshTime)
-        self.graph_timer.start(self.refreshTime)
+        # self.graph_timer.start(self.refreshTime)
 
 # ---------------class usage functions---------------
     """
