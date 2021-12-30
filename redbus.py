@@ -271,7 +271,7 @@ class Redbus():
             self.frame.address = int(adr)
             self.frame.command = mC.MODBUS_READ
             self.frame.data[0] = mC.SENSORS_BOARD_READ_DISTANCE
-            self.redbus.send_frame(self.frame)
+            self.send_frame(self.frame)
             self.read_data()
 
         # MainBoards queries        
@@ -283,14 +283,14 @@ class Redbus():
             self.frame.data[2] = (self.resources.relays & 0xFF)
             self.frame.data[3] = ((self.resources.relays >> 8) & 0xFF)
 
-            self.redbus.send_frame(self.frame)
+            self.send_frame(self.frame)
             time.sleep(self.transmissionInterval)
 
             # read outputs states
             self.frame.address = int(adr)
             self.frame.command = mC.MODBUS_READ
             self.frame.data[0] = mC.MAIN_BOARD_OUTPUTS
-            self.redbus.send_frame(self.frame)
+            self.send_frame(self.frame)
             self.read_data()
             
             # read channels currents
@@ -298,7 +298,7 @@ class Redbus():
                 self.frame.address = int(adr)
                 self.frame.command = mC.MODBUS_READ
                 self.frame.data[0] = x
-                self.redbus.send_frame(self.frame)
+                self.send_frame(self.frame)
                 self.read_data()
 
          # AmbientBoards queries        
@@ -307,14 +307,14 @@ class Redbus():
             self.frame.address = int(adr)
             self.frame.command = mC.MODBUS_READ
             self.frame.data[0] = mC.AMBIENT_BOARD_READ_TEMP_PRESS
-            self.redbus.send_frame(self.frame)
+            self.send_frame(self.frame)
             self.read_data()
 
             # read humidity and IAQ
             self.frame.address = int(adr)
             self.frame.command = mC.MODBUS_READ
             self.frame.data[0] = mC.AMBIENT_BOARD_READ_HUMID_GAS
-            self.redbus.send_frame(self.frame)
+            self.send_frame(self.frame)
             self.read_data()
 
     def initiate_modules(self):
@@ -329,7 +329,7 @@ class Redbus():
                 self.frame.command = mC.MODBUS_WRITE
                 self.frame.data[0] = mC.SENSORS_BOARD_RELAY_MODE
                 self.frame.data[2] = int(self.infrastructure.config['SENSORS_INPUTS']['RelayMode'].split(',')[x])
-                self.redbus.send_frame(self.frame)
+                self.send_frame(self.frame)
 
                 time.sleep(self.transmissionInterval)
 
@@ -342,7 +342,7 @@ class Redbus():
                 self.frame.data[0] = mC.SENSORS_BOARD_THRESHOLDS
                 self.frame.data[2] = thr_max
                 self.frame.data[3] = thr_min
-                self.redbus.send_frame(self.frame)
+                self.send_frame(self.frame)
 
                 time.sleep(self.transmissionInterval)
 
@@ -355,7 +355,7 @@ class Redbus():
                 self.frame.data[0] = mC.SENSORS_BOARD_RAW_VALUES
                 self.frame.data[2] = raw_max
                 self.frame.data[3] = raw_min
-                self.redbus.send_frame(self.frame)
+                self.send_frame(self.frame)
 
                 time.sleep(self.transmissionInterval)
 
