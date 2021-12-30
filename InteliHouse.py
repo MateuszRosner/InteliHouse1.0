@@ -242,7 +242,7 @@ class MyWindow(Ui_MainWindow):
         #self.chartPower.axisX(self.powerData)
         #self.chartPower.axisY(self.powerData)
         
-        print(self.powerData)
+        print(self.powerData.count())
         #self.widget_2.setChart(self.chartPower)
 
         #elif (self.tabWidget.currentIndex() == 1):
