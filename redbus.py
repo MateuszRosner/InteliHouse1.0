@@ -115,13 +115,13 @@ class RedbusFrame():
 
     
 class Redbus():
-    def __init__(self, resources, Baudrate = 38400, dev = "/dev/ttyS0", crcControl=True, dataLen=8):
+    def __init__(self, resources, Baudrate = 38400, dev = "/dev/ttyS0", crcControl=True, dataLen=8, intervals=0.1):
         self.ser=serial.Serial(
             baudrate=Baudrate,
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS,
-            timeout=0.1)
+            timeout=0.2)
         self.dev = dev
         self.ser.port = self.dev
 
@@ -144,10 +144,11 @@ class Redbus():
         self.frame = RedbusFrame(dataLen)
         self.rec_data_len = dataLen
         self.crc_control = crcControl
-        self.thread = threading.Thread(target=self.read_data)
-        self.thread.daemon = True
-        self.thread.start()
-        print("[INFO] Modbus thread started....")
+        self.transmissionInterval = intervals
+        #self.thread = threading.Thread(target=self.read_data)
+        #self.thread.daemon = True
+        #self.thread.start()
+        #print("[INFO] Modbus thread started....")
     
     def send_frame(self, frame):
         if self.ser.isOpen():
@@ -157,20 +158,20 @@ class Redbus():
             self.ser.write(frame)
             GPIO.output(TXDEN_1, GPIO.HIGH)    # recive
 
-
-    def read_data(self):
-            
-        while self.ser.isOpen():
+    def read_data(self):         
+        if self.ser.isOpen() == True:
             try:
                 data = self.ser.read(self.rec_data_len)
                 data = bytearray(data)
 
             except serial.SerialTimeoutException:
                 print("[WARNING] Timeout exception...")
+                return False
             
             if len(data) < self.rec_data_len:
                 self.frame.clear()
                 self.ser.flush()
+                return False
             else:
                 self.frame.address = (data[0])
                 self.frame.command = (data[1])
@@ -189,7 +190,7 @@ class Redbus():
                         print("[WARNING] CRC error")
                         self.frame.clear()
                         self.ser.flush()
-                        continue
+                        return False
                 
                 # decode data from MainBoard 
                 if self.frame.address == 1:
@@ -256,7 +257,66 @@ class Redbus():
                         self.resources.humidity[0]      = self.frame.data[1] << 8 | self.frame.data[0]
 
                 self.frame.data.clear()
+                return True
     
+    def startUpdates(self):
+        self.updateThread = threading.Thread(target=self.updateData)
+        self.updateThread.daemon = True
+        self.updateThread.start()
+        print("[INFO] Modbus data update thread started....")
+
+    def updateData(self):
+        # SensorsBoard query
+        for adr in self.infrastructure.sensorsBoards:
+            self.frame.address = int(adr)
+            self.frame.command = mC.MODBUS_READ
+            self.frame.data[0] = mC.SENSORS_BOARD_READ_DISTANCE
+            self.redbus.send_frame(self.frame)
+            self.read_data()
+
+        # MainBoards queries        
+        for adr in self.infrastructure.mainBoards:
+            # set outputs ragardless to checkboxes
+            self.frame.address = int(adr)
+            self.frame.command = mC.MODBUS_WRITE
+            self.frame.data[0] = mC.MAIN_BOARD_OUTPUTS
+            self.frame.data[2] = (self.resources.relays & 0xFF)
+            self.frame.data[3] = ((self.resources.relays >> 8) & 0xFF)
+
+            self.redbus.send_frame(self.frame)
+            time.sleep(self.transmissionInterval)
+
+            # read outputs states
+            self.frame.address = int(adr)
+            self.frame.command = mC.MODBUS_READ
+            self.frame.data[0] = mC.MAIN_BOARD_OUTPUTS
+            self.redbus.send_frame(self.frame)
+            self.read_data()
+            
+            # read channels currents
+            for x in range(1,6):
+                self.frame.address = int(adr)
+                self.frame.command = mC.MODBUS_READ
+                self.frame.data[0] = x
+                self.redbus.send_frame(self.frame)
+                self.read_data()
+
+         # AmbientBoards queries        
+        for adr in self.infrastructure.ambientBoards:
+            # temperature and pressure
+            self.frame.address = int(adr)
+            self.frame.command = mC.MODBUS_READ
+            self.frame.data[0] = mC.AMBIENT_BOARD_READ_TEMP_PRESS
+            self.redbus.send_frame(self.frame)
+            self.read_data()
+
+            # read humidity and IAQ
+            self.frame.address = int(adr)
+            self.frame.command = mC.MODBUS_READ
+            self.frame.data[0] = mC.AMBIENT_BOARD_READ_HUMID_GAS
+            self.redbus.send_frame(self.frame)
+            self.read_data()   
+
     def FlushBuffer(self):
         self.ser.flush()
 

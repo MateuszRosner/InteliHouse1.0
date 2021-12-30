@@ -10,3 +10,4 @@ class Resources():
         self.humidity     = [0, 0, 0]
         self.gas          = [0, 0, 0]
         self.total_curr   = 0.0
+        self.relays       = 0

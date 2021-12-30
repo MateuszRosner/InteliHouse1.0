@@ -86,14 +86,16 @@ class MyWindow(Ui_MainWindow):
         self.config.read('config.ini')
 
         self.refreshTime            = int(self.config['PARAMETERS']['RefreshFrequency'])
-        self.transmissionInterval   = float(self.config['PARAMETERS']['TransmissionInterval'])
         self.mainOutputs            = self.config['MAIN_OUTPUTS']
         self.maxSamples             = int(self.config['CHARTS']['MaxSamples'])
         self.priorities             = self.config['MAIN_OUTPUTS']['Priorities'].split(',')
 
         self.infrastructure         = self.config['INFRASTRUCTURE']
         self.addresses              = self.config['ADDRESSES']
+        
+        # run REDBUS and initiate modules
         self.initiate_modules()
+        self.redbus.startUpdates()
 
         # --------------- signals - slots config ---------------
         self.timer.timeout.connect(self.refresh_ui)
@@ -107,68 +109,10 @@ class MyWindow(Ui_MainWindow):
     """
     cyclic gui refresh with updated parameters from modules
     """
-    def refresh_ui(self):    
-        ports = 0
+    def refresh_ui(self): 
+        self.resources.relays = 0   
         for x, box in enumerate(self.checkBoxes):
-            ports += (int(box.isChecked())) << x
-
-        # SensorsBoard query
-        addrs = self.addresses['SensorsBoard'].split(',')
-
-        for adr in addrs:
-            self.frame.address = int(adr)
-            self.frame.command = mC.MODBUS_READ
-            self.frame.data[0] = mC.SENSORS_BOARD_READ_DISTANCE
-            self.redbus.send_frame(self.frame)
-
-            time.sleep(self.transmissionInterval)
-
-        # MainBoards queries
-        addrs = self.addresses['MainBoard'].split(',')
-        
-        for adr in addrs:
-            # set outputs ragardless to checkboxes
-            self.frame.address = int(adr)
-            self.frame.command = mC.MODBUS_WRITE
-            self.frame.data[0] = mC.MAIN_BOARD_OUTPUTS
-            self.frame.data[2] = (ports & 0xFF)
-            self.frame.data[3] = ((ports >> 8) & 0xFF)
-
-            self.redbus.send_frame(self.frame)
-            time.sleep(self.transmissionInterval)
-
-            # read outputs states
-            self.frame.address = int(adr)
-            self.frame.command = mC.MODBUS_READ
-            self.frame.data[0] = mC.MAIN_BOARD_OUTPUTS
-            self.redbus.send_frame(self.frame)
-            time.sleep(self.transmissionInterval)
-            
-            # read channels currents
-            for x in range(1,6):
-                self.frame.address = int(adr)
-                self.frame.command = mC.MODBUS_READ
-                self.frame.data[0] = x
-                self.redbus.send_frame(self.frame)
-                time.sleep(self.transmissionInterval)
-
-         # AmbientBoards queries
-        addrs = self.addresses['AmbientBoard'].split(',')
-        
-        for adr in addrs:
-            # temperature and pressure
-            self.frame.address = int(adr)
-            self.frame.command = mC.MODBUS_READ
-            self.frame.data[0] = mC.AMBIENT_BOARD_READ_TEMP_PRESS
-            self.redbus.send_frame(self.frame)
-            time.sleep(self.transmissionInterval)
-
-            # read humidity and IAQ
-            self.frame.address = int(adr)
-            self.frame.command = mC.MODBUS_READ
-            self.frame.data[0] = mC.AMBIENT_BOARD_READ_HUMID_GAS
-            self.redbus.send_frame(self.frame)
-            time.sleep(self.transmissionInterval)
+            self.resources.relays += (int(box.isChecked())) << x
 
         self.frame2.address = 0x03
         self.frame2.command = 0x03
@@ -181,6 +125,8 @@ class MyWindow(Ui_MainWindow):
         # time.sleep(self.transmissionInterval)
 
         self.refresh_progressBars()
+
+        #self.create_linechart()
 
         self.prescaller -= 1
         if self.prescaller == 0:
