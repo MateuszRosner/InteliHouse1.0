@@ -201,8 +201,6 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[4].clear()
 
     def setGraphs(self):
-        self.chartPower.addSeries(self.powerData)
-        self.chartPower.createDefaultAxes()
         self.chartPower.setAnimationOptions(QChart.NoAnimation)
         self.chartPower.setTitle("Energia")
         self.chartPower.legend().setVisible(True)
@@ -210,7 +208,6 @@ class MyWindow(Ui_MainWindow):
 
         self.widget_2.setChart(self.chartPower)
 
-        self.chartResources.createDefaultAxes()
         self.chartResources.setAnimationOptions(QChart.NoAnimation)
         self.chartResources.legend().setVisible(True)
         self.chartResources.legend().setAlignment(Qt.AlignBottom)
@@ -219,6 +216,9 @@ class MyWindow(Ui_MainWindow):
 
         
     def create_linechart(self):
+        self.chartPower.removeAllSeries()
+        self.chartResources.removeAllSeries()
+
         self.powerData.append(self.counter, self.progressBarTotalCurr.value())
         
         self.tempsData[0].append(self.counter, self.resources.temperature[0] / 10)
@@ -242,6 +242,7 @@ class MyWindow(Ui_MainWindow):
         if (self.tabWidget.currentIndex() == 0):
             # create and draw power consumption chart
             self.chartPower.addSeries(self.powerData)
+            self.chartPower.createDefaultAxes()
 
         elif (self.tabWidget.currentIndex() == 1):
             # create and draw resources chart
@@ -271,6 +272,8 @@ class MyWindow(Ui_MainWindow):
                 self.chartResources.addSeries(self.liquidData[2])
                 self.chartResources.addSeries(self.liquidData[3])
                 self.chartResources.addSeries(self.liquidData[4])
+
+            self.chartResources.createDefaultAxes()
 
         self.counter = self.counter + 1
 
