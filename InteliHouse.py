@@ -241,7 +241,8 @@ class MyWindow(Ui_MainWindow):
         # create and draw power consumption chart
         #self.chartPower.axisX(self.powerData)
         #self.chartPower.axisY(self.powerData)
-        self.chartPower.axisX().setMax(self.counter)
+        
+        print(self.powerData)
         #self.widget_2.setChart(self.chartPower)
 
         #elif (self.tabWidget.currentIndex() == 1):
