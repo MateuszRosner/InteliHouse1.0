@@ -239,7 +239,10 @@ class MyWindow(Ui_MainWindow):
 
         #if (self.tabWidget.currentIndex() == 0):
         # create and draw power consumption chart
-        print(self.chartPower.axisX(self.powerData))
+        axis_x = QtChart.QValueAxis()
+        axis_x.setMax(self.counter)
+        self.chartPower.setAxisX(axis_x)
+        
         print(self.powerData.count())
         
 
