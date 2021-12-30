@@ -231,8 +231,6 @@ class MyWindow(Ui_MainWindow):
         self.chartResources.legend().setVisible(True)
         self.chartResources.legend().setAlignment(Qt.AlignBottom)
 
-        
-
         self.widget.setChart(self.chartResources)
 
         
@@ -283,7 +281,7 @@ class MyWindow(Ui_MainWindow):
             self.chartResources.setTitle("Płyny")
 
         self.chartResources.setAxisX(axis_x)
-        self.chartResources.createDefaultAxes()
+        #self.chartResources.createDefaultAxes()
 
         self.counter = self.counter + 1
 
