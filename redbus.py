@@ -315,7 +315,60 @@ class Redbus():
             self.frame.command = mC.MODBUS_READ
             self.frame.data[0] = mC.AMBIENT_BOARD_READ_HUMID_GAS
             self.redbus.send_frame(self.frame)
-            self.read_data()   
+            self.read_data()
+
+    def initiate_modules(self):
+        print("\n[INFO] Modules initialization....")
+        if self.infrastructure.infrastructure['MainBoards'] != '0':
+            print("[INFO] MainBoards configured...")
+
+        if self.infrastructure.infrastructure['SensorsBoards'] != '0':
+            # ------------- SET RELAY MODE -----------------------
+            for x, adr in enumerate(self.infrastructure.sensorsBoards):
+                self.frame.address = int(adr)
+                self.frame.command = mC.MODBUS_WRITE
+                self.frame.data[0] = mC.SENSORS_BOARD_RELAY_MODE
+                self.frame.data[2] = int(self.infrastructure.config['SENSORS_INPUTS']['RelayMode'].split(',')[x])
+                self.redbus.send_frame(self.frame)
+
+                time.sleep(self.transmissionInterval)
+
+            # ------------- SET THRESHOLDS -----------------------
+            for x, adr in enumerate(self.infrastructure.sensorsBoards):
+                thr_min = int(self.infrastructure.config['SENSORS_INPUTS']['PercentThMin'].split(',')[x])
+                thr_max = int(self.infrastructure.config['SENSORS_INPUTS']['PercentThMax'].split(',')[x])
+                self.frame.address = int(adr)
+                self.frame.command = mC.MODBUS_WRITE
+                self.frame.data[0] = mC.SENSORS_BOARD_THRESHOLDS
+                self.frame.data[2] = thr_max
+                self.frame.data[3] = thr_min
+                self.redbus.send_frame(self.frame)
+
+                time.sleep(self.transmissionInterval)
+
+            # ------------- SET MIN MAX RAW -----------------------
+            for x, adr in enumerate(self.infrastructure.sensorsBoards):
+                raw_min = int(self.infrastructure.config['SENSORS_INPUTS']['MinRaw'].split(',')[x])
+                raw_max = int(self.infrastructure.config['SENSORS_INPUTS']['MaxRaw'].split(',')[x])
+                self.frame.address = int(adr)
+                self.frame.command = mC.MODBUS_WRITE
+                self.frame.data[0] = mC.SENSORS_BOARD_RAW_VALUES
+                self.frame.data[2] = raw_max
+                self.frame.data[3] = raw_min
+                self.redbus.send_frame(self.frame)
+
+                time.sleep(self.transmissionInterval)
+
+
+            print("[INFO] SensorsBoards configured...")
+        
+        if self.infrastructure['AmbientBoards'] != '0':
+            print("[INFO] AmbientBoards configured...")
+
+        if self.infrastructure['PGMBoards'] != '0':
+            print("[INFO] PGMBoards configured...")
+
+        print("[INFO] Initialization done!\n")   
 
     def FlushBuffer(self):
         self.ser.flush()
