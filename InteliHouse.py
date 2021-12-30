@@ -12,7 +12,7 @@ from resources import Resources
 
 from InteliHouseUI import Ui_MainWindow
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtChart import QChart, QChartView, QLineSeries, QValueAxis
+from PyQt5.QtChart import QChart, QChartView, QLineSeries, QValueAxis, QDateTimeAxis
 from PyQt5.QtCore import Qt
 
 
@@ -36,6 +36,12 @@ class MyWindow(Ui_MainWindow):
 
         self.chartPower     =  QChart()
         self.chartResources =  QChart()
+        self.axis_y_p, self.axis_y_r = QValueAxis()
+        self.axis_x_p, self.axis_x_r = QDateTimeAxis()
+        self.axis_x_p.setFormat("h:mm")
+        self.axis_x_p.setTitleText("Date")
+        self.axis_x_r.setFormat("h:mm")
+        self.axis_x_r.setTitleText("Date")
 
         # create graphs data series
         self.powerData = QLineSeries(self.MainWindow)
@@ -201,11 +207,15 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[4].clear()
 
     def setGraphs(self):
+        self.powerData.attachAxis(self.axis_x_p)
+        self.powerData.attachAxis(self.axis_y_p)
         self.chartPower.addSeries(self.powerData)
         self.chartPower.setAnimationOptions(QChart.SeriesAnimations)
         self.chartPower.setTitle("Energia")
         self.chartPower.legend().setVisible(True)
         self.chartPower.legend().setAlignment(Qt.AlignBottom)
+        self.chartPower.addAxis(self.axis_y_p, QtCore.Qt.AlignLeft)
+        self.chartPower.addAxis(self.axis_x_p, QtCore.Qt.AlignBottom)
 
         self.widget_2.setChart(self.chartPower)
 
@@ -230,12 +240,16 @@ class MyWindow(Ui_MainWindow):
         self.chartResources.setAnimationOptions(QChart.SeriesAnimations)
         self.chartResources.legend().setVisible(True)
         self.chartResources.legend().setAlignment(Qt.AlignBottom)
+        self.chartResources.addAxis(self.axis_y_r, QtCore.Qt.AlignLeft)
+        self.chartResources.addAxis(self.axis_x_r, QtCore.Qt.AlignBottom)
 
         self.widget.setChart(self.chartResources)
 
         
     def create_linechart(self):
-        self.powerData.append(self.counter, self.progressBarTotalCurr.value())
+        timenow = QtCore.QDateTime.currentDateTime()
+
+        self.powerData.append(timenow, self.progressBarTotalCurr.value())
         
         self.tempsData[0].append(self.counter, self.resources.temperature[0] / 10)
         self.tempsData[1].append(self.counter, self.resources.temperature[1] / 10)
@@ -254,34 +268,18 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[2].append(self.counter, self.resources.liquids[2])
         self.liquidData[3].append(self.counter, self.resources.liquids[3])
         self.liquidData[4].append(self.counter, self.resources.liquids[4])
-
-        #if (self.tabWidget.currentIndex() == 0):
-        # create and draw power consumption chart
-        axis_x = QValueAxis()
-        axis_x.setMax(self.counter)
-        #self.chartPower.setAxisX(axis_x)
-        
-
-        #elif (self.tabWidget.currentIndex() == 1):
-            # create and draw resources chart
             
         if self.radioButtonTemp.isChecked() == True:
             self.chartResources.setTitle("Temperatura")
-            
-
+        
         elif self.radioButtonPress.isChecked() == True:
             self.chartResources.setTitle("Cisnienie")
             
-
         elif self.radioButtonHumid.isChecked() == True:
             self.chartResources.setTitle("Wilgotność")
             
-
         elif self.radioButtonLiquids.isChecked() == True:
             self.chartResources.setTitle("Płyny")
-
-        self.chartResources.setAxisX(axis_x)
-        #self.chartResources.createDefaultAxes()
 
         self.counter = self.counter + 1
 
