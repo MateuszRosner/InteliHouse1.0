@@ -261,7 +261,7 @@ class MyWindow(Ui_MainWindow):
         # create and draw power consumption chart
         axis_x = QValueAxis()
         axis_x.setMax(self.counter)
-        self.chartPower.setAxisX(axis_x)
+        #self.chartPower.setAxisX(axis_x)
         
 
         #elif (self.tabWidget.currentIndex() == 1):
