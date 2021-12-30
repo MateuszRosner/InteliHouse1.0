@@ -315,7 +315,7 @@ class Redbus():
                 dataFrame.command = mC.MODBUS_READ
                 dataFrame.data[0] = mC.AMBIENT_BOARD_READ_HUMID_GAS
                 self.send_frame(dataFrame)
-                 if (self.read_data() == False):
+                if (self.read_data() == False):
                     print( f"[ERROR] Module AmbientBoard on address: {dataFrame.address} failure")
 
     def initiate_modules(self):
