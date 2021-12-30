@@ -123,7 +123,7 @@ class Redbus():
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS,
-            timeout=0.5)
+            timeout=1)
         self.dev = dev
         self.ser.port = self.dev
 
