@@ -1,5 +1,6 @@
 import threading
 import serial
+import time
 import RPi._GPIO as GPIO
 import configparser
 
