@@ -237,42 +237,42 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[3].append(self.counter, self.resources.liquids[3])
         self.liquidData[4].append(self.counter, self.resources.liquids[4])
 
-        if (self.tabWidget.currentIndex() == 0):
-            # create and draw power consumption chart
-            self.chartPower.axisX(self.powerData)
-            self.chartPower.axisY(self.powerData)
-            self.chartPower.createDefaultAxes()
+        #if (self.tabWidget.currentIndex() == 0):
+        # create and draw power consumption chart
+        self.chartPower.axisX(self.powerData)
+        self.chartPower.axisY(self.powerData)
+        self.chartPower.createDefaultAxes()
 
-        elif (self.tabWidget.currentIndex() == 1):
+        #elif (self.tabWidget.currentIndex() == 1):
             # create and draw resources chart
             
-            """if self.radioButtonTemp.isChecked() == True:
-                self.chartResources.setTitle("Temperatura")
-                self.chartResources.addSeries(self.tempsData[0])
-                self.chartResources.addSeries(self.tempsData[1])
-                self.chartResources.addSeries(self.tempsData[2])
+        """if self.radioButtonTemp.isChecked() == True:
+            self.chartResources.setTitle("Temperatura")
+            self.chartResources.addSeries(self.tempsData[0])
+            self.chartResources.addSeries(self.tempsData[1])
+            self.chartResources.addSeries(self.tempsData[2])
 
-            elif self.radioButtonPress.isChecked() == True:
-                self.chartResources.setTitle("Cisnienie")
-                self.chartResources.addSeries(self.pressData[0])
-                self.chartResources.addSeries(self.pressData[1])
-                self.chartResources.addSeries(self.pressData[2])
+        elif self.radioButtonPress.isChecked() == True:
+            self.chartResources.setTitle("Cisnienie")
+            self.chartResources.addSeries(self.pressData[0])
+            self.chartResources.addSeries(self.pressData[1])
+            self.chartResources.addSeries(self.pressData[2])
 
-            elif self.radioButtonHumid.isChecked() == True:
-                self.chartResources.setTitle("Wilgotność")
-                self.chartResources.addSeries(self.humidData[0])
-                self.chartResources.addSeries(self.humidData[1])
-                self.chartResources.addSeries(self.humidData[2])
+        elif self.radioButtonHumid.isChecked() == True:
+            self.chartResources.setTitle("Wilgotność")
+            self.chartResources.addSeries(self.humidData[0])
+            self.chartResources.addSeries(self.humidData[1])
+            self.chartResources.addSeries(self.humidData[2])
 
-            elif self.radioButtonLiquids.isChecked() == True:
-                self.chartResources.setTitle("Płyny")
-                self.chartResources.addSeries(self.liquidData[0])
-                self.chartResources.addSeries(self.liquidData[1])
-                self.chartResources.addSeries(self.liquidData[2])
-                self.chartResources.addSeries(self.liquidData[3])
-                self.chartResources.addSeries(self.liquidData[4])"""
+        elif self.radioButtonLiquids.isChecked() == True:
+            self.chartResources.setTitle("Płyny")
+            self.chartResources.addSeries(self.liquidData[0])
+            self.chartResources.addSeries(self.liquidData[1])
+            self.chartResources.addSeries(self.liquidData[2])
+            self.chartResources.addSeries(self.liquidData[3])
+            self.chartResources.addSeries(self.liquidData[4])"""
 
-            self.chartResources.createDefaultAxes()
+        self.chartResources.createDefaultAxes()
 
         self.counter = self.counter + 1
 
