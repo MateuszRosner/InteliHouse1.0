@@ -280,9 +280,9 @@ class MyWindow(Ui_MainWindow):
 
         
     def __del__(self):
-        addrs = self.addresses['MainBoard'].split(',')
+        #addrs = self.addresses['MainBoard'].split(',')
 
-        for adr in addrs:
+        """for adr in addrs:
             # set outputs ragardless to checkboxes
             self.frame.address = int(adr)
             self.frame.command = mC.MODBUS_WRITE
@@ -291,7 +291,7 @@ class MyWindow(Ui_MainWindow):
             self.frame.data[3] = 0
 
             self.redbus.send_frame(self.frame)
-            time.sleep(self.transmissionInterval)
+            time.sleep(self.transmissionInterval)"""
 
 
 if __name__ == "__main__":
