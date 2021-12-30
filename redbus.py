@@ -268,57 +268,58 @@ class Redbus():
         print("[INFO] Modbus data update thread started....")
 
     def updateData(self):
-        dataFrame = RedbusFrame(4)
-        # SensorsBoard query
-        for adr in self.infrastructure.sensorsBoards:
-            dataFrame.address = int(adr)
-            dataFrame.command = mC.MODBUS_READ
-            dataFrame.data[0] = mC.SENSORS_BOARD_READ_DISTANCE
-            self.send_frame(dataFrame)
-            self.read_data()
-
-        # MainBoards queries        
-        for adr in self.infrastructure.mainBoards:
-            # set outputs ragardless to checkboxes
-            dataFrame.address = int(adr)
-            dataFrame.command = mC.MODBUS_WRITE
-            dataFrame.data[0] = mC.MAIN_BOARD_OUTPUTS
-            dataFrame.data[2] = (self.resources.relays & 0xFF)
-            dataFrame.data[3] = ((self.resources.relays >> 8) & 0xFF)
-
-            self.send_frame(dataFrame)
-            time.sleep(self.transmissionInterval)
-
-            # read outputs states
-            dataFrame.address = int(adr)
-            dataFrame.command = mC.MODBUS_READ
-            dataFrame.data[0] = mC.MAIN_BOARD_OUTPUTS
-            self.send_frame(dataFrame)
-            self.read_data()
-            
-            # read channels currents
-            for x in range(1,6):
+        while self.ser.isOpen() == True:
+            dataFrame = RedbusFrame(4)
+            # SensorsBoard query
+            for adr in self.infrastructure.sensorsBoards:
                 dataFrame.address = int(adr)
                 dataFrame.command = mC.MODBUS_READ
-                dataFrame.data[0] = x
+                dataFrame.data[0] = mC.SENSORS_BOARD_READ_DISTANCE
                 self.send_frame(dataFrame)
                 self.read_data()
 
-         # AmbientBoards queries        
-        for adr in self.infrastructure.ambientBoards:
-            # temperature and pressure
-            dataFrame.address = int(adr)
-            dataFrame.command = mC.MODBUS_READ
-            dataFrame.data[0] = mC.AMBIENT_BOARD_READ_TEMP_PRESS
-            self.send_frame(dataFrame)
-            self.read_data()
+            # MainBoards queries        
+            for adr in self.infrastructure.mainBoards:
+                # set outputs ragardless to checkboxes
+                dataFrame.address = int(adr)
+                dataFrame.command = mC.MODBUS_WRITE
+                dataFrame.data[0] = mC.MAIN_BOARD_OUTPUTS
+                dataFrame.data[2] = (self.resources.relays & 0xFF)
+                dataFrame.data[3] = ((self.resources.relays >> 8) & 0xFF)
 
-            # read humidity and IAQ
-            dataFrame.address = int(adr)
-            dataFrame.command = mC.MODBUS_READ
-            dataFrame.data[0] = mC.AMBIENT_BOARD_READ_HUMID_GAS
-            self.send_frame(dataFrame)
-            self.read_data()
+                self.send_frame(dataFrame)
+                time.sleep(self.transmissionInterval)
+
+                # read outputs states
+                dataFrame.address = int(adr)
+                dataFrame.command = mC.MODBUS_READ
+                dataFrame.data[0] = mC.MAIN_BOARD_OUTPUTS
+                self.send_frame(dataFrame)
+                self.read_data()
+                
+                # read channels currents
+                for x in range(1,6):
+                    dataFrame.address = int(adr)
+                    dataFrame.command = mC.MODBUS_READ
+                    dataFrame.data[0] = x
+                    self.send_frame(dataFrame)
+                    self.read_data()
+
+            # AmbientBoards queries        
+            for adr in self.infrastructure.ambientBoards:
+                # temperature and pressure
+                dataFrame.address = int(adr)
+                dataFrame.command = mC.MODBUS_READ
+                dataFrame.data[0] = mC.AMBIENT_BOARD_READ_TEMP_PRESS
+                self.send_frame(dataFrame)
+                self.read_data()
+
+                # read humidity and IAQ
+                dataFrame.address = int(adr)
+                dataFrame.command = mC.MODBUS_READ
+                dataFrame.data[0] = mC.AMBIENT_BOARD_READ_HUMID_GAS
+                self.send_frame(dataFrame)
+                self.read_data()
 
     def initiate_modules(self):
         dataFrame = RedbusFrame(4)
