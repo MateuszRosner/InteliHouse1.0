@@ -40,7 +40,7 @@ class MyWindow(Ui_MainWindow):
         self.axis_y_r = QValueAxis()
         self.axis_x_p = QDateTimeAxis()
         self.axis_x_r = QDateTimeAxis()
-        
+
         self.axis_x_p.setFormat("hh:mm:ss")
         self.axis_x_p.setTitleText("Date")
         self.axis_x_r.setFormat("hh:mm:ss")
@@ -265,7 +265,7 @@ class MyWindow(Ui_MainWindow):
 
         self.axis_y_p.setMax(100)
 
-        for idx, series in enumerate(self.tempsData):
+        """for idx, series in enumerate(self.tempsData):
                 series.setVisible(self.radioButtonTemp.isChecked())
                 series.append(timenow.toMSecsSinceEpoch(), self.resources.temperature[idx] / 10)
         
@@ -295,7 +295,7 @@ class MyWindow(Ui_MainWindow):
  
         elif self.radioButtonLiquids.isChecked() == True:
             self.chartResources.setTitle("Płyny")
-            self.axis_y_r.setMax(100)
+            self.axis_y_r.setMax(100)"""
 
         self.counter = self.counter + 1
 
