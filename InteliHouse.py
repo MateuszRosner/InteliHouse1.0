@@ -42,9 +42,11 @@ class MyWindow(Ui_MainWindow):
         self.axis_x_r = QDateTimeAxis()
 
         self.axis_x_p.setFormat("hh:mm:ss")
-        self.axis_x_p.setTitleText("Date")
+        self.axis_x_p.setTitleText("Czas")
         self.axis_x_r.setFormat("hh:mm:ss")
-        self.axis_x_r.setTitleText("Date")
+        self.axis_x_r.setTitleText("Czas")
+
+        self.axis_y_p.setTitle("kW")
 
         # create graphs data series
         self.powerData = QLineSeries(self.MainWindow)
@@ -268,7 +270,7 @@ class MyWindow(Ui_MainWindow):
         self.axis_x_p.setMax(timenow)
         self.axis_x_r.setMax(timenow)
 
-        self.axis_y_p.setMax(100)
+        self.axis_y_p.setMax(10)
 
         for idx, series in enumerate(self.tempsData):
                 series.setVisible(self.radioButtonTemp.isChecked())
