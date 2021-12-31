@@ -223,39 +223,38 @@ class MyWindow(Ui_MainWindow):
 
         self.widget_2.setChart(self.chartPower)
 
-        """for series in self.tempsData:
-            series.attachAxis(self.axis_x_r)
-            series.attachAxis(self.axis_y_r)
-            series.setVisible(False)
-            self.chartResources.addSeries(series)
-         
-        for series in self.pressData:
-            series.attachAxis(self.axis_x_r)
-            series.attachAxis(self.axis_y_r)
-            series.setVisible(False)
-            self.chartResources.addSeries(series)
-
-        for series in self.humidData:
-            series.attachAxis(self.axis_x_r)
-            series.attachAxis(self.axis_y_r)
-            series.setVisible(False)
-            self.chartResources.addSeries(series)
-
-        for series in self.liquidData:
-            series.attachAxis(self.axis_x_r)
-            series.attachAxis(self.axis_y_r)
-            series.setVisible(False)
-            self.chartResources.addSeries(series)
-
         self.chartResources.setAnimationOptions(QChart.SeriesAnimations)
         self.chartResources.legend().setVisible(True)
         self.chartResources.legend().setAlignment(Qt.AlignBottom)
         self.chartResources.addAxis(self.axis_y_r, QtCore.Qt.AlignLeft)
         self.chartResources.addAxis(self.axis_x_r, QtCore.Qt.AlignBottom)
-        
-        self.widget.setChart(self.chartResources)"""
 
+        for series in self.tempsData:
+            self.chartResources.addSeries(series)
+            series.attachAxis(self.axis_x_r)
+            series.attachAxis(self.axis_y_r)
+            series.setVisible(False) 
+         
+        for series in self.pressData:
+            self.chartResources.addSeries(series)
+            series.attachAxis(self.axis_x_r)
+            series.attachAxis(self.axis_y_r)
+            series.setVisible(False)
+            
+        for series in self.humidData:
+            self.chartResources.addSeries(series)
+            series.attachAxis(self.axis_x_r)
+            series.attachAxis(self.axis_y_r)
+            series.setVisible(False)
+
+        for series in self.liquidData:
+            self.chartResources.addSeries(series)
+            series.attachAxis(self.axis_x_r)
+            series.attachAxis(self.axis_y_r)
+            series.setVisible(False)
         
+        self.widget.setChart(self.chartResources)
+
     def create_linechart(self):
         timenow = QtCore.QDateTime.currentDateTime()
 
@@ -268,7 +267,7 @@ class MyWindow(Ui_MainWindow):
 
         self.axis_y_p.setMax(100)
 
-        """for idx, series in enumerate(self.tempsData):
+        for idx, series in enumerate(self.tempsData):
                 series.setVisible(self.radioButtonTemp.isChecked())
                 series.append(timenow.toMSecsSinceEpoch(), self.resources.temperature[idx] / 10)
         
@@ -298,7 +297,7 @@ class MyWindow(Ui_MainWindow):
  
         elif self.radioButtonLiquids.isChecked() == True:
             self.chartResources.setTitle("Płyny")
-            self.axis_y_r.setMax(100)"""
+            self.axis_y_r.setMax(100)
 
         self.counter = self.counter + 1
 
