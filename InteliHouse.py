@@ -210,9 +210,6 @@ class MyWindow(Ui_MainWindow):
         self.liquidData[4].clear()
 
     def setGraphs(self):
-        self.powerData.attachAxis(self.axis_x_p)
-        self.powerData.attachAxis(self.axis_y_p)
-
         self.chartPower.addSeries(self.powerData)
         self.chartPower.setAnimationOptions(QChart.SeriesAnimations)
         self.chartPower.setTitle("Energia")
@@ -221,9 +218,12 @@ class MyWindow(Ui_MainWindow):
         self.chartPower.addAxis(self.axis_y_p, QtCore.Qt.AlignLeft)
         self.chartPower.addAxis(self.axis_x_p, QtCore.Qt.AlignBottom)
 
+        self.powerData.attachAxis(self.axis_x_p)
+        self.powerData.attachAxis(self.axis_y_p)
+
         self.widget_2.setChart(self.chartPower)
 
-        for series in self.tempsData:
+        """for series in self.tempsData:
             series.attachAxis(self.axis_x_r)
             series.attachAxis(self.axis_y_r)
             series.setVisible(False)
@@ -253,11 +253,14 @@ class MyWindow(Ui_MainWindow):
         self.chartResources.addAxis(self.axis_y_r, QtCore.Qt.AlignLeft)
         self.chartResources.addAxis(self.axis_x_r, QtCore.Qt.AlignBottom)
         
-        self.widget.setChart(self.chartResources)
+        self.widget.setChart(self.chartResources)"""
 
         
     def create_linechart(self):
         timenow = QtCore.QDateTime.currentDateTime()
+
+        if self.powerData.count() == 0:
+            self.axis_x_p.setMin(timenow)
 
         self.powerData.append(timenow.toMSecsSinceEpoch(), self.progressBarTotalCurr.value())
         self.axis_x_p.setMax(timenow)
