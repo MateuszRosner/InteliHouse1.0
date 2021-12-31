@@ -211,7 +211,7 @@ class MyWindow(Ui_MainWindow):
 
     def setGraphs(self):
         self.chartPower.addSeries(self.powerData)
-        self.chartPower.setAnimationOptions(QChart.NoAnimations)
+        self.chartPower.setAnimationOptions(QChart.NoAnimation)
         self.chartPower.setTitle("Energia")
         self.chartPower.legend().setVisible(True)
         self.chartPower.legend().setAlignment(Qt.AlignBottom)
@@ -223,7 +223,7 @@ class MyWindow(Ui_MainWindow):
 
         self.widget_2.setChart(self.chartPower)
 
-        self.chartResources.setAnimationOptions(QChart.NoAnimations)
+        self.chartResources.setAnimationOptions(QChart.NoAnimation)
         self.chartResources.legend().setVisible(True)
         self.chartResources.legend().setAlignment(Qt.AlignBottom)
         self.chartResources.addAxis(self.axis_y_r, QtCore.Qt.AlignLeft)
