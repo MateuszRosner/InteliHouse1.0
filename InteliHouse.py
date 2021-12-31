@@ -283,7 +283,7 @@ class MyWindow(Ui_MainWindow):
                 series.append(timenow.toMSecsSinceEpoch(), self.resources.humidity[idx] / 10)
 
         for idx, series in enumerate(self.liquidData):
-                series.setVisible(self.radioButtonTemp.isChecked())
+                series.setVisible(self.radioButtonLiquids.isChecked())
                 series.append(timenow.toMSecsSinceEpoch(), self.resources.liquids[idx] / 10)
 
         if self.radioButtonTemp.isChecked() == True:
