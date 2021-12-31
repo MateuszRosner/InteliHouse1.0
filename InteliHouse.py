@@ -36,8 +36,8 @@ class MyWindow(Ui_MainWindow):
 
         self.chartPower     =  QChart()
         self.chartResources =  QChart()
-        self.axis_y_p, self.axis_y_r = QValueAxis()
-        self.axis_x_p, self.axis_x_r = QDateTimeAxis()
+        self.axis_y_p = self.axis_y_r = QValueAxis()
+        self.axis_x_p = self.axis_x_r = QDateTimeAxis()
         self.axis_x_p.setFormat("hh:mm:ss")
         self.axis_x_p.setTitleText("Date")
         self.axis_x_r.setFormat("hh:mm:ss")
