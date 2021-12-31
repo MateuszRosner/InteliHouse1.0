@@ -261,6 +261,9 @@ class MyWindow(Ui_MainWindow):
         if self.powerData.count() == 0:
             self.axis_x_p.setMin(timenow)
 
+        if self.tempsData.count() == 0:
+            self.axis_x_r.setMin(timenow)
+
         self.powerData.append(timenow.toMSecsSinceEpoch(), self.progressBarTotalCurr.value())
         self.axis_x_p.setMax(timenow)
         self.axis_x_r.setMax(timenow)
