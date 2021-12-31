@@ -46,7 +46,7 @@ class MyWindow(Ui_MainWindow):
         self.axis_x_r.setFormat("hh:mm:ss")
         self.axis_x_r.setTitleText("Czas")
 
-        self.axis_y_p.setTitle("kW")
+        self.axis_y_p.setTitleText("kW")
 
         # create graphs data series
         self.powerData = QLineSeries(self.MainWindow)
