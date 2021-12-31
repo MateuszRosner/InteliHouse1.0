@@ -38,9 +38,9 @@ class MyWindow(Ui_MainWindow):
         self.chartResources =  QChart()
         self.axis_y_p, self.axis_y_r = QValueAxis()
         self.axis_x_p, self.axis_x_r = QDateTimeAxis()
-        self.axis_x_p.setFormat("h:mm")
+        self.axis_x_p.setFormat("hh:mm:ss")
         self.axis_x_p.setTitleText("Date")
-        self.axis_x_r.setFormat("h:mm")
+        self.axis_x_r.setFormat("hh:mm:ss")
         self.axis_x_r.setTitleText("Date")
 
         # create graphs data series
@@ -209,6 +209,7 @@ class MyWindow(Ui_MainWindow):
     def setGraphs(self):
         self.powerData.attachAxis(self.axis_x_p)
         self.powerData.attachAxis(self.axis_y_p)
+
         self.chartPower.addSeries(self.powerData)
         self.chartPower.setAnimationOptions(QChart.SeriesAnimations)
         self.chartPower.setTitle("Energia")
@@ -219,68 +220,79 @@ class MyWindow(Ui_MainWindow):
 
         self.widget_2.setChart(self.chartPower)
 
-        self.chartResources.addSeries(self.tempsData[0])
-        self.chartResources.addSeries(self.tempsData[1])
-        self.chartResources.addSeries(self.tempsData[2])
+        for series in self.tempsData:
+            series.attachAxis(self.axis_x_r)
+            series.attachAxix(self.axis_y_r)
+            series.setVisible(False)
+            self.chartResources.addSeries(series)
+         
+        for series in self.pressData:
+            series.attachAxis(self.axis_x_r)
+            series.attachAxix(self.axis_y_r)
+            series.setVisible(False)
+            self.chartResources.addSeries(series)
 
-        """self.chartResources.addSeries(self.pressData[0])
-        self.chartResources.addSeries(self.pressData[1])
-        self.chartResources.addSeries(self.pressData[2])
+        for series in self.humidData:
+            series.attachAxis(self.axis_x_r)
+            series.attachAxix(self.axis_y_r)
+            series.setVisible(False)
+            self.chartResources.addSeries(series)
 
-        self.chartResources.addSeries(self.humidData[0])
-        self.chartResources.addSeries(self.humidData[1])
-        self.chartResources.addSeries(self.humidData[2])
+        for series in self.liquidData:
+            series.attachAxis(self.axis_x_r)
+            series.attachAxix(self.axis_y_r)
+            series.setVisible(False)
+            self.chartResources.addSeries(series)
 
-        self.chartResources.addSeries(self.liquidData[0])
-        self.chartResources.addSeries(self.liquidData[1])
-        self.chartResources.addSeries(self.liquidData[2])
-        self.chartResources.addSeries(self.liquidData[3])
-        self.chartResources.addSeries(self.liquidData[4])
-"""
         self.chartResources.setAnimationOptions(QChart.SeriesAnimations)
         self.chartResources.legend().setVisible(True)
         self.chartResources.legend().setAlignment(Qt.AlignBottom)
         self.chartResources.addAxis(self.axis_y_r, QtCore.Qt.AlignLeft)
         self.chartResources.addAxis(self.axis_x_r, QtCore.Qt.AlignBottom)
-
+        
         self.widget.setChart(self.chartResources)
 
         
     def create_linechart(self):
         timenow = QtCore.QDateTime.currentDateTime()
 
-        self.powerData.append(timenow, self.progressBarTotalCurr.value())
+        self.powerData.append(timenow.toMSecsSinceEpoch(), self.progressBarTotalCurr.value())
         self.axis_x_p.setMax(timenow)
+        self.axis_x_r.setMax(timenow)
+
+        self.axis_y_p.setMax(100)
+
+        for idx, series in enumerate(self.tempsData):
+                series.setVisible(self.radioButtonTemp.isChecked())
+                series.append(timenow.toMSecsSinceEpoch(), self.resources.temperature[idx] / 10)
         
-        self.tempsData[0].append(self.counter, self.resources.temperature[0] / 10)
-        self.tempsData[1].append(self.counter, self.resources.temperature[1] / 10)
-        self.tempsData[2].append(self.counter, self.resources.temperature[2] / 10)
+        for series in self.pressData:
+                series.setVisible(self.radioButtonPress.isChecked())
+                series.append(timenow.toMSecsSinceEpoch(), self.resources.pressure[idx] / 10)
 
-        self.pressData[0].append(self.counter, self.resources.pressure[0] / 10)
-        self.pressData[1].append(self.counter, self.resources.pressure[1] / 10)
-        self.pressData[2].append(self.counter, self.resources.pressure[2] / 10)
+        for series in self.humidData:
+                series.setVisible(self.radioButtonHumid.isChecked())
+                series.append(timenow.toMSecsSinceEpoch(), self.resources.humidity[idx] / 10)
 
-        self.humidData[0].append(self.counter, self.resources.humidity[0] / 10)
-        self.humidData[1].append(self.counter, self.resources.humidity[1] / 10)
-        self.humidData[2].append(self.counter, self.resources.humidity[2] / 10)
+        for series in self.liquidData:
+                series.setVisible(self.radioButtonTemp.isChecked())
+                series.append(timenow.toMSecsSinceEpoch(), self.resources.liquids[idx] / 10)
 
-        self.liquidData[0].append(self.counter, self.resources.liquids[0])
-        self.liquidData[1].append(self.counter, self.resources.liquids[1])
-        self.liquidData[2].append(self.counter, self.resources.liquids[2])
-        self.liquidData[3].append(self.counter, self.resources.liquids[3])
-        self.liquidData[4].append(self.counter, self.resources.liquids[4])
-            
         if self.radioButtonTemp.isChecked() == True:
             self.chartResources.setTitle("Temperatura")
-        
+            self.axis_y_r.setMax(30)
+            
         elif self.radioButtonPress.isChecked() == True:
             self.chartResources.setTitle("Cisnienie")
+            self.axis_y_r.setMax(1200)
             
         elif self.radioButtonHumid.isChecked() == True:
             self.chartResources.setTitle("Wilgotność")
-            
+            self.axis_y_r.setMax(100)
+ 
         elif self.radioButtonLiquids.isChecked() == True:
             self.chartResources.setTitle("Płyny")
+            self.axis_y_r.setMax(100)
 
         self.counter = self.counter + 1
 
