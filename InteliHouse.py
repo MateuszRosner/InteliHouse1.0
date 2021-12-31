@@ -222,25 +222,25 @@ class MyWindow(Ui_MainWindow):
 
         for series in self.tempsData:
             series.attachAxis(self.axis_x_r)
-            series.attachAxix(self.axis_y_r)
+            series.attachAxis(self.axis_y_r)
             series.setVisible(False)
             self.chartResources.addSeries(series)
          
         for series in self.pressData:
             series.attachAxis(self.axis_x_r)
-            series.attachAxix(self.axis_y_r)
+            series.attachAxis(self.axis_y_r)
             series.setVisible(False)
             self.chartResources.addSeries(series)
 
         for series in self.humidData:
             series.attachAxis(self.axis_x_r)
-            series.attachAxix(self.axis_y_r)
+            series.attachAxis(self.axis_y_r)
             series.setVisible(False)
             self.chartResources.addSeries(series)
 
         for series in self.liquidData:
             series.attachAxis(self.axis_x_r)
-            series.attachAxix(self.axis_y_r)
+            series.attachAxis(self.axis_y_r)
             series.setVisible(False)
             self.chartResources.addSeries(series)
 
