@@ -290,7 +290,7 @@ class MyWindow(Ui_MainWindow):
 
         if self.radioButtonTemp.isChecked() == True:
             self.chartResources.setTitle("Temperatura")
-            self.axis_y_r.setMax(30)
+            self.axis_y_r.setMax(50)
             
         elif self.radioButtonPress.isChecked() == True:
             self.chartResources.setTitle("Cisnienie")
