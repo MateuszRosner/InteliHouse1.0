@@ -192,24 +192,17 @@ class MyWindow(Ui_MainWindow):
     def clearGraphs(self):
         self.counter = 0
 
+        # clear resources data banks
         self.powerData.clear()
-        self.tempsData[0].clear()
-        self.tempsData[1].clear()
-        self.tempsData[2].clear()
 
-        self.pressData[0].clear()
-        self.pressData[1].clear()
-        self.pressData[2].clear()
-
-        self.humidData[0].clear()
-        self.humidData[1].clear()
-        self.humidData[2].clear()
-
-        self.liquidData[0].clear()
-        self.liquidData[1].clear()
-        self.liquidData[2].clear()
-        self.liquidData[3].clear()
-        self.liquidData[4].clear()
+        for temp in self.tempsData:
+            temp.clear()
+        for press in self.pressData:
+            press.clear()
+        for humi in self.humidData:
+            humi.clear()
+        for liquid in self.liquidData:
+            liquid.clear()
 
     def setGraphs(self):
         self.chartPower.addSeries(self.powerData)
