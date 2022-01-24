@@ -41,7 +41,7 @@ class Modbus():
         except serial.SerialException:
             print("[ERROR] Can't open serial port")
 
-        self.frame = ModbusFrame(2)
+        self.frame = ModbusFrame(4)
         self.rec_data_len = dataLen
         self.crc_control = crcControl
     
