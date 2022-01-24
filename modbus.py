@@ -73,7 +73,7 @@ class Modbus():
 
                 self.frame.CRC = (data[4] & 0xFF) | (data[5] << 8)
 
-                # check CRC
+                """# check CRC
                 if self.crc_control == True:
                     CRC = self.frame.CRC
                     self.frame.calcCRC()
@@ -82,18 +82,20 @@ class Modbus():
                         print("[WARNING] CRC error")
                         self.frame.clear()
                         self.ser.flush()
-                        return False    
+                        return False"""    
         
                 
         self.frame.data.clear()
         return True
 
     def Test(self):
-        frame = ModbusFrame(2)
+        frame = ModbusFrame(4)
         frame.address = 1
         frame.command = mC.MODBUS_READ
-        frame.data[0] = 1
+        frame.data[0] = 0
         frame.data[1] = 0x02
+        frame.data[2] = 0
+        frame.data[3] = 1
         
         self.send_frame(frame)
 

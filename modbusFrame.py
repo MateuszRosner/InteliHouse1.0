@@ -87,8 +87,12 @@ class ModbusFrame():
             elif self.index == 3:
                 data = self.data[1]
             elif self.index == 4:
-                data = self.CRC & 0xFF
+                data = self.data[2]
             elif self.index == 5:
+                data = self.data[3]
+            elif self.index == 6:
+                data = self.CRC & 0xFF
+            elif self.index == 7:
                 data = ((self.CRC >> 8) & 0xFF)
 
             self.index += 1
