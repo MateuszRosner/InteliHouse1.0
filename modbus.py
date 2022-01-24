@@ -64,7 +64,6 @@ class Modbus():
             if len(data) < self.rec_data_len:
                 self.frame.clear()
                 self.ser.flush()
-                # print("[WARNING] Data lenght error")
                 return False
             else:
                 self.frame.address = (data[0])
@@ -93,6 +92,7 @@ class Modbus():
         frame = ModbusFrame(2)
         frame.address = 1
         frame.command = mC.MODBUS_READ
+        frame.data[0] = 1
         frame.data[1] = 0x02
         
         self.send_frame(frame)
