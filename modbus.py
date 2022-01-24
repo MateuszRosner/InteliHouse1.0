@@ -41,7 +41,7 @@ class Modbus():
         except serial.SerialException:
             print("[ERROR] Can't open serial port")
 
-        self.frame = ModbusFrame(4)
+        self.frame = ModbusFrame(2)
         self.rec_data_len = dataLen
         self.crc_control = crcControl
     
@@ -89,13 +89,13 @@ class Modbus():
         return True
 
     def Test(self):
-        frame = ModbusFrame(4)
-        frame.address = 0x03
+        frame = ModbusFrame(2)
+        frame.address = 0x01
         frame.command = 0x03
         frame.data[0] = 0x00
-        frame.data[1] = 0x08
+        frame.data[1] = 0x02
         frame.data[2] = 0x00
-        frame.data[3] = 0x02
+        frame.data[3] = 0x01
         
         self.send_frame(frame)
 
