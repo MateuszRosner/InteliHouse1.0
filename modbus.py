@@ -16,7 +16,7 @@ BAUD_38400 = 38400
 
     
 class Modbus():
-    def __init__(self, baudrate=9600, dev="/dev/ttyS1", crcControl=True, slaveAdr=1):
+    def __init__(self, baudrate=9600, dev="/dev/ttySC1", crcControl=True, slaveAdr=1):
          # --------------- config file reading    ---------------
         config = configparser.ConfigParser()
         config.read('config.ini')
@@ -42,10 +42,7 @@ class Modbus():
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(TXDEN_1, GPIO.OUT)
         GPIO.setup(TXDEN_2, GPIO.OUT)
-
-        GPIO.output(TXDEN_1, GPIO.HIGH)
         GPIO.output(TXDEN_2, GPIO.HIGH)
 
         """try:
@@ -139,9 +136,9 @@ class Modbus():
         self.frame.data.clear()
 
     def Test(self):
-        GPIO.output(TXDEN_1, GPIO.LOW)     # transmitter
+        GPIO.output(TXDEN_2, GPIO.LOW)     # transmitter
         print(self.rtd_net.read_register(1))
-        GPIO.output(TXDEN_1, GPIO.HIGH)    # reciver
+        GPIO.output(TXDEN_2, GPIO.HIGH)    # reciver
     
     def FlushBuffer(self):
         self.ser.flush()
