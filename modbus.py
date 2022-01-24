@@ -136,9 +136,12 @@ class Modbus():
         self.frame.data.clear()
 
     def Test(self):
-        GPIO.output(TXDEN_2, GPIO.LOW)     # transmitter
-        print(self.rtd_net.read_register(1))
-        GPIO.output(TXDEN_2, GPIO.HIGH)    # reciver
+        try:
+            GPIO.output(TXDEN_2, GPIO.LOW)     # transmitter
+            print(self.rtd_net.read_register(1))
+            GPIO.output(TXDEN_2, GPIO.HIGH)    # reciver
+        except Exception as E:
+            print(e)
     
     def FlushBuffer(self):
         self.ser.flush()
