@@ -93,7 +93,7 @@ class Modbus():
         frame = ModbusFrame(2)
         frame.address = 1
         frame.command = mC.MODBUS_READ
-        frame.data[0] = 0x20
+        frame.data[0] = 20
         
         self.send_frame(frame)
 
