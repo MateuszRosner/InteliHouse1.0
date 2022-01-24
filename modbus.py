@@ -16,7 +16,7 @@ BAUD_38400 = 38400
 
     
 class Modbus():
-    def __init__(self, baudrate=9600, dev="/dev/ttySC1", crcControl=True, dataLen=8):
+    def __init__(self, baudrate=38400, dev="/dev/ttySC1", crcControl=True, dataLen=8):
          # --------------- config file reading    ---------------
         config = configparser.ConfigParser()
         config.read('config.ini')
@@ -50,10 +50,10 @@ class Modbus():
         if self.ser.isOpen():
             frame.calcCRC()
             GPIO.output(TXDEN_2, GPIO.LOW)     # transmitter
-            time.sleep(0.0005)
+            time.sleep(0.0008)
             frame = bytearray(frame)
             self.ser.write(frame)
-            time.sleep(0.0005)
+            time.sleep(0.0008)
             GPIO.output(TXDEN_2, GPIO.HIGH)    # reciver
 
     def read_data(self):
