@@ -25,8 +25,8 @@ class MyWindow(Ui_MainWindow):
 
         # init objects
         self.resources = Resources()
-        self.redbus = redbus.Redbus(resources=self.resources, dev="/dev/ttySC0", dataLen=2)
-        self.modbus = modbus.Modbus(dev="/dev/ttySC1")
+        self.redbus = redbus.Redbus(resources=self.resources, dev="/dev/ttySC0")
+        self.modbus = modbus.Modbus(dev="/dev/ttySC1", dataLen=2)
         # self.modbus = modbus.Modbus(self.resources, dev="/dev/ttySC1", dataLen=6, crcControl=False)
 
         self.frame = redbus.RedbusFrame(4)
