@@ -58,7 +58,7 @@ class Modbus():
         config.read('config.ini')
 
         self.ser=serial.Serial(
-            baudrate=Baudrate,
+            baudrate=baudrate,
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS,
