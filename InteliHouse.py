@@ -26,10 +26,9 @@ class MyWindow(Ui_MainWindow):
         # init objects
         self.resources = Resources()
         self.redbus = redbus.Redbus(resources=self.resources, dev="/dev/ttySC0")
-        self.modbus = modbus.Modbus()
+        self.modbus = modbus.Modbus(dev="/dev/ttySC1")
         # self.modbus = modbus.Modbus(self.resources, dev="/dev/ttySC1", dataLen=6, crcControl=False)
 
-        self.frame2 = modbus.ModbusFrame(4)
         self.frame = redbus.RedbusFrame(4)
 
         self.timer = QtCore.QTimer()
