@@ -52,7 +52,7 @@ crcTable = [
 
     
 class Modbus():
-    def __init__(self, baudrate=9600, dev="/dev/ttySC1", crcControl=True, slaveAdr=1):
+    def __init__(self, baudrate=9600, dev="/dev/ttySC1", crcControl=True, dataLen=8):
          # --------------- config file reading    ---------------
         config = configparser.ConfigParser()
         config.read('config.ini')
