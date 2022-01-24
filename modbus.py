@@ -7,7 +7,7 @@ import minimalmodbus
 
 import modbusCommands as mC
 
-from dataFrame import RedbusFrame
+from modbusFrame import ModbusFrame
 
 TXDEN_1 = 27
 TXDEN_2 = 22
@@ -41,7 +41,7 @@ class Modbus():
         except serial.SerialException:
             print("[ERROR] Can't open serial port")
 
-        self.frame = RedbusFrame(4)
+        self.frame = ModbusFrame(2)
         self.rec_data_len = dataLen
         self.crc_control = crcControl
     
@@ -71,9 +71,8 @@ class Modbus():
                 self.frame.command = (data[1])
                 self.frame.data.append((data[2]))
                 self.frame.data.append((data[3]))
-                self.frame.data.append((data[4]))
-                self.frame.data.append((data[5]))
-                self.frame.CRC = (data[6] & 0xFF) | (data[7] << 8)
+
+                self.frame.CRC = (data[4] & 0xFF) | (data[5] << 8)
 
                 # check CRC
                 if self.crc_control == True:
@@ -91,7 +90,7 @@ class Modbus():
         return True
 
     def Test(self):
-        frame = RedbusFrame(4)
+        frame = ModbusFrame(2)
         frame.address = 1
         frame.command = mC.MODBUS_READ
         frame.data[0] = 0x20
