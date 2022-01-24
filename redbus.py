@@ -5,6 +5,7 @@ import time
 import RPi._GPIO as GPIO
 import serial
 
+from dataFrame import RedbusFrame
 import redbusCommands as mC
 from infrastructure import Infrastructure
 
@@ -48,73 +49,6 @@ crcTable = [
 	0X8201, 0X42C0, 0X4380, 0X8341, 0X4100, 0X81C1, 0X8081, 0X4040
     ]
 
-class RedbusFrame():
-    def __init__(self, data_length):
-        self.address = 0
-        self.command = 0
-        self.data_length = data_length
-        self.data = [0 for _ in range(data_length)]
-        self.CRC = 0
-
-    def calcCRC(self):
-        length = len(self) - 2                          # length of header and payload
-        temp = 0
-        crcWord = 0xFFFF
-        self.__iter__()
-
-        while(length):
-            temp = (self.__next__() ^ crcWord) & 0xFF   # reduce value to 8-bit length
-            crcWord = crcWord >> 8
-            crcWord ^= crcTable[temp]
-            length -= 1
-
-        self.CRC = crcWord
-
-    def clear(self):
-        self.address = 0
-        self.command = 0
-        self.data.clear()
-        self.CRC = 0
-
-    def __repr__(self):
-        return (f"Address: {self.address}, Command: {self.command}, Data: {self.data}, CRC: {self.CRC}")
-
-    def __len__(self):
-        len = 0
-        for _ in self:
-            len += 1
-
-        return len
-
-    def __iter__(self):
-        self.index = 0
-        return(self)
-
-    def __next__(self):
-        if self.index < 8:
-            if self.index == 0:
-                data = self.address
-            elif self.index == 1:
-                data = self.command
-            elif self.index == 2:
-                data = self.data[0]
-            elif self.index == 3:
-                data = self.data[1]
-            elif self.index == 4:
-                data = self.data[2]
-            elif self.index == 5:
-                data = self.data[3]
-            elif self.index == 6:
-                data = self.CRC & 0xFF
-            elif self.index == 7:
-                data = ((self.CRC >> 8) & 0xFF)
-
-            self.index += 1
-
-            return data
-        else:
-            raise StopIteration            
-
     
 class Redbus():
     def __init__(self, resources, Baudrate = 38400, dev = "/dev/ttyS0", crcControl=True, dataLen=8, intervals=0.1):
@@ -131,15 +65,12 @@ class Redbus():
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(TXDEN_1, GPIO.OUT)
-        GPIO.setup(TXDEN_2, GPIO.OUT)
-
         GPIO.output(TXDEN_1, GPIO.HIGH)
-        GPIO.output(TXDEN_2, GPIO.HIGH)
 
         try:
             self.ser.open() 
         except serial.SerialException:
-            print("[ERROR] Can't open serial port")
+            print(f"[ERROR] Can't open serial port {self.dev}")
 
         self.resources = resources
         self.infrastructure = Infrastructure('config.ini')
@@ -148,9 +79,6 @@ class Redbus():
         self.crc_control = crcControl
         self.transmissionInterval = intervals
 
-        """self.readThread = threading.Thread(target=self.read_data)
-        self.readThread.daemon = True
-        self.readThread.start()"""
     
     def send_frame(self, frame):
         if self.ser.isOpen():
