@@ -26,6 +26,7 @@ class MyWindow(Ui_MainWindow):
         # init objects
         self.resources = Resources()
         self.redbus = redbus.Redbus(resources=self.resources, dev="/dev/ttySC0")
+        self.modbus = modbus.Modbus()
         # self.modbus = modbus.Modbus(self.resources, dev="/dev/ttySC1", dataLen=6, crcControl=False)
 
         self.frame2 = modbus.ModbusFrame(4)
@@ -137,15 +138,14 @@ class MyWindow(Ui_MainWindow):
         self.frame2.data[2] = 0x00
         self.frame2.data[3] = 0x02
 
-        # self.modbus.send_frame(self.frame2)
-        # time.sleep(self.transmissionInterval)
-
         self.refresh_progressBars()
 
         self.prescaller -= 1
         if self.prescaller == 0:
             self.logger.logData(self.resources)
             self.prescaller = int(self.config['LOGGER']['Prescaller'])
+
+        self.modbus.Test()
 
     """
     refresh progres bars 
@@ -304,18 +304,8 @@ class MyWindow(Ui_MainWindow):
 
         
     def __del__(self):
-        #addrs = self.addresses['MainBoard'].split(',')
+        pass
 
-        """for adr in addrs:
-            # set outputs ragardless to checkboxes
-            self.frame.address = int(adr)
-            self.frame.command = mC.MODBUS_WRITE
-            self.frame.data[0] = mC.MAIN_BOARD_OUTPUTS
-            self.frame.data[2] = 0
-            self.frame.data[3] = 0
-
-            self.redbus.send_frame(self.frame)
-            time.sleep(self.transmissionInterval)"""
 
 
 if __name__ == "__main__":
