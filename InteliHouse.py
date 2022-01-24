@@ -130,13 +130,6 @@ class MyWindow(Ui_MainWindow):
         for x, box in enumerate(self.checkBoxes):
             self.resources.relays += (int(box.isChecked())) << x
 
-        self.frame2.address = 0x03
-        self.frame2.command = 0x03
-        self.frame2.data[0] = 0x00
-        self.frame2.data[1] = 0x08
-        self.frame2.data[2] = 0x00
-        self.frame2.data[3] = 0x02
-
         self.refresh_progressBars()
 
         self.prescaller -= 1
