@@ -50,10 +50,10 @@ class Modbus():
         if self.ser.isOpen():
             frame.calcCRC()
             GPIO.output(TXDEN_2, GPIO.LOW)     # transmitter
-            time.sleep(0.004)
+            time.sleep(0.005)
             frame = bytearray(frame)
             self.ser.write(frame)
-            time.sleep(0.004)
+            time.sleep(0.005)
             GPIO.output(TXDEN_2, GPIO.HIGH)    # reciver
 
     def read_data(self):
@@ -92,8 +92,8 @@ class Modbus():
         frame = ModbusFrame(2)
         frame.address = 0x01
         frame.command = 0x03
-        frame.data[0] = 0x02
-        frame.data[1] = 0x01
+        frame.data[0] = 0x01
+        frame.data[1] = 0x02
         
         self.send_frame(frame)
 
