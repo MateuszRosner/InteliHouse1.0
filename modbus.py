@@ -26,7 +26,7 @@ class Modbus():
         self.rtd_net.serial.bytesize = 8
         self.rtd_net.serial.parity   = serial.PARITY_NONE
         self.rtd_net.serial.stopbits = 1
-        self.rtd_net.serial.timeout  = 0.1
+        self.rtd_net.serial.timeout  = 0.2
 
         self.rtd_net.clear_buffers_before_each_transaction = True
 
@@ -140,7 +140,7 @@ class Modbus():
             GPIO.output(TXDEN_2, GPIO.LOW)     # transmitter
             print(self.rtd_net.read_register(1))
             GPIO.output(TXDEN_2, GPIO.HIGH)    # reciver
-        except Exception as E:
+        except Exception as e:
             print(e)
     
     def FlushBuffer(self):
