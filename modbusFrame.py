@@ -77,7 +77,7 @@ class ModbusFrame():
         return(self)
 
     def __next__(self):
-        if self.index < 8:
+        if self.index < 6:
             if self.index == 0:
                 data = self.address
             elif self.index == 1:
