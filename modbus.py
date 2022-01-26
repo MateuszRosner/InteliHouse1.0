@@ -74,6 +74,8 @@ class Modbus():
 
                 self.frame.CRC = (data[4] & 0xFF) | (data[5] << 8)
 
+                print(self.frame)
+
                 # check CRC
                 """if self.crc_control == True:
                     CRC = self.frame.CRC
