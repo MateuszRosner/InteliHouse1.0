@@ -159,6 +159,7 @@ class Redbus():
 
     def stopUpdates(self):
         self.locker.acquire(blocking=True, timeout=2)
+        time.sleep(1)
         print("[INFO] Modbus data update thread stopped....")
 
     def resumeUpdates(self):
