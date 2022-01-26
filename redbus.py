@@ -158,7 +158,7 @@ class Redbus():
         print("[INFO] Modbus data update thread started....")
 
     def stopUpdates(self):
-        self.locker.acquire(blocking=True, timeout=1)
+        self.locker.acquire(blocking=True, timeout=2)
         print("[INFO] Modbus data update thread stopped....")
 
     def resumeUpdates(self):
@@ -248,6 +248,9 @@ class Redbus():
                     if (self.read_data() == False):
                         print( f"[ERROR] Module AmbientBoard on address: {dataFrame.address} failure")
                     time.sleep(self.transmissionInterval)
+
+            while(self.locker.locked()):
+                pass
 
     def initiate_modules(self):
         dataFrame = RedbusFrame(4)
