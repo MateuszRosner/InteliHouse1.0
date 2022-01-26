@@ -43,6 +43,8 @@ class Redbus():
         self.crc_control = crcControl
         self.transmissionInterval = intervals
 
+        self.locker = threading.Lock()
+
     
     def send_frame(self, frame):
         if self.ser.isOpen():
@@ -151,13 +153,17 @@ class Redbus():
     
     def startUpdates(self):
         self.updateThread = threading.Thread(target=self.updateData)
-        self.updateThread.daemon = False
+        self.updateThread.daemon = True
         self.updateThread.start()
         print("[INFO] Modbus data update thread started....")
 
     def stopUpdates(self):
-        self.updateThread._stop()
+        self.locker.acquire()
         print("[INFO] Modbus data update thread stopped....")
+
+    def resumeUpdates(self):
+        self.locker.release()
+        print("[INFO] Modbus data update thread released....")
 
     def setSensorsBoardMode(self, mode):
         dataFrame = RedbusFrame(4)
