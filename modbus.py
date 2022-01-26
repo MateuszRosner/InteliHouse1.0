@@ -3,7 +3,6 @@ import serial
 import RPi._GPIO as GPIO
 import configparser
 import time
-import minimalmodbus
 
 import modbusCommands as mC
 
@@ -13,6 +12,7 @@ TXDEN_1 = 27
 TXDEN_2 = 22
 
 BAUD_38400 = 38400
+BAUD_9600  = 9600
 
     
 class Modbus():
@@ -27,6 +27,7 @@ class Modbus():
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS,
             timeout=0.1)
+
         self.dev = dev
         self.ser.port = self.dev
 
@@ -41,7 +42,7 @@ class Modbus():
         except serial.SerialException:
             print("[ERROR] Can't open serial port")
 
-        self.frame = ModbusFrame(2)
+        self.frame = ModbusFrame(4)
         self.rec_data_len = dataLen
         self.crc_control = crcControl
     
@@ -73,7 +74,7 @@ class Modbus():
 
                 self.frame.CRC = (data[4] & 0xFF) | (data[5] << 8)
 
-                """# check CRC
+                # check CRC
                 if self.crc_control == True:
                     CRC = self.frame.CRC
                     self.frame.calcCRC()
@@ -82,7 +83,7 @@ class Modbus():
                         print("[WARNING] CRC error")
                         self.frame.clear()
                         self.ser.flush()
-                        return False"""    
+                        return False  
         
                 
         self.frame.data.clear()
