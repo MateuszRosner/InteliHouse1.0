@@ -182,7 +182,7 @@ class Redbus():
 
                 time.sleep(self.transmissionInterval)
 
-        self.startUpdates()
+        self.resumeUpdates()
 
     def updateData(self):
         while self.ser.isOpen() == True:
