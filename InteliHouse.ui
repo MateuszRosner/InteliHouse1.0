@@ -1197,6 +1197,19 @@
        <string>Wyczyść</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="ButtonTank">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>20</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Tankowanie</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>

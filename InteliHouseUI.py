@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'InteliHouse.ui'
+# Form implementation generated from reading ui file '.\InteliHouse.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -346,6 +346,9 @@ class Ui_MainWindow(object):
         self.ButtonClearGraphs = QtWidgets.QPushButton(self.tabZasoby)
         self.ButtonClearGraphs.setGeometry(QtCore.QRect(380, 10, 75, 23))
         self.ButtonClearGraphs.setObjectName("ButtonClearGraphs")
+        self.ButtonTank = QtWidgets.QPushButton(self.tabZasoby)
+        self.ButtonTank.setGeometry(QtCore.QRect(130, 20, 75, 23))
+        self.ButtonTank.setObjectName("ButtonTank")
         self.tabWidget.addTab(self.tabZasoby, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -413,5 +416,6 @@ class Ui_MainWindow(object):
         self.radioButtonHumid.setText(_translate("MainWindow", "wilgotność"))
         self.radioButtonLiquids.setText(_translate("MainWindow", "płyny"))
         self.ButtonClearGraphs.setText(_translate("MainWindow", "Wyczyść"))
+        self.ButtonTank.setText(_translate("MainWindow", "Tankowanie"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabZasoby), _translate("MainWindow", "Zasoby"))
 from PyQt5.QtChart import QChartView
