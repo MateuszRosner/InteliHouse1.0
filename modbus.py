@@ -54,7 +54,7 @@ class Modbus():
             time.sleep(0.006)
             frame = bytearray(frame)
             self.ser.write(frame)
-            time.sleep(0.006)
+            time.sleep(0.004)
             GPIO.output(TXDEN_2, GPIO.HIGH)    # reciver
 
     def read_data(self):
