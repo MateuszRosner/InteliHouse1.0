@@ -156,7 +156,7 @@ class Redbus():
         print("[INFO] Modbus data update thread started....")
 
     def stopUpdates(self):
-        self.updateThread.join()
+        #self.updateThread.join()
         self.updateThread._stop()
         print("[INFO] Modbus data update thread stopped....")
 
