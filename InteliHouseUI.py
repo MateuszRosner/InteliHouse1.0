@@ -348,6 +348,7 @@ class Ui_MainWindow(object):
         self.ButtonClearGraphs.setObjectName("ButtonClearGraphs")
         self.ButtonTank = QtWidgets.QPushButton(self.tabZasoby)
         self.ButtonTank.setGeometry(QtCore.QRect(130, 20, 75, 23))
+        self.ButtonTank.setCheckable(True)
         self.ButtonTank.setObjectName("ButtonTank")
         self.tabWidget.addTab(self.tabZasoby, "")
         MainWindow.setCentralWidget(self.centralwidget)

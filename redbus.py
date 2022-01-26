@@ -155,6 +155,29 @@ class Redbus():
         self.updateThread.start()
         print("[INFO] Modbus data update thread started....")
 
+    def stopUpdates(self):
+        self.updateThread.join()
+        self.updateThread._stop()
+        print("[INFO] Modbus data update thread stopped....")
+
+    def setSensorsBoardMode(self, mode):
+        dataFrame = RedbusFrame(4)
+
+        self.stopUpdates()
+
+        if self.infrastructure.infrastructure['SensorsBoards'] != '0':
+            # ------------- SET MODE -----------------------
+            for x, adr in enumerate(self.infrastructure.sensorsBoards):
+                dataFrame.address = int(adr)
+                dataFrame.command = mC.MODBUS_WRITE
+                dataFrame.data[0] = mC.SENSORS_BOARD_SET_MODE
+                dataFrame.data[2] = mode
+                self.send_frame(dataFrame)
+
+                time.sleep(self.transmissionInterval)
+
+        self.startUpdates()
+
     def updateData(self):
         while self.ser.isOpen() == True:
             dataFrame = RedbusFrame(4)

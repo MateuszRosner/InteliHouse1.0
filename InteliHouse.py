@@ -117,6 +117,7 @@ class MyWindow(Ui_MainWindow):
         self.timer.timeout.connect(self.refresh_ui)
         self.graph_timer.timeout.connect(self.create_linechart)
         self.ButtonClearGraphs.clicked.connect(self.clearGraphs)
+        self.ButtonTank.clicked.connect(self.setTankMode)
 
         self.timer.start(self.refreshTime)
         self.graph_timer.start(self.refreshTime)
@@ -293,6 +294,14 @@ class MyWindow(Ui_MainWindow):
 
         if self.counter >= self.maxSamples:
             self.clearGraphs()
+
+    def setTankMode(self):
+        if self.ButtonTank.isChecked() == False:
+            self.redbus.setSensorsBoardMode(mC.SENSORS_BOARD_MODE_TANKING)
+            self.ButtonTank.setChecked(True)
+        else:
+            self.redbus.setSensorsBoardMode(mC.SENSORS_BOARD_MODE_NORMAL)
+            self.ButtonTank.setChecked(False)
 
         
     def __del__(self):
