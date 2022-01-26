@@ -72,11 +72,11 @@ class Modbus():
                 self.frame.data.append((data[2]))
                 self.frame.data.append((data[3]))
                 self.frame.data.append((data[4]))
-                self.frame.data.append((data[5]))
-                self.frame.data.append((data[6]))
+                #self.frame.data.append((data[5]))
+                #self.frame.data.append((data[6]))
                 #self.frame.data.append((data[7]))
 
-                self.frame.CRC = (data[7] & 0xFF) | (data[8] << 8)
+                self.frame.CRC = (data[5] & 0xFF) | (data[6] << 8)
 
                 print(self.frame)
 
@@ -102,7 +102,7 @@ class Modbus():
         frame.data[0] = 0x00
         frame.data[1] = 0x04
         frame.data[2] = 0x00
-        frame.data[3] = 0x02
+        frame.data[3] = 0x01
         
         self.send_frame(frame)
 
