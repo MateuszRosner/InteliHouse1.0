@@ -154,7 +154,7 @@ class MyWindow(Ui_MainWindow):
 
         # refresh currents progress bars
         for x, val in enumerate(self.resources.output_currs):
-            self.progressBars[x].setValue(val // (int(self.mainOutputs['Calibration'].split(',')[x])))
+            self.progressBars[x].setValue(val // (int(self.mainOutputs['Calibration'].split(',')[x])) * 10)
 
         # refresh channel pwr labels
         for x,label in enumerate(self.pwrLabels):
