@@ -154,7 +154,7 @@ class MyWindow(Ui_MainWindow):
 
         # refresh currents progress bars
         for x, val in enumerate(self.resources.output_currs):
-            self.progressBars[x].setValue(val // (int(self.mainOutputs['Calibration'].split(',')[x]) * 2))
+            self.progressBars[x].setValue(val // (int(self.mainOutputs['Calibration'].split(',')[x])))
 
         # refresh channel pwr labels
         for x,label in enumerate(self.pwrLabels):
@@ -165,7 +165,7 @@ class MyWindow(Ui_MainWindow):
             self.progressBars[10 + x].setValue(val)
 
         # refresh total current progress bar
-        self.progressBarTotalCurr.setValue(sum(self.resources.output_currs) / avg_calbration )
+        self.progressBarTotalCurr.setValue(sum(self.resources.output_currs) / avg_calbration * 10)
         self.label_11.setText("{:.2f} kWh" .format(sum(self.resources.output_currs) / avg_calbration))
 
         for x, temp in enumerate(self.temperatures):
