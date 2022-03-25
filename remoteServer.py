@@ -1,14 +1,40 @@
-from websockets import serve
-import asyncio
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import json
+import threading
 
-async def echo(websocket):
-    async for message in websocket:
-        await websocket.send(f"Recived data: {message}...")
-        print(f"Recived data: {message}...")
+hostName = "localhost"
+serverPort = 8080
 
+class MyServer(BaseHTTPRequestHandler):
+    def _set_response(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
 
-async def main():
-    async with serve(echo, "localhost", 8000):
-        await asyncio.Future()  # run forever
+    def do_GET(self):
 
-asyncio.run(main())
+        self._set_response()
+        self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
+
+    def do_POST(self):
+        content_length = int(self.headers['Content-Length'])
+        message = json.loads(self.rfile.read(content_length))
+        print(message)
+        self._set_response()
+        self.wfile.write("OK".encode('utf-8'))
+
+def runServer():
+        self.updateThread = threading.Thread(target=self.serve)
+        self.updateThread.daemon = True
+        self.updateThread.start()
+        print("[INFO] HTTP server thread started....")
+
+def serve():
+        with HTTPServer((hostName, serverPort), MyServer) as webServer:
+            try:
+                webServer.serve_forever()
+            except KeyboardInterrupt:
+                pass
+
+            webServer.server_close()
+            print("Server stopped.")
