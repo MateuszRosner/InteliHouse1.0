@@ -23,11 +23,11 @@ class MyServer(BaseHTTPRequestHandler):
         self._set_response()
         self.wfile.write("OK".encode('utf-8'))
 
-def runServer():
-        self.updateThread = threading.Thread(target=self.serve)
-        self.updateThread.daemon = True
-        self.updateThread.start()
-        print("[INFO] HTTP server thread started....")
+    def runServer(self):
+            self.updateThread = threading.Thread(target=self.serve)
+            self.updateThread.daemon = True
+            self.updateThread.start()
+            print("[INFO] HTTP server thread started....")
 
 def serve():
         with HTTPServer((hostName, serverPort), MyServer) as webServer:
