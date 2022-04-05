@@ -15,10 +15,10 @@ for url in ['http://192.168.0.29:6013/addData']:
                                             "temp1" : 1, "temp2" : 1, "temp3" : 1, "press1" : 1, "press2" : 1, "press3" : 1, "humid1" : 1, "humid2" : 1, "humid3" : 2, "uq_house_id" : "domek1", "ac_state" : 1,
                                             "ac_temp" : 21.5})
 
-        except HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')  # Python 3.6
-        except Exception as err:
-            print(f'Other error occurred: {err}')  # Python 3.6
-        else:
-            print('Success!')
-            print(response.text)
+    except HTTPError as http_err:
+        print(f'HTTP error occurred: {http_err}')  # Python 3.6
+    except Exception as err:
+        print(f'Other error occurred: {err}')  # Python 3.6
+    else:
+        print('Success!')
+        print(response.text)
