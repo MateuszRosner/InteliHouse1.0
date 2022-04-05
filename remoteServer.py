@@ -21,20 +21,24 @@ class MyServer(BaseHTTPRequestHandler):
         message = json.loads(self.rfile.read(content_length))
         print(message)
         self._set_response()
-        self.wfile.write("OK".encode('utf-8'))
+        self.wfile.write(str(message).encode('utf-8'))
 
-def runServer():
-        self.updateThread = threading.Thread(target=self.serve)
-        self.updateThread.daemon = True
-        self.updateThread.start()
-        print("[INFO] HTTP server thread started....")
+    def runServer(self):
+            self.updateThread = threading.Thread(target=self.serve)
+            self.updateThread.daemon = True
+            self.updateThread.start()
+            print("[INFO] HTTP server thread started....")
 
 def serve():
-        with HTTPServer((hostName, serverPort), MyServer) as webServer:
-            try:
-                webServer.serve_forever()
-            except KeyboardInterrupt:
-                pass
+            with HTTPServer((hostName, serverPort), MyServer) as webServer:
+                try:
+                    print("Server running...")
+                    webServer.serve_forever()
+                except KeyboardInterrupt:
+                    pass
 
-            webServer.server_close()
-            print("Server stopped.")
+                webServer.server_close()
+                print("Server stopped.")
+
+if __name__ == "__main__":
+    serve()
