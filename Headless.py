@@ -3,10 +3,10 @@ import time
 import datetime
 import threading
 
-#import redbus
+import redbus
 import configparser
 import redbusCommands as mC
-#import modbus
+import modbus
 import remoteClient
 
 from logger    import Logger
