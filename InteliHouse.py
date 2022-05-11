@@ -141,8 +141,11 @@ class MyWindow(Ui_MainWindow):
             token = remoteClient.log_to_panel()
             response = remoteClient.send_test_data(token, self.resources)
 
-            for idx in range(1, 11, 1):
-                self.resources.output_ports[idx-1] = int(bool(response[f"output{idx}"]))
+            try:
+                for idx in range(1, 11, 1):
+                    self.resources.relays[idx-1] = int(bool(response[f"output{idx}"]))    
+            except Exception as err:
+                print(f'Other error occurred: {err}')
 
             self.refresh_checkBoxes()
 
