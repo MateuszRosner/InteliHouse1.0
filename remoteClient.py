@@ -62,6 +62,7 @@ def send_test_data(token, resources):
     else:
         print('Success!')
         print(response.text)
+        return response.json()
 
 if __name__ == "__main__":
     token = log_to_panel()

@@ -139,7 +139,12 @@ class MyWindow(Ui_MainWindow):
             self.logger.logData(self.resources)
             self.prescaller = int(self.config['LOGGER']['Prescaller'])
             token = remoteClient.log_to_panel()
-            remoteClient.send_test_data(token, self.resources)
+            response = remoteClient.send_test_data(token, self.resources)
+
+            for idx in range(1, 11, 1):
+                self.resources.output_ports = response[f"output{idx}"]
+
+            self.refresh_checkBoxes()
 
         self.modbus.Test()
 
