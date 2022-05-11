@@ -142,7 +142,7 @@ class MyWindow(Ui_MainWindow):
             response = remoteClient.send_test_data(token, self.resources)
 
             for idx in range(1, 11, 1):
-                self.resources.output_ports = bool(response[f"output{idx}"])
+                self.resources.output_ports = int(bool(response[f"output{idx}"]))
 
             self.refresh_checkBoxes()
 
