@@ -6,6 +6,7 @@ import redbus
 import configparser
 import redbusCommands as mC
 import modbus
+import remoteClient
 
 from logger    import Logger
 from resources import Resources
@@ -137,6 +138,8 @@ class MyWindow(Ui_MainWindow):
         if self.prescaller == 0:
             self.logger.logData(self.resources)
             self.prescaller = int(self.config['LOGGER']['Prescaller'])
+            token = log_to_panel()
+            send_test_data(token, self.resources)
 
         self.modbus.Test()
 

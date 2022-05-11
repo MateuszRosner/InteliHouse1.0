@@ -37,7 +37,7 @@ def check_log_status(token):
         print(response.text)
     
 
-def send_test_data(token):
+def send_test_data(token, resources):
     headers = {"Authorization": token}
 
     print("[INFO] Test data sending...")
@@ -46,10 +46,13 @@ def send_test_data(token):
         date_time_parse = date_time.strftime("%Y-%m-%d %H:%M:%S")
 
         response = requests.post(url='http://backend-seastead.red-electronics.pl/manager/adddata', 
-                                json={  'valdate' : date_time_parse, 'powtotal': 123, 'powout1' : 1, "powout2" : 1, "powout3" : 1, "powout4" : 1,	"powout5" : 1, "powout6" : 1,
-                                        "powout7" : 1, "powout8" : 1, "powout9" : 1, "powout10" : 1, "wodapitna1" : 15, "wodapitna2" : 21, "wodabrudna" : 16, "szambo" : 5, "paliwo" : 1,
-                                        "temp1" : 21.7, "temp2" : 22.9, "temp3" : 20.0, "press1" : 1012, "press2" : 1012, "press3" : 1004, "humid1" : 24, "humid2" : 56, "humid3" : 34, "uq_house_id" : "dnw1", "ac_state" : 1,
-                                        "tempdate" : date_time_parse, "temp_on" : True, "freeze_protect" : False, "temp_set" : 22.0}, 
+                                json={  'powtotal': 123, 'powout1' : 28, "powout2" : 16, "powout3" : 5, "powout4" : 33, "powout5" : 8, "powout6" : 8,
+                                        "powout7" : 66, "powout8" : 5, "powout9" : 44, "powout10" : 7, "wodapitna1" : 10, "wodapitna2" : 16, "wodabrudna" : 27, "szambo" : 13, "paliwo" : 1,
+                                        "temp1"  : resources.temperature[0], "temp2"  : resources.temperature[1], "temp3"  : resources.temperature[2], 
+                                        "press1" : resources.pressure[0],   "press2" : resources.pressure[1],   "press3" : resources.pressure[2], 
+                                        "humid1" : resources.humidity[0],   "humid2" : resources.humidity[1],   "humid3" : resources.humidity[2], 
+                                        "ac_state" : 1, "temp_on" : True, "freeze_protect" : False, "temp_set" : 22.0,
+                                        "uq_house_id" : "dnw1", 'valdate' : date_time_parse, "tempdate" : date_time_parse}, 
                                         headers=headers)
     except HTTPError as http_err:
         print(f'HTTP error occurred: {http_err}')
