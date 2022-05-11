@@ -48,9 +48,9 @@ def send_test_data(token, resources):
         response = requests.post(url='http://backend-seastead.red-electronics.pl/manager/adddata', 
                                 json={  'powtotal': 123, 'powout1' : 28, "powout2" : 16, "powout3" : 5, "powout4" : 33, "powout5" : 8, "powout6" : 8,
                                         "powout7" : 66, "powout8" : 5, "powout9" : 44, "powout10" : 7, "wodapitna1" : 10, "wodapitna2" : 16, "wodabrudna" : 27, "szambo" : 13, "paliwo" : 1,
-                                        "temp1"  : resources.temperature[0], "temp2"  : resources.temperature[1], "temp3"  : resources.temperature[2], 
-                                        "press1" : resources.pressure[0],   "press2" : resources.pressure[1],   "press3" : resources.pressure[2], 
-                                        "humid1" : resources.humidity[0],   "humid2" : resources.humidity[1],   "humid3" : resources.humidity[2], 
+                                        "temp1"  : resources.temperature[0]/10.0, "temp2"  : resources.temperature[1]/10.0, "temp3"  : resources.temperature[2]/10.0, 
+                                        "press1" : resources.pressure[0]/10.0,   "press2" : resources.pressure[1]/10.0,   "press3" : resources.pressure[2]/10.0, 
+                                        "humid1" : resources.humidity[0]/10.0,   "humid2" : resources.humidity[1]/10.0,   "humid3" : resources.humidity[2]/10.0, 
                                         "ac_state" : 1, "temp_on" : True, "freeze_protect" : False, "temp_set" : 22.0,
                                         "uq_house_id" : "dnw1", 'valdate' : date_time_parse, "tempdate" : date_time_parse}, 
                                         headers=headers)
