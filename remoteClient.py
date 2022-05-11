@@ -48,10 +48,10 @@ def send_test_data(token, resources):
         response = requests.post(url='http://backend-seastead.red-electronics.pl/manager/adddata', 
                                 json={  'powtotal': 0, 'powout1' : 0, "powout2" : 0, "powout3" : 0, "powout4" : 0, "powout5" : 0, 
                                         "powout6" : 0, "powout7" : 0, "powout8" : 0, "powout9" : 0, "powout10" : 0, 
-                                        "wodapitna1" : 10, "wodapitna2" : 16, "wodabrudna" : 27, "szambo" : 13, "paliwo" : 1,
+                                        "wodapitna1" : resources.liquids[0],      "wodapitna2" : resources.liquids[1],      "wodabrudna" : resources.liquids[2], "szambo" : resources.liquids[3], "paliwo" : resources.liquids[4],
                                         "temp1"  : resources.temperature[0]/10.0, "temp2"  : resources.temperature[1]/10.0, "temp3"  : resources.temperature[2]/10.0, 
-                                        "press1" : resources.pressure[0]/10.0,   "press2" : resources.pressure[1]/10.0,   "press3" : resources.pressure[2]/10.0, 
-                                        "humid1" : resources.humidity[0]/10.0,   "humid2" : resources.humidity[1]/10.0,   "humid3" : resources.humidity[2]/10.0, 
+                                        "press1" : resources.pressure[0]/10.0,    "press2" : resources.pressure[1]/10.0,    "press3" : resources.pressure[2]/10.0, 
+                                        "humid1" : resources.humidity[0]/10.0,    "humid2" : resources.humidity[1]/10.0,    "humid3" : resources.humidity[2]/10.0, 
                                         "ac_state" : 1, "temp_on" : True, "freeze_protect" : False, "temp_set" : 22.0,
                                         "uq_house_id" : "dnw1", 'valdate' : date_time_parse, "tempdate" : date_time_parse}, 
                                         headers=headers)
