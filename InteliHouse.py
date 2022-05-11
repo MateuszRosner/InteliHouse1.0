@@ -138,8 +138,8 @@ class MyWindow(Ui_MainWindow):
         if self.prescaller == 0:
             self.logger.logData(self.resources)
             self.prescaller = int(self.config['LOGGER']['Prescaller'])
-            token = log_to_panel()
-            send_test_data(token, self.resources)
+            token = remoteClient.log_to_panel()
+            remoteClient.send_test_data(token, self.resources)
 
         self.modbus.Test()
 
