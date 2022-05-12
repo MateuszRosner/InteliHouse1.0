@@ -121,6 +121,7 @@ class Modbus():
         frame.data[3] = int(resources.ac_temp)
         self.send_frame(frame)
         self.read_data()
+        self.read_data()
 
     def read_ac_params(self):
         frame = ModbusFrame(4)
