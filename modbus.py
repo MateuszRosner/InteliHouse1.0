@@ -3,6 +3,7 @@ import serial
 import RPi._GPIO as GPIO
 import configparser
 import time
+import copy
 
 import modbusCommands as mC
 
@@ -76,7 +77,7 @@ class Modbus():
                 self.frame.CRC = (data[5] & 0xFF) | (data[6] << 8)
 
                 print(self.frame)
-                val = self.frame.data[2]
+                val = copy.copy( self.frame.data[2])
 
                 # check CRC
                 if self.crc_control == True:
@@ -112,7 +113,6 @@ class Modbus():
             print("Modbus is dead")
 
     def read_ac_params(self):
-        param_val
         frame = ModbusFrame(4)
         frame.address = 0x01
         frame.command = 0x03
