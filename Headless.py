@@ -68,7 +68,7 @@ class App():
                 self.resources.ac_temp = response["temp_set"]
                 self.resources.ac_state = bool(response["temp_on"])
                 self.resources.anti_freez = bool(response["freeze_protect"])
-                #self.modbus.set_ac_params(self.resources)
+                self.modbus.set_ac_params(self.resources)
 
         if threading.main_thread().is_alive():
             threading.Timer(self.refreshTime/1000, self.refresh).start()
