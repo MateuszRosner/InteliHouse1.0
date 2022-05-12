@@ -58,7 +58,7 @@ class Modbus():
             time.sleep(0.004)
             GPIO.output(TXDEN_2, GPIO.HIGH)    # reciver
 
-    def read_data(self, val):
+    def read_data(self):
         if self.ser.isOpen() == True:
             self.frame.data.clear()
             data = self.ser.read(self.rec_data_len)
@@ -78,7 +78,6 @@ class Modbus():
                 self.frame.CRC = (data[5] & 0xFF) | (data[6] << 8)
 
                 print(self.frame)
-                val = copy.copy(self.frame.data[2])
 
                 # check CRC
                 if self.crc_control == True:
@@ -113,7 +112,6 @@ class Modbus():
             print("Modbus is dead")
 
     def read_ac_params(self):
-        param_val = 0
         frame = ModbusFrame(4)
         frame.address = 0x01
         frame.command = 0x03
@@ -123,26 +121,26 @@ class Modbus():
         frame.data[3] = 0x01
         self.send_frame(frame)
 
-        if self.read_data(param_val) == True:
-            print(f"[INFO] Setpoint temperture: {param_val}")
+        if self.read_data() == True:
+            print(f"[INFO] Setpoint temperture: {self.frame.data[2]}")
 
         frame.data[1] = mC.RTD_NET_MODE
         self.send_frame(frame)
 
-        if self.read_data(param_val) == True:
-            print(f"[INFO] AC mode: {param_val}")
+        if self.read_data() == True:
+            print(f"[INFO] AC mode: {self.frame.data[2]}")
 
         frame.data[1] = mC.RTD_NET_ON_OFF
         self.send_frame(frame)
 
-        if self.read_data(param_val) == True:
-            print(f"[INFO] AC state on/off: {param_val}")
+        if self.read_data() == True:
+            print(f"[INFO] AC state on/off: {self.frame.data[2]}")
 
         frame.data[1] = mC.RTD_NET_FAN_SPEED
         self.send_frame(frame)
 
-        if self.read_data(param_val) == True:
-            print(f"[INFO] AC fan speed lvl: {param_val}")
+        if self.read_data() == True:
+            print(f"[INFO] AC fan speed lvl: {self.frame.data[2]}")
 
     
     def FlushBuffer(self):
