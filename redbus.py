@@ -126,7 +126,7 @@ class Redbus():
                 # decode data from AmbientBoards
                 elif self.frame.address == 13:
                     if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
-                        self.resources.temperature[2]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 40
+                        self.resources.temperature[2]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 35
                         self.resources.pressure[2]      = self.frame.data[3] << 8 | self.frame.data[2]
 
                     elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
@@ -134,7 +134,7 @@ class Redbus():
 
                 elif self.frame.address == 12:
                     if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
-                        self.resources.temperature[1]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 40
+                        self.resources.temperature[1]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 35
                         self.resources.pressure[1]      = self.frame.data[3] << 8 | self.frame.data[2]
 
                     elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
@@ -142,7 +142,7 @@ class Redbus():
 
                 elif self.frame.address == 11:
                     if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
-                        self.resources.temperature[0]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 40
+                        self.resources.temperature[0]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 35
                         self.resources.pressure[0]      = self.frame.data[3] << 8 | self.frame.data[2]
 
                     elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
