@@ -1,6 +1,6 @@
 
 MODBUS_READ         = 0x03
-MODBUS_WRITE        = 0x10
+MODBUS_WRITE        = 0x06
 MODBUS_DOUBLE_WR    = 0x20
 
 RTD_NET_SETPOINT    = 0x01

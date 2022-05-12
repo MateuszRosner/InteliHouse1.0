@@ -111,6 +111,16 @@ class Modbus():
         else:
             print("Modbus is dead")
 
+    def set_ac_params(self, resources):
+        frame = ModbusFrame(4)
+        frame.address = 0x01
+        frame.command = mC.MODBUS_WRITE
+        frame.data[0] = 0x00
+        frame.data[1] = mC.RTD_NET_SETPOINT
+        frame.data[2] = 0x00
+        frame.data[3] = resources.ac_temp
+        self.send_frame(frame)
+
     def read_ac_params(self):
         frame = ModbusFrame(4)
         frame.address = 0x01
