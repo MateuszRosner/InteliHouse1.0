@@ -122,7 +122,10 @@ class Modbus():
         self.send_frame(frame)
         self.read_data(dataLen=8)
 
-
+        frame.data[1] = mC.RTD_NET_ON_OFF
+        frame.data[3] = int(resources.temp_on)
+        self.send_frame(frame)
+        self.read_data(dataLen=8)
 
     def read_ac_params(self):
         frame = ModbusFrame(4)
