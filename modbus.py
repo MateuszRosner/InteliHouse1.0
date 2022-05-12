@@ -58,13 +58,13 @@ class Modbus():
             time.sleep(0.004)
             GPIO.output(TXDEN_2, GPIO.HIGH)    # reciver
 
-    def read_data(self):
+    def read_data(self, dataLen=7):
         if self.ser.isOpen() == True:
             self.frame.data.clear()
-            data = self.ser.read(self.rec_data_len)
+            data = self.ser.read(dataLen)
             data = bytearray(data)
 
-            if len(data) < self.rec_data_len:
+            if len(data) < dataLen:
                 self.frame.clear()
                 self.ser.flush()
                 return False
@@ -120,8 +120,9 @@ class Modbus():
         frame.data[2] = 0x00
         frame.data[3] = int(resources.ac_temp)
         self.send_frame(frame)
-        self.read_data()
-        self.read_data()
+        self.read_data(dataLen=8)
+
+
 
     def read_ac_params(self):
         frame = ModbusFrame(4)
