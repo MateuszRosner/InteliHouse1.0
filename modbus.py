@@ -118,13 +118,14 @@ class Modbus():
         frame.data[0] = 0x00
         frame.data[1] = mC.RTD_NET_SETPOINT
         frame.data[2] = 0x00
-        frame.data[3] = resources.ac_temp
+        frame.data[3] = int(resources.ac_temp)
         self.send_frame(frame)
+        self.read_data()
 
     def read_ac_params(self):
         frame = ModbusFrame(4)
         frame.address = 0x01
-        frame.command = 0x03
+        frame.command = mC.MODBUS_READ
         frame.data[0] = 0x00
         frame.data[1] = mC.RTD_NET_SETPOINT
         frame.data[2] = 0x00
