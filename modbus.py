@@ -60,6 +60,7 @@ class Modbus():
 
     def read_data(self, val):
         if self.ser.isOpen() == True:
+            self.frame.data.clear()
             data = self.ser.read(self.rec_data_len)
             data = bytearray(data)
 
@@ -77,7 +78,7 @@ class Modbus():
                 self.frame.CRC = (data[5] & 0xFF) | (data[6] << 8)
 
                 print(self.frame)
-                val = copy.copy( self.frame.data[2])
+                val = copy.copy(self.frame.data[2])
 
                 # check CRC
                 if self.crc_control == True:
@@ -89,8 +90,7 @@ class Modbus():
                         self.frame.clear()
                         self.ser.flush()
                         return False
-                
-        self.frame.data.clear()
+                        
         return True
 
     def Test(self):
