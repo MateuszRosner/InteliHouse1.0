@@ -30,7 +30,7 @@ class App():
 
         # --------------- config file reading    ---------------
         self.config = configparser.ConfigParser()
-        self.config.read('config.ini')
+        self.config.read('/home/pi/Desktop/test/InteliHouse1.0/config.ini')
 
         self.refreshTime            = int(self.config['PARAMETERS']['RefreshFrequency'])
         self.mainOutputs            = self.config['MAIN_OUTPUTS']
