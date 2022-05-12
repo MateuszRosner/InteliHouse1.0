@@ -105,6 +105,9 @@ class Modbus():
 
         if self.read_data() == True:
             print("Modbus alive")
+            frame.data[1] = mC.RTD_NET_MODE
+            self.send_frame(frame)
+            self.read_data()
         else:
             print("Modbus is dead")
     
