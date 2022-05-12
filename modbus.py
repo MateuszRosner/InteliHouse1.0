@@ -110,6 +110,38 @@ class Modbus():
             self.read_data()
         else:
             print("Modbus is dead")
+
+    def read_ac_params(self):
+        frame = ModbusFrame(4)
+        frame.address = 0x01
+        frame.command = 0x03
+        frame.data[0] = 0x00
+        frame.data[1] = mC.RTD_NET_SETPOINT
+        frame.data[2] = 0x00
+        frame.data[3] = 0x01
+        self.send_frame(frame)
+
+        if self.read_data() == True:
+            print(f"[INFO] Setpoint temperture: {self.frame.data[2]}")
+
+        frame.data[1] = mC.RTD_NET_MODE
+        self.send_frame(frame)
+
+        if self.read_data() == True:
+            print(f"[INFO] AC mode: {self.frame.data[2]}")
+
+        frame.data[1] = mC.RTD_NET_ON_OFF
+        self.send_frame(frame)
+
+        if self.read_data() == True:
+            print(f"[INFO] AC state on/off: {self.frame.data[2]}")
+
+        frame.data[1] = mC.RTD_NET_FAN_SPEED
+        self.send_frame(frame)
+
+        if self.read_data() == True:
+            print(f"[INFO] AC fan speed lvl: {self.frame.data[2]}")
+
     
     def FlushBuffer(self):
         self.ser.flush()

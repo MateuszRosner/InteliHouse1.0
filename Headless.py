@@ -47,7 +47,7 @@ class App():
         print("[INFO] Application initialized properly")
 
     def refresh(self): 
-        self.modbus.Test()
+        self.modbus.read_ac_params()
         print(self.resources.temperature)
 
         self.prescaller -= 1
