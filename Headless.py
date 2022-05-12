@@ -53,16 +53,17 @@ class App():
         if self.prescaller == 0:
             self.logger.logData(self.resources)
             self.prescaller = int(self.config['LOGGER']['Prescaller'])
-            """token = remoteClient.log_to_panel()
+            token = remoteClient.log_to_panel()
             response = remoteClient.send_test_data(token, self.resources)
 
             try:
                 for idx in range(1, 11, 1):
                     self.resources.relays[idx-1] = int(bool(response[f"output{idx}"]))    
             except Exception as err:
-                print(f'Other error occurred: {err}')"""
-
-        threading.Timer(self.refreshTime/1000, self.refresh).start()
+                print(f'Other error occurred: {err}')
+                
+        if threading.main_thread().is_alive():
+            threading.Timer(self.refreshTime/1000, self.refresh).start()
 
 if __name__ == "__main__":
     app = App()
