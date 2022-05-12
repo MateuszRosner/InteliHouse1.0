@@ -24,7 +24,7 @@ class App():
         self.frame = redbus.RedbusFrame(4)
 
         # misc variables
-        self.logger = Logger()
+        #self.logger = Logger()
         self.prescaller = 1
         self.counter = 0
 
@@ -49,10 +49,10 @@ class App():
     def refresh(self): 
         self.modbus.Test()
         print(self.resources.temperature)
-        
+
         self.prescaller -= 1
         if self.prescaller == 0:
-            self.logger.logData(self.resources)
+            #self.logger.logData(self.resources)
             self.prescaller = int(self.config['LOGGER']['Prescaller'])
             
             token = remoteClient.log_to_panel()
