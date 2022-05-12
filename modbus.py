@@ -113,6 +113,7 @@ class Modbus():
             print("Modbus is dead")
 
     def read_ac_params(self):
+        param_val = 0
         frame = ModbusFrame(4)
         frame.address = 0x01
         frame.command = 0x03
