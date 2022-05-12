@@ -76,21 +76,18 @@ class Modbus():
                 self.frame.CRC = (data[5] & 0xFF) | (data[6] << 8)
 
                 print(self.frame)
+                val = self.frame.data[2]
 
                 # check CRC
                 if self.crc_control == True:
                     CRC = self.frame.CRC
                     self.frame.calcCRC()
 
-                    """if CRC != self.frame.CRC:
+                    if CRC != self.frame.CRC:
                         print("[WARNING] CRC error modbus")
                         self.frame.clear()
                         self.ser.flush()
                         return False
-                    else:"""
-                
-                val = self.frame.data[2]
-        
                 
         self.frame.data.clear()
         return True
@@ -115,7 +112,7 @@ class Modbus():
             print("Modbus is dead")
 
     def read_ac_params(self):
-        param_val = 0
+        param_val
         frame = ModbusFrame(4)
         frame.address = 0x01
         frame.command = 0x03
