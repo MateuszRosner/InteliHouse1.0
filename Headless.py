@@ -57,12 +57,14 @@ class App():
             
             token = remoteClient.log_to_panel()
             response = remoteClient.send_test_data(token, self.resources)
-
+            test_relays = 0
             try:
                 for idx in range(1, 11, 1):
-                    self.resources.relays |= (int(bool(response[f"output{idx}"])) << (idx-1))  
+                    test_relays |= (int(bool(response[f"output{idx}"])) << (idx-1))  
             except Exception as err:
                 print(f'Other error occurred: {err}')
+            finally:
+                self.resources.relays = test_relays
 
         if threading.main_thread().is_alive():
             threading.Timer(self.refreshTime/1000, self.refresh).start()
