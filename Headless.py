@@ -48,12 +48,13 @@ class App():
 
     def refresh(self): 
         self.modbus.Test()
-
+        print(self.resources.temperature)
+        
         self.prescaller -= 1
         if self.prescaller == 0:
             self.logger.logData(self.resources)
             self.prescaller = int(self.config['LOGGER']['Prescaller'])
-            print(self.resources.temperature)
+            
             token = remoteClient.log_to_panel()
             response = remoteClient.send_test_data(token, self.resources)
 
@@ -68,7 +69,7 @@ class App():
 
 if __name__ == "__main__":
     app = App()
-    time.sleep(1)
+    time.sleep(2)
     app.refresh()
     while True:
         pass
