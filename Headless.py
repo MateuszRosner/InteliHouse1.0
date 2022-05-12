@@ -65,6 +65,9 @@ class App():
                 print(f'Other error occurred: {err}')
             finally:
                 self.resources.relays = test_relays
+                self.resources.ac_temp = response["temp_set"]
+                self.resources.ac_state = bool(response["temp_on"])
+                self.resources.anti_freez = bool(response["freeze_protect"])
 
         if threading.main_thread().is_alive():
             threading.Timer(self.refreshTime/1000, self.refresh).start()

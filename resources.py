@@ -13,5 +13,5 @@ class Resources():
         self.relays       = 0
         self.ac_state     = True
         self.temp_on      = True
-        self.ac_temp      = 0
+        self.ac_temp      = 23
         self.anti_freez   = False
