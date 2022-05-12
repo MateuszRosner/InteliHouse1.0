@@ -11,3 +11,7 @@ class Resources():
         self.gas          = [0, 0, 0]
         self.total_curr   = 0.0
         self.relays       = 0
+        self.ac_state     = True
+        self.temp_on      = True
+        self.ac_temp      = 0
+        self.anti_freez   = False

@@ -60,7 +60,7 @@ class App():
 
             try:
                 for idx in range(1, 11, 1):
-                    self.resources.relays[idx-1] = int(bool(response[f"output{idx}"]))    
+                    self.resources.relays |= (int(bool(response[f"output{idx}"])) << (idx-1))  
             except Exception as err:
                 print(f'Other error occurred: {err}')
 
