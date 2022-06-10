@@ -8,6 +8,7 @@ import copy
 import modbusCommands as mC
 
 from modbusFrame import ModbusFrame
+from datetime import datetime
 
 TXDEN_1 = 27
 TXDEN_2 = 22
@@ -127,7 +128,7 @@ class Modbus():
         self.send_frame(frame)
         self.read_data(dataLen=8)
 
-    def read_ac_params(self):
+    def read_ac_params(self, resources):
         frame = ModbusFrame(4)
         frame.address = 0x01
         frame.command = mC.MODBUS_READ
@@ -139,13 +140,17 @@ class Modbus():
 
         if self.read_data() == True:
             print(f"[INFO] Setpoint temperture: {self.frame.data[2]}")
+            if self.frame.data[2] != int(resources.ac_temp):
+                date_time = datetime.now()
+                date_time_parse = date_time.strftime("%Y-%m-%d %H:%M:%S")
+
 
         frame.data[1] = mC.RTD_NET_MODE
         self.send_frame(frame)
 
         if self.read_data() == True:
             print(f"[INFO] AC mode: {self.frame.data[2]}")
-
+            
         frame.data[1] = mC.RTD_NET_ON_OFF
         self.send_frame(frame)
 
