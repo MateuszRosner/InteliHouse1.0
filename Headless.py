@@ -49,6 +49,7 @@ class App():
     def refresh(self): 
         self.modbus.read_ac_params(self.resources)
         print(self.resources.temperature)
+        print(self.resources.output_currs)
 
         self.prescaller -= 1
         if self.prescaller == 0:
