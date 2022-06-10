@@ -50,8 +50,9 @@ def send_test_data(token, resources):
             resources.tempdate = date_time_parse
 
         response = requests.post(url='http://backend-seastead.red-electronics.pl/manager/adddata', 
-                                json={  'powtotal': 0, 'powout1' : 0, "powout2" : 0, "powout3" : 0, "powout4" : 0, "powout5" : 0, 
-                                        "powout6" : 0, "powout7" : 0, "powout8" : 0, "powout9" : 0, "powout10" : 0, 
+                                json={  'powtotal': resources.output_currs[0], 'powout1' : resources.output_currs[0], "powout2" : resources.output_currs[1], "powout3" : resources.output_currs[2],
+                                        "powout4" : resources.output_currs[3], "powout5" : resources.output_currs[4], "powout6" : resources.output_currs[5], "powout7" : resources.output_currs[6], 
+                                        "powout8" : resources.output_currs[7], "powout9" : resources.output_currs[8], "powout10" : resources.output_currs[9], 
                                         "wodapitna1" : resources.liquids[0],      "wodapitna2" : resources.liquids[1],      "wodabrudna" : resources.liquids[2], "szambo" : resources.liquids[3], "paliwo" : resources.liquids[4],
                                         "temp1"  : resources.temperature[0]/10.0, "temp2"  : resources.temperature[1]/10.0, "temp3"  : resources.temperature[2]/10.0, 
                                         "press1" : resources.pressure[0]/10.0,    "press2" : resources.pressure[1]/10.0,    "press3" : resources.pressure[2]/10.0, 
