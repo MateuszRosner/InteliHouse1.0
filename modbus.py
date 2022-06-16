@@ -141,6 +141,7 @@ class Modbus():
         if self.read_data() == True:
             print(f"[INFO] Setpoint temperture: {self.frame.data[2]}")
             if self.frame.data[2] != int(resources.ac_temp):
+                resources.ac_temp = self.frame.data[2]
                 date_time = datetime.now()
                 date_time_parse = date_time.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -157,6 +158,7 @@ class Modbus():
         if self.read_data() == True:
             print(f"[INFO] AC state on/off: {self.frame.data[2]}")
             if self.frame.data[2] != int(resources.temp_on):
+                resources.temp_on = bool(self.frame.data[2])
                 date_time = datetime.now()
                 date_time_parse = date_time.strftime("%Y-%m-%d %H:%M:%S")
 
