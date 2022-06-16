@@ -67,7 +67,7 @@ class App():
             finally:
                 self.resources.relays = test_relays
                 self.resources.ac_temp = response["temp_set"]
-                self.resources.ac_state = bool(response["temp_on"])
+                self.resources.temp_on = bool(response["temp_on"])
                 self.resources.anti_freez = bool(response["freeze_protect"])
                 self.modbus.set_ac_params(self.resources)
 
