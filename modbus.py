@@ -156,6 +156,9 @@ class Modbus():
 
         if self.read_data() == True:
             print(f"[INFO] AC state on/off: {self.frame.data[2]}")
+            if self.frame.data[2] != int(resources.temp_on):
+                date_time = datetime.now()
+                date_time_parse = date_time.strftime("%Y-%m-%d %H:%M:%S")
 
         frame.data[1] = mC.RTD_NET_FAN_SPEED
         self.send_frame(frame)

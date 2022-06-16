@@ -50,14 +50,14 @@ def send_test_data(token, resources):
             resources.tempdate = date_time_parse
 
         response = requests.post(url='http://backend-seastead.red-electronics.pl/manager/adddata', 
-                                json={  'powtotal': resources.output_currs[0], 'powout1' : resources.output_currs[0], "powout2" : resources.output_currs[1], "powout3" : resources.output_currs[2],
-                                        "powout4" : resources.output_currs[3], "powout5" : resources.output_currs[4], "powout6" : resources.output_currs[5], "powout7" : resources.output_currs[6], 
-                                        "powout8" : resources.output_currs[7], "powout9" : resources.output_currs[8], "powout10" : resources.output_currs[9], 
-                                        "wodapitna1" : resources.liquids[0],      "wodapitna2" : resources.liquids[1],      "wodabrudna" : resources.liquids[2], "szambo" : resources.liquids[3], "paliwo" : resources.liquids[4],
+                                json={  "powtotal": resources.output_currs[0],    "powout1" : resources.output_currs[0],    "powout2" : resources.output_currs[1], "powout3" : resources.output_currs[2],
+                                        "powout4" : resources.output_currs[3],    "powout5" : resources.output_currs[4],    "powout6" : resources.output_currs[5], "powout7" : resources.output_currs[6], 
+                                        "powout8" : resources.output_currs[7],    "powout9" : resources.output_currs[8],    "powout10" : resources.output_currs[9], 
+                                        "wodapitna1" : resources.liquids[0],      "wodapitna2" : resources.liquids[1],      "wodabrudna" : resources.liquids[2],    "szambo" : resources.liquids[3], "paliwo" : resources.liquids[4],
                                         "temp1"  : resources.temperature[0]/10.0, "temp2"  : resources.temperature[1]/10.0, "temp3"  : resources.temperature[2]/10.0, 
                                         "press1" : resources.pressure[0]/10.0,    "press2" : resources.pressure[1]/10.0,    "press3" : resources.pressure[2]/10.0, 
                                         "humid1" : resources.humidity[0]/10.0,    "humid2" : resources.humidity[1]/10.0,    "humid3" : resources.humidity[2]/10.0, 
-                                        "ac_state" : resources.ac_state,          "temp_on" : resources.temp_on ,           "freeze_protect" : resources.anti_freez,        "temp_set" : resources.ac_temp,
+                                        "ac_state" : resources.ac_state,          "temp_on" : resources.temp_on,            "freeze_protect" : resources.anti_freez,        "temp_set" : resources.ac_temp,
                                         "uq_house_id" : "dnw1",                   'valdate' : date_time_parse,              "tempdate" : resources.tempdate}, 
                                         headers=headers)
     except HTTPError as http_err:
