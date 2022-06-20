@@ -143,7 +143,7 @@ class Modbus():
             if self.frame.data[2] != int(resources.ac_temp):
                 resources.ac_temp = self.frame.data[2]
                 date_time = datetime.now()
-                date_time_parse = date_time.strftime("%Y-%m-%d %H:%M:%S")
+                resources.tempdate = date_time.strftime("%Y-%m-%d %H:%M:%S")
 
 
         frame.data[1] = mC.RTD_NET_MODE
@@ -160,7 +160,7 @@ class Modbus():
             if self.frame.data[2] != int(resources.temp_on):
                 resources.temp_on = bool(self.frame.data[2])
                 date_time = datetime.now()
-                date_time_parse = date_time.strftime("%Y-%m-%d %H:%M:%S")
+                resources.tempdate = date_time.strftime("%Y-%m-%d %H:%M:%S")
 
         frame.data[1] = mC.RTD_NET_FAN_SPEED
         self.send_frame(frame)
