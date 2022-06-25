@@ -128,6 +128,11 @@ class Modbus():
         self.send_frame(frame)
         self.read_data(dataLen=8)
 
+        frame.data[1] = mC.RTD_NET_MODE
+        frame.data[3] = int(0)
+        self.send_frame(frame)
+        self.read_data(dataLen=8)
+
     def read_ac_params(self, resources):
         frame = ModbusFrame(4)
         frame.address = 0x01
