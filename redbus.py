@@ -86,67 +86,85 @@ class Redbus():
                 
                 # decode data from MainBoard 
                 if self.frame.address == 1:
-                    # current values of 2 ports (ports number determined by command value)                                             
-                    if (self.frame.command >= mC.MAIN_BOARD_READ_CURR_1_2) and (self.frame.command <= mC.MAIN_BOARD_READ_CURR_9_10):        
-                        current_val1 =   self.frame.data[1] << 8
-                        current_val1 +=  self.frame.data[0]
-                        
-                        current_val2 =   self.frame.data[3] << 8
-                        current_val2 +=  self.frame.data[2]
+                    try:
+                        # current values of 2 ports (ports number determined by command value)                                             
+                        if (self.frame.command >= mC.MAIN_BOARD_READ_CURR_1_2) and (self.frame.command <= mC.MAIN_BOARD_READ_CURR_9_10):        
+                            current_val1 =   self.frame.data[1] << 8
+                            current_val1 +=  self.frame.data[0]
+                            
+                            current_val2 =   self.frame.data[3] << 8
+                            current_val2 +=  self.frame.data[2]
 
-                        self.resources.output_currs[(self.frame.command * 2)-2] = (current_val1 / 100.0 * 0.707)
-                        self.resources.output_currs[(self.frame.command * 2)-1] = (current_val2 / 100.0 * 0.707)
+                            self.resources.output_currs[(self.frame.command * 2)-2] = (current_val1 / 100.0)
+                            self.resources.output_currs[(self.frame.command * 2)-1] = (current_val2 / 100.0)
 
-                    elif self.frame.command == mC.MAIN_BOARD_READ_DIGITAL_IN:
-                        pass
+                        elif self.frame.command == mC.MAIN_BOARD_READ_DIGITAL_IN:
+                            pass
 
-                    # outputs
-                    elif self.frame.command == mC.MAIN_BOARD_OUTPUTS:                                                               
-                        ports =     self.frame.data[1] << 8
-                        ports +=    self.frame.data[0]
-                        
-                        for x in range(len(self.resources.output_ports)):
-                            self.resources.output_ports[x] = bool (ports & (1 << x))
+                        # outputs
+                        elif self.frame.command == mC.MAIN_BOARD_OUTPUTS:                                                               
+                            ports =     self.frame.data[1] << 8
+                            ports +=    self.frame.data[0]
+                            
+                            for x in range(len(self.resources.output_ports)):
+                                self.resources.output_ports[x] = bool (ports & (1 << x))
+                    except Exception as err:
+                        print(f"[WARNING] MainBoard data format corrupted! {err}")
 
                 # decode data from SensorsBoards
                 elif self.frame.address == 15:
-                    if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
-                        self.resources.liquids[0] = self.frame.data[0]
-                        self.resources.liquids[1] = self.frame.data[1]
-                        self.resources.liquids[2] = self.frame.data[2]
-                        self.resources.liquids[3] = self.frame.data[3]
+                    try:
+                        if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
+                            self.resources.liquids[0] = self.frame.data[0]
+                            self.resources.liquids[1] = self.frame.data[1]
+                            self.resources.liquids[2] = self.frame.data[2]
+                            self.resources.liquids[3] = self.frame.data[3]
+                    except Exception as err:
+                        print(f"[WARNING] SensorsBoard data format corrupted! {err}")
 
                 elif self.frame.address == 14:
-                    if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
-                        self.resources.liquids[0] = self.frame.data[0]
-                        self.resources.liquids[1] = self.frame.data[1]
-                        self.resources.liquids[2] = self.frame.data[2]
-                        self.resources.liquids[3] = self.frame.data[3]
+                    try:
+                        if self.frame.command == mC.SENSORS_BOARD_READ_DISTANCE:
+                            self.resources.liquids[0] = self.frame.data[0]
+                            self.resources.liquids[1] = self.frame.data[1]
+                            self.resources.liquids[2] = self.frame.data[2]
+                            self.resources.liquids[3] = self.frame.data[3]
+                    except Exception as err:
+                        print(f"[WARNING] SensorsBoard data format corrupted! {err}")
                 
                 # decode data from AmbientBoards
                 elif self.frame.address == 13:
-                    if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
-                        self.resources.temperature[2]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 30
-                        self.resources.pressure[2]      = self.frame.data[3] << 8 | self.frame.data[2]
+                    try:
+                        if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
+                            self.resources.temperature[2]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 30
+                            self.resources.pressure[2]      = self.frame.data[3] << 8 | self.frame.data[2]
 
-                    elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
-                        self.resources.humidity[2]      = self.frame.data[1] << 8 | self.frame.data[0]
+                        elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
+                            self.resources.humidity[2]      = self.frame.data[1] << 8 | self.frame.data[0]
+                    except Exception as err:
+                        print(f"[WARNING] AmbientBoard data format corrupted! {err}")
 
                 elif self.frame.address == 12:
-                    if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
-                        self.resources.temperature[1]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 30
-                        self.resources.pressure[1]      = self.frame.data[3] << 8 | self.frame.data[2]
+                    try:
+                        if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
+                            self.resources.temperature[1]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 30
+                            self.resources.pressure[1]      = self.frame.data[3] << 8 | self.frame.data[2]
 
-                    elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
-                        self.resources.humidity[1]      = self.frame.data[1] << 8 | self.frame.data[0]
+                        elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
+                            self.resources.humidity[1]      = self.frame.data[1] << 8 | self.frame.data[0]
+                    except Exception as err:
+                        print(f"[WARNING] AmbientBoard data format corrupted! {err}")
 
                 elif self.frame.address == 11:
-                    if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
-                        self.resources.temperature[0]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 30
-                        self.resources.pressure[0]      = self.frame.data[3] << 8 | self.frame.data[2]
+                    try:
+                        if self.frame.command == mC.AMBIENT_BOARD_READ_TEMP_PRESS:
+                            self.resources.temperature[0]   = (self.frame.data[1] << 8 | self.frame.data[0]) - 30
+                            self.resources.pressure[0]      = self.frame.data[3] << 8 | self.frame.data[2]
 
-                    elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
-                        self.resources.humidity[0]      = self.frame.data[1] << 8 | self.frame.data[0]
+                        elif self.frame.command == mC.AMBIENT_BOARD_READ_HUMID_GAS:
+                            self.resources.humidity[0]      = self.frame.data[1] << 8 | self.frame.data[0]
+                    except Exception as err:
+                        print(f"[WARNING] AmbientBoard data format corrupted! {err}")
 
                 self.frame.data.clear()
                 return True

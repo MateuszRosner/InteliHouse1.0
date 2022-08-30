@@ -62,14 +62,14 @@ class App():
             try:
                 for idx in range(1, 11, 1):
                     test_relays |= (int(bool(response[f"output{idx}"])) << (idx-1))  
-            except Exception as err:
-                print(f'Other error occurred: {err}')
-            finally:
+                
                 self.resources.relays = test_relays
                 self.resources.ac_temp = response["temp_set"]
                 self.resources.temp_on = bool(response["temp_on"])
                 self.resources.anti_freez = bool(response["freeze_protect"])
                 self.modbus.set_ac_params(self.resources)
+            except Exception as err:
+                print(f'Other error occurred: {err}')                
 
         if threading.main_thread().is_alive():
             threading.Timer(self.refreshTime/1000, self.refresh).start()
