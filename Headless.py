@@ -16,6 +16,28 @@ from PyQt5 import QtCore, QtWidgets
 
 class App():
     def __init__(self):
+        # --------------- config file reading    ---------------
+        self.config = configparser.ConfigParser()
+        
+        # try to read config file
+        while True:
+            try:
+                self.config.read('/home/pi/Desktop/test/InteliHouse1.0/config.ini')
+
+                self.refreshTime            = int(self.config['PARAMETERS']['RefreshFrequency'])
+                self.mainOutputs            = self.config['MAIN_OUTPUTS']
+                self.maxSamples             = int(self.config['CHARTS']['MaxSamples'])
+                self.priorities             = self.config['MAIN_OUTPUTS']['Priorities'].split(',')
+
+                self.infrastructure         = self.config['INFRASTRUCTURE']
+                self.addresses              = self.config['ADDRESSES']
+            except Exception as err:
+                print(f"[INFO] Config file issu {err}")
+                time.sleep(1)
+            else:
+                print(f"[INFO] Config file loaded")
+                break
+        
         # init objects
         self.resources = Resources()
         self.redbus = redbus.Redbus(resources=self.resources, dev="/dev/ttySC0")
@@ -27,18 +49,6 @@ class App():
         #self.logger = Logger()
         self.prescaller = 1
         self.counter = 0
-
-        # --------------- config file reading    ---------------
-        self.config = configparser.ConfigParser()
-        self.config.read('/home/pi/Desktop/test/InteliHouse1.0/config.ini')
-
-        self.refreshTime            = int(self.config['PARAMETERS']['RefreshFrequency'])
-        self.mainOutputs            = self.config['MAIN_OUTPUTS']
-        self.maxSamples             = int(self.config['CHARTS']['MaxSamples'])
-        self.priorities             = self.config['MAIN_OUTPUTS']['Priorities'].split(',')
-
-        self.infrastructure         = self.config['INFRASTRUCTURE']
-        self.addresses              = self.config['ADDRESSES']
         
         # run REDBUS and initiate modules
         self.redbus.initiate_modules()
@@ -71,13 +81,19 @@ class App():
             except Exception as err:
                 print(f'Other error occurred: {err}')                
 
-        if threading.main_thread().is_alive():
-            threading.Timer(self.refreshTime/1000, self.refresh).start()
 
 if __name__ == "__main__":
     app = App()
     time.sleep(2)
-    app.refresh()
-    while True:
-        pass
+    
+    while threading.main_thread().is_alive():
+        try:
+            app.refresh()
+        except Exception as err:
+            print(f"Exception {err} occured")
+        finally:
+            time.sleep(1)
+            if not app.redbus.updateThread.is_alive():
+                app.redbus.startUpdates()
+    
     print("Finish")
