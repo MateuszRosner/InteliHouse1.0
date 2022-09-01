@@ -94,7 +94,7 @@ if __name__ == "__main__":
             print(f"Exception {err} occured")
         finally:
             time.sleep(1)
-            #if not app.redbus.updateThread.is_alive():
-            #    app.redbus.startUpdates()
+            if not app.redbus.updateThread.is_alive():
+                app.redbus.startUpdates()
     
     print("Finish")
