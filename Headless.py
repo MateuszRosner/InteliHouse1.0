@@ -52,7 +52,7 @@ class App():
         
         # run REDBUS and initiate modules
         self.redbus.initiate_modules()
-        self.redbus.startUpdates()
+        #self.redbus.startUpdates()
 
         print("[INFO] Application initialized properly")
 
@@ -84,16 +84,17 @@ class App():
 
 if __name__ == "__main__":
     app = App()
-    time.sleep(2)
+    time.sleep(5)
     
     while threading.main_thread().is_alive():
         try:
+            app.redbus.updateData()
             app.refresh()
         except Exception as err:
             print(f"Exception {err} occured")
         finally:
             time.sleep(1)
-            if not app.redbus.updateThread.is_alive():
-                app.redbus.startUpdates()
+            #if not app.redbus.updateThread.is_alive():
+            #    app.redbus.startUpdates()
     
     print("Finish")
