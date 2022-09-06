@@ -95,8 +95,8 @@ class Redbus():
                             current_val2 =   self.frame.data[3] << 8
                             current_val2 +=  self.frame.data[2]
 
-                            self.resources.output_currs[(self.frame.command * 2)-2] = (current_val1 / 100.0)
-                            self.resources.output_currs[(self.frame.command * 2)-1] = (current_val2 / 100.0)
+                            self.resources.output_currs[(self.frame.command * 2)-2] = (current_val1 / 1000.0)
+                            self.resources.output_currs[(self.frame.command * 2)-1] = (current_val2 / 1000.0)
 
                         elif self.frame.command == mC.MAIN_BOARD_READ_DIGITAL_IN:
                             pass
